@@ -1,36 +1,81 @@
 """Golden-question dataset loader (benchmark/golden.jsonl).
 
 Schema per line (one JSON object):
-  id           str   unique id, e.g. "G01"
-  question     str   user question
-  answer       str   reference answer (short, human-written)
-  must_include list  strings/numbers that a passing answer must contain
-  pages        list  1-based pages a correct citation may point to
-  category     str   free label (spec_lookup, comparison, figure, inconsistency, ...)
-  document     str   benchmark file the question targets (default sample_1.pdf)
-  notes        str   optional
+  id               str        unique id, e.g. "G01" to "G32"
+  question         str        user question
+  expected_answer  str        reference answer from PDF text
+  expected_pages   list[int]  1-based page numbers for citations (empty if unanswerable)
+  type             str        question category (spec, trap, compare, layout, text,
+                              legend, figure, list, inconsistency, unanswerable,
+                              image-retrieval)
+  notes            str | None optional clarification notes
 """
 
 from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 GOLDEN_PATH = REPO_ROOT / "benchmark" / "golden.jsonl"
+
+QuestionType = Literal[
+    "spec",
+    "trap",
+    "compare",
+    "layout",
+    "text",
+    "legend",
+    "figure",
+    "list",
+    "inconsistency",
+    "unanswerable",
+    "image-retrieval",
+]
+
+VALID_TYPES: set[str] = {
+    "spec",
+    "trap",
+    "compare",
+    "layout",
+    "text",
+    "legend",
+    "figure",
+    "list",
+    "inconsistency",
+    "unanswerable",
+    "image-retrieval",
+}
 
 
 class GoldenQuestion(BaseModel):
     id: str
     question: str
-    answer: str
-    must_include: list[str] = Field(default_factory=list)
-    pages: list[int] = Field(default_factory=list)
-    category: str = "general"
-    document: str = "sample_1.pdf"
+    expected_answer: str = Field(validation_alias="expected_answer")
+    expected_pages: list[int] = Field(default_factory=list, validation_alias="expected_pages")
+    type: QuestionType
     notes: str | None = None
+
+    @field_validator("id")
+    @classmethod
+    def _validate_id(cls, v: str) -> str:
+        v = v.strip()
+        if not v.startswith("G"):
+            raise ValueError(f"id must start with 'G', got '{v}'")
+        return v
+
+    @property
+    def answer(self) -> str:
+        """Backward-compatible alias for expected_answer."""
+        return self.expected_answer
+
+    @property
+    def pages(self) -> list[int]:
+        """Backward-compatible alias for expected_pages."""
+        return self.expected_pages
 
 
 def load_golden(path: Path = GOLDEN_PATH) -> list[GoldenQuestion]:

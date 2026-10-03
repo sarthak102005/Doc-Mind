@@ -11,13 +11,16 @@
 
 | Benchmark Document | Type | Pages | Images | Ingestion Status | Evaluation Pass Rate |
 |---|---|---|---|---|---|
-| `benchmark/sample_1.pdf` | Born-digital Brochure | 12 | 49 | Pending (Phase 2) | 0/3 (Golden questions pending full Part C) |
-| `benchmark/sample_1_scanned.pdf` | Scanned raster | 12 | - | Pending (Phase 2) | - |
+| `benchmark/sample_1.pdf` | Born-digital Brochure | 12 | 49 | Pending (Phase 2) | 0/32 (Phase 0 scaffold verified) |
+| `benchmark/sample_1_scanned.pdf` | Scanned raster | 12 | - | Pending (Phase 2) | 0/32 |
 
 ### Golden Questions Status (`benchmark/golden.jsonl`)
-- **Total Defined:** 3 acceptance probe questions (from Addendum A2 benchmark requirements)
-- **Passing:** 0 (Answering pipeline not yet implemented; Phase 0 scaffold verified)
-- **Target Pass Rate:** 100% on golden set before project sign-off
+- **Total Defined:** Exactly 32 golden questions (G01 to G32 from Part C).
+- **Categories Covered:** spec (10), trap (1), compare (2), layout (2), text (5), legend (2), figure (1), list (2), inconsistency (1), unanswerable (2), image-retrieval (5).
+- **Pass Criteria for `make bench`:**
+  - Born-digital: 100% on trap, spec, compare, unanswerable, and inconsistency; at least 90% of the rest.
+  - Scanned: At least 80% pass rate with breakdown by type.
+  - G28 to G32: Image retrieval-only tests (top-3 recall); feeds Phase 8 image-retrieval ablation.
 
 ---
 
