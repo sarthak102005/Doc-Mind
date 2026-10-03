@@ -1,7 +1,7 @@
-"""Golden-question dataset loader (benchmark/golden.jsonl).
+r"""Golden-question dataset loader (benchmark/golden.jsonl).
 
 Schema per line (one JSON object):
-  id               str        unique id, e.g. "G01" to "G32"
+  id               str        unique id matching pattern G\d{2,}, e.g. "G01" to "G32"
   question         str        user question
   expected_answer  str        reference answer from PDF text
   expected_pages   list[int]  1-based page numbers for citations (empty if unanswerable)
@@ -9,11 +9,13 @@ Schema per line (one JSON object):
                               legend, figure, list, inconsistency, unanswerable,
                               image-retrieval)
   notes            str | None optional clarification notes
+  document         str        target document file name (default: "sample_1.pdf")
 """
 
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from typing import Literal
 
@@ -58,13 +60,14 @@ class GoldenQuestion(BaseModel):
     expected_pages: list[int] = Field(default_factory=list, validation_alias="expected_pages")
     type: QuestionType
     notes: str | None = None
+    document: str = "sample_1.pdf"
 
     @field_validator("id")
     @classmethod
     def _validate_id(cls, v: str) -> str:
         v = v.strip()
-        if not v.startswith("G"):
-            raise ValueError(f"id must start with 'G', got '{v}'")
+        if not re.match(r"^G\d{2,}$", v):
+            raise ValueError(f"id must match pattern 'G\\d{{2,}}', got '{v}'")
         return v
 
     @property

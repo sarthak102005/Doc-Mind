@@ -53,6 +53,39 @@ def test_golden_loader_validates_schema(tmp_path: Path) -> None:
     assert items[0].pages == [11]
     assert items[0].answer == "a"
     assert items[0].type == "spec"
+    assert items[0].document == "sample_1.pdf"
+
+    # Test loose pattern G\d{2,} accepts higher digit IDs
+    good_multi_digit = tmp_path / "g_multi.jsonl"
+    good_multi_digit.write_text(
+        json.dumps({
+            "id": "G105",
+            "question": "q",
+            "expected_answer": "a",
+            "type": "spec",
+            "document": "other.pdf",
+        })
+        + "\n",
+        encoding="utf-8",
+    )
+    items_multi = load_golden(good_multi_digit)
+    assert items_multi[0].id == "G105"
+    assert items_multi[0].document == "other.pdf"
+
+    # Test invalid id pattern (e.g. single digit G1 or non-G prefix)
+    bad_id = tmp_path / "bad_id.jsonl"
+    bad_id.write_text(
+        json.dumps({
+            "id": "G1",
+            "question": "q",
+            "expected_answer": "a",
+            "type": "spec",
+        })
+        + "\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="G\\\\d\\{2,\\}"):
+        load_golden(bad_id)
 
     dup = tmp_path / "d.jsonl"
     line_dup = json.dumps({
@@ -70,19 +103,21 @@ def test_golden_loader_validates_schema(tmp_path: Path) -> None:
 def test_repo_golden_file_has_exactly_32_rows_g01_to_g32() -> None:
     assert GOLDEN_PATH.is_file()
     items = load_golden(GOLDEN_PATH)
-    assert len(items) == 32, f"Expected exactly 32 questions, got {len(items)}"
+    sample_1_items = [item for item in items if item.document == "sample_1.pdf"]
+    count = len(sample_1_items)
+    assert count == 32, f"Expected 32 questions for sample_1.pdf, got {count}"
     expected_ids = [f"G{i:02d}" for i in range(1, 33)]
-    actual_ids = [item.id for item in items]
+    actual_ids = [item.id for item in sample_1_items]
     assert actual_ids == expected_ids
 
     # Validate that all types are valid types and include image-retrieval
-    types_found = {item.type for item in items}
+    types_found = {item.type for item in sample_1_items}
     assert types_found.issubset(VALID_TYPES)
     assert "image-retrieval" in types_found
     assert "inconsistency" in types_found
     assert "trap" in types_found
     assert "unanswerable" in types_found
 
-    for item in items:
+    for item in sample_1_items:
         assert item.question.strip()
         assert item.expected_answer.strip()
