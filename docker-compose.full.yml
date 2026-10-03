@@ -1,0 +1,52 @@
+# All-containers demo build: api, worker, frontend + the four infra services.
+# Usage: docker compose -f docker-compose.yml -f docker-compose.full.yml up -d --build
+# Not used for day-to-day development on the 8 GB machine (A3.1).
+# NOTE: the frontend image only becomes meaningful in Phase 7 and the worker
+# in Phase 2; until then these services start placeholder processes.
+
+name: docmind
+
+x-backend-env: &backend-env
+  env_file: .env
+  environment:
+    POSTGRES_HOST: postgres
+    QDRANT_URL: http://qdrant:6333
+    REDIS_URL: redis://redis:6379/0
+    MINIO_ENDPOINT: minio:9000
+    API_HOST: 0.0.0.0
+
+services:
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    <<: *backend-env
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      postgres: { condition: service_healthy }
+      qdrant: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      minio: { condition: service_healthy }
+    mem_limit: 1g
+
+  worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    <<: *backend-env
+    command: ["python", "-m", "app.worker"]
+    depends_on:
+      api: { condition: service_started }
+    mem_limit: 3g
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:5173:80"
+    depends_on:
+      api: { condition: service_started }
+    mem_limit: 128m

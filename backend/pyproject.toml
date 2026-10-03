@@ -1,0 +1,57 @@
+[project]
+name = "docmind-backend"
+version = "0.0.1"
+description = "DocMind: agentic multimodal enterprise document intelligence (backend)"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.30",
+    "pydantic>=2.8",
+    "pydantic-settings>=2.4",
+    "python-dotenv>=1.0",
+    "httpx>=0.27",
+    "psycopg[binary]>=3.2",
+    "redis>=5.0",
+    "psutil>=6.0",
+]
+
+[project.optional-dependencies]
+# Heavy, phase-specific dependencies are added to their own extras as each
+# phase starts (ingestion: docling, rapidocr/onnxruntime, pymupdf; ai: openai,
+# transformers/torch-cpu for SigLIP2; agents: langgraph; ...).
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "pytest-asyncio>=0.24",
+    "ruff>=0.6",
+    "mypy>=1.11",
+    "types-psutil",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+markers = [
+    "integration: needs the docker-compose services running (deselect with -m 'not integration')",
+]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "BLE", "SIM"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+plugins = ["pydantic.mypy"]
+ignore_missing_imports = true
