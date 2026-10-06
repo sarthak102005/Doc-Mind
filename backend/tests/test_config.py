@@ -91,6 +91,12 @@ def test_env_example_loads_and_has_five_model_chain() -> None:
 
 
 def test_database_url_built_from_parts(isolated_env: Path) -> None:
-    s = make(isolated_env, postgres_user="u", postgres_password="p", postgres_host="h",
-             postgres_port=1, postgres_db="d")
+    s = make(
+        isolated_env,
+        postgres_user="u",
+        postgres_password="p",
+        postgres_host="h",
+        postgres_port=1,
+        postgres_db="d",
+    )
     assert s.database_url == "postgresql://u:p@h:1/d"

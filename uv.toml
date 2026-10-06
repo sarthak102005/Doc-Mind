@@ -1,0 +1,3 @@
+# Project-level uv configuration
+cache-dir = "D:/DocMind/.cache/uv"
+link-mode = "copy"

@@ -12,7 +12,8 @@ router = APIRouter(tags=["health"])
 
 @router.get("/health", response_model=HealthReport)
 async def health(
-    response: Response, settings: Settings = Depends(get_settings)  # noqa: B008
+    response: Response,
+    settings: Settings = Depends(get_settings),  # noqa: B008
 ) -> HealthReport:
     report = await collect_health(settings)
     if report.status != "ok":

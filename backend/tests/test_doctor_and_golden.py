@@ -38,13 +38,15 @@ def test_doctor_peak_uses_largest_single_stage() -> None:
 def test_golden_loader_validates_schema(tmp_path: Path) -> None:
     good = tmp_path / "g.jsonl"
     good.write_text(
-        json.dumps({
-            "id": "G01",
-            "question": "q",
-            "expected_answer": "a",
-            "expected_pages": [11],
-            "type": "spec",
-        })
+        json.dumps(
+            {
+                "id": "G01",
+                "question": "q",
+                "expected_answer": "a",
+                "expected_pages": [11],
+                "type": "spec",
+            }
+        )
         + "\n\n",
         encoding="utf-8",
     )
@@ -58,13 +60,15 @@ def test_golden_loader_validates_schema(tmp_path: Path) -> None:
     # Test loose pattern G\d{2,} accepts higher digit IDs
     good_multi_digit = tmp_path / "g_multi.jsonl"
     good_multi_digit.write_text(
-        json.dumps({
-            "id": "G105",
-            "question": "q",
-            "expected_answer": "a",
-            "type": "spec",
-            "document": "other.pdf",
-        })
+        json.dumps(
+            {
+                "id": "G105",
+                "question": "q",
+                "expected_answer": "a",
+                "type": "spec",
+                "document": "other.pdf",
+            }
+        )
         + "\n",
         encoding="utf-8",
     )
@@ -75,12 +79,14 @@ def test_golden_loader_validates_schema(tmp_path: Path) -> None:
     # Test invalid id pattern (e.g. single digit G1 or non-G prefix)
     bad_id = tmp_path / "bad_id.jsonl"
     bad_id.write_text(
-        json.dumps({
-            "id": "G1",
-            "question": "q",
-            "expected_answer": "a",
-            "type": "spec",
-        })
+        json.dumps(
+            {
+                "id": "G1",
+                "question": "q",
+                "expected_answer": "a",
+                "type": "spec",
+            }
+        )
         + "\n",
         encoding="utf-8",
     )
@@ -88,13 +94,15 @@ def test_golden_loader_validates_schema(tmp_path: Path) -> None:
         load_golden(bad_id)
 
     dup = tmp_path / "d.jsonl"
-    line_dup = json.dumps({
-        "id": "G01",
-        "question": "q",
-        "expected_answer": "a",
-        "expected_pages": [11],
-        "type": "spec",
-    })
+    line_dup = json.dumps(
+        {
+            "id": "G01",
+            "question": "q",
+            "expected_answer": "a",
+            "expected_pages": [11],
+            "type": "spec",
+        }
+    )
     dup.write_text(f"{line_dup}\n{line_dup}\n", encoding="utf-8")
     with pytest.raises(ValueError, match="duplicate"):
         load_golden(dup)

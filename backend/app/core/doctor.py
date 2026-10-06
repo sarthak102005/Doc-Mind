@@ -58,8 +58,11 @@ def check_settings(s: Settings) -> list[Finding]:
     for ep in s.llm_endpoints:
         ok = ep.is_configured()
         out.append(
-            Finding("OK" if ok else "WARN", f"LLM {ep.index} {ep.label}: {ep.model} @ {ep.base_url}"
-                    + ("" if ok else "  (API key missing/placeholder)"))
+            Finding(
+                "OK" if ok else "WARN",
+                f"LLM {ep.index} {ep.label}: {ep.model} @ {ep.base_url}"
+                + ("" if ok else "  (API key missing/placeholder)"),
+            )
         )
 
     def hosted(name: str, model: str, base: str, key: str) -> None:
@@ -80,9 +83,13 @@ def check_settings(s: Settings) -> list[Finding]:
         hosted("Reranker", s.rerank_model, s.rerank_base_url, s.rerank_api_key.get_secret_value())
     elif s.rerank_backend is RerankBackend.OFF:
         out.append(Finding("WARN", "Reranker: off (fusion order will be used)"))
-    out.append(Finding("OK" if s.image_embed_model else "FAIL",
-                       f"Image embeddings ({s.image_embed_backend}): {s.image_embed_model or 'not set'}"
-                       f"  mode={s.image_retrieval_mode}"))
+    out.append(
+        Finding(
+            "OK" if s.image_embed_model else "FAIL",
+            f"Image embeddings ({s.image_embed_backend}): {s.image_embed_model or 'not set'}"
+            f"  mode={s.image_retrieval_mode}",
+        )
+    )
 
     if s.hardware_profile == "cpu_8gb":
         for name, backend in (("VLM_BACKEND", s.vlm_backend), ("EMBED_BACKEND", s.embed_backend)):
@@ -92,8 +99,10 @@ def check_settings(s: Settings) -> list[Finding]:
 
 
 def estimate_peak_mb(s: Settings) -> tuple[int, dict[str, int]]:
-    stages = {"docling_layout_tables": LOCAL_STAGE_MB["docling_layout_tables"],
-              "ocr_rapidocr_onnx": LOCAL_STAGE_MB["ocr_rapidocr_onnx"]}
+    stages = {
+        "docling_layout_tables": LOCAL_STAGE_MB["docling_layout_tables"],
+        "ocr_rapidocr_onnx": LOCAL_STAGE_MB["ocr_rapidocr_onnx"],
+    }
     if s.image_retrieval_mode != "descriptions_only" and s.image_embed_backend is Backend.LOCAL:
         stages["image_embed_siglip2_base_fp32"] = LOCAL_STAGE_MB["image_embed_siglip2_base_fp32"]
     if s.embed_backend is Backend.LOCAL:
@@ -109,8 +118,13 @@ def check_memory(s: Settings) -> list[Finding]:
     total_mb = vm.total // (1024 * 1024)
     peak, stages = estimate_peak_mb(s)
     out = [Finding("OK", f"RAM: {free_mb} MB available of {total_mb} MB total")]
-    out.append(Finding("OK", "Local stages (est. MB, loaded one at a time): "
-                       + ", ".join(f"{k}={v}" for k, v in stages.items())))
+    out.append(
+        Finding(
+            "OK",
+            "Local stages (est. MB, loaded one at a time): "
+            + ", ".join(f"{k}={v}" for k, v in stages.items()),
+        )
+    )
     budget = free_mb - s.doctor_ram_headroom_mb
     level = "OK" if peak <= budget else "WARN"
     tip = "" if level == "OK" else "  -> close apps / cap Docker memory / use hosted backends"

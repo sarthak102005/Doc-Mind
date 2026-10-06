@@ -109,6 +109,7 @@ class Settings(BaseSettings):
     postgres_db: str = "docmind"
     postgres_user: str = "docmind"
     postgres_password: SecretStr = SecretStr("")
+    database_url_override: str | None = Field(default=None, validation_alias="DATABASE_URL")
 
     qdrant_url: str = "http://localhost:6333"
     qdrant_api_key: SecretStr | None = None
@@ -130,9 +131,7 @@ class Settings(BaseSettings):
     llm_timeout_seconds: float = 60.0
     llm_retries_per_model: int = 1
     llm_cooldown_seconds: float = 60.0
-    llm_fallback_on: CsvList = Field(
-        default_factory=lambda: ["timeout", "429", "5xx", "invalid_output"]
-    )
+    llm_fallback_on: CsvList = Field(default_factory=lambda: ["timeout", "429", "5xx", "invalid_output"])
     llm_max_output_tokens: int = 4096
 
     # --- vision model ------------------------------------------------------
@@ -202,11 +201,20 @@ class Settings(BaseSettings):
 
     @property
     def database_url(self) -> str:
+        if self.database_url_override:
+            return self.database_url_override
         pw = self.postgres_password.get_secret_value()
         return (
             f"postgresql://{self.postgres_user}:{pw}@{self.postgres_host}:"
             f"{self.postgres_port}/{self.postgres_db}"
         )
+
+    @property
+    def sqlalchemy_database_url(self) -> str:
+        url = self.database_url
+        if url.startswith("postgresql://"):
+            return url.replace("postgresql://", "postgresql+psycopg://", 1)
+        return url
 
     @property
     def cache_path(self) -> Path:

@@ -39,13 +39,17 @@
 - [x] Setup `benchmark/golden.jsonl` schema and validation loader.
 - [x] Verify Docker services and `/health` reporting all up.
 
-### Phase 1: Database Schemas, Security & Authentication
-- [ ] PostgreSQL database schema: `users`, `documents`, `document_versions`, `page_profiles`, `table_records`, `conversations`, `messages`, `access_log`.
-- [ ] SQLAlchemy/SQLModel or Alembic migrations setup.
-- [ ] JWT authentication service and password hashing.
-- [ ] Role-based and document-level permission models.
-- [ ] Document upload API endpoint with MIME-type, magic byte, and size validation (`MAX_UPLOAD_MB`).
-- [ ] MinIO integration for file and extracted asset storage.
+### Phase 1: Foundation, Auth, Data Layer
+- [x] SQLAlchemy models: `User`, `Document`, `DocumentVersion`, `ProcessingStatus`, `PageProfile`, `Conversation`, `Message`, `Permission`, `TableRecord`.
+- [x] Alembic migration configuration and initial migration `001_initial_schema.py`.
+- [x] Auth: signup, login, `/me`, JWT tokens (`pyjwt`), bcrypt password hashing, and role checks (`admin`, `user`).
+- [x] MinIO service (`storage.py`) with upload, presigned download, delete, and offline dev fallback.
+- [x] Redis helpers (`redis_client.py`) and rate limiter dependency (`rate_limiter.py`).
+- [x] Document endpoints (`/api/v1/documents`): upload (type, size, magic bytes, pypdf encryption validation), list, status, delete (cascading removal of MinIO objects, Qdrant vectors, and DB rows).
+- [x] Ingestion worker stub (`worker/tasks.py`) simulating `queued` → `processing` → `ready` stage lifecycle.
+- [x] User isolation & permission checks: User A cannot see, access, or delete User B's documents (verified in `tests/test_phase1.py`).
+- [x] React shell in `frontend/`: Auth modal (login/signup), protected dashboard, drag-and-drop PDF upload zone, document listing with live polling status badges, download & delete actions.
+- [x] Verification: 19/19 backend tests passing (`tests/test_phase1.py` covering auth, validation, isolation, and lifecycle with `benchmark/sample_1.pdf`), Ruff clean, Mypy clean, Vite React production build passing.
 
 ### Phase 2: Document Ingestion & Multimodal Extraction Pipeline
 - [ ] Ground-truth inspection: run Docling on `benchmark/sample_1.pdf` and dump raw trees to `benchmark/debug/`.

@@ -65,9 +65,7 @@ async def check_qdrant(settings: Settings) -> str | None:
 
 
 async def check_redis(settings: Settings) -> str | None:
-    client = aioredis.from_url(
-        settings.redis_url, socket_connect_timeout=settings.health_timeout_seconds
-    )
+    client = aioredis.from_url(settings.redis_url, socket_connect_timeout=settings.health_timeout_seconds)
     try:
         pong = await client.ping()
         if not pong:
