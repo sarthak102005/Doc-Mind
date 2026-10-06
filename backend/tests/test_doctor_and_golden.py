@@ -12,6 +12,8 @@ from app.core import doctor
 from app.core.config import Settings
 from eval.datasets.golden import GOLDEN_PATH, VALID_TYPES, load_golden
 
+pytestmark = pytest.mark.unit
+
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 

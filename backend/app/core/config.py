@@ -56,6 +56,16 @@ class ImageRetrievalMode(StrEnum):
     BOTH = "both"
 
 
+class StorageBackend(StrEnum):
+    MINIO = "minio"
+    FILESYSTEM = "filesystem"
+
+
+class RedisBackend(StrEnum):
+    REDIS = "redis"
+    MEMORY = "memory"
+
+
 class LLMEndpoint(BaseModel):
     """One entry of the ordered LLM fallback chain."""
 
@@ -116,8 +126,10 @@ class Settings(BaseSettings):
     qdrant_text_collection: str = "docmind_text"
     qdrant_image_collection: str = "docmind_images"
 
+    redis_backend: RedisBackend = RedisBackend.REDIS
     redis_url: str = "redis://localhost:6379/0"
 
+    storage_backend: StorageBackend = StorageBackend.MINIO
     minio_endpoint: str = "localhost:9000"
     minio_access_key: str = ""
     minio_secret_key: SecretStr = SecretStr("")
@@ -197,6 +209,22 @@ class Settings(BaseSettings):
             self.max_concurrent_ingestion = 1
             self.embed_batch_size = min(self.embed_batch_size, 8)
             self.image_embed_batch_size = min(self.image_embed_batch_size, 4)
+
+        # Confirm JWT secret has no usable default outside dev mode
+        if self.app_env.lower() not in ("dev", "development", "test"):
+            raw_secret = self.jwt_secret.get_secret_value().strip()
+            placeholders = {
+                "",
+                "change-me-in-production",
+                "your-jwt-secret-here",
+                "secret",
+                "placeholder",
+            }
+            if not raw_secret or raw_secret.lower() in placeholders or len(raw_secret) < 32:
+                raise ValueError(
+                    f"JWT_SECRET cannot be empty or a placeholder in app_env='{self.app_env}'. "
+                    "Production requires a secure random key of at least 32 characters."
+                )
         return self
 
     @property

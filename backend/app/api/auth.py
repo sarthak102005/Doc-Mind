@@ -11,6 +11,7 @@ from app.db.models.user import User
 from app.db.session import get_db
 from app.schemas.token import TokenResponse
 from app.schemas.user import UserCreate, UserLogin, UserResponse
+from app.services.rate_limiter import RateLimiter
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -54,7 +55,11 @@ def signup(
     )
 
 
-@router.post("/login", response_model=TokenResponse)
+@router.post(
+    "/login",
+    response_model=TokenResponse,
+    dependencies=[Depends(RateLimiter(times=10, seconds=10))],
+)
 def login(
     credentials: UserLogin,
     db: Session = Depends(get_db),

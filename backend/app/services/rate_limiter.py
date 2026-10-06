@@ -45,9 +45,8 @@ class RateLimiter:
                 return
             except HTTPException:
                 raise
-            except Exception:  # noqa: BLE001
-                # If Redis fails mid-operation, fall through to in-memory check
-                pass
+            except Exception as exc:  # noqa: BLE001
+                raise RuntimeError(f"Rate limiter Redis operation failed: {exc}") from exc
 
         # In-memory sliding window check
         now = time.time()

@@ -5,10 +5,13 @@ from __future__ import annotations
 import io
 from pathlib import Path
 
+import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
 from app.worker.tasks import process_document_stub
+
+pytestmark = pytest.mark.unit
 
 
 def test_auth_flow(client: TestClient) -> None:

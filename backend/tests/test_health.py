@@ -19,6 +19,7 @@ async def _boom(_: Settings) -> str:
     raise ConnectionError("refused")
 
 
+@pytest.mark.unit
 async def test_collect_health_all_up() -> None:
     report = await collect_health(get_settings(), {"a": _ok, "b": _ok})
     assert report.status == "ok"
@@ -26,6 +27,7 @@ async def test_collect_health_all_up() -> None:
     assert all(c.status == "up" for c in report.components.values())
 
 
+@pytest.mark.unit
 async def test_collect_health_one_down_is_degraded_and_does_not_raise() -> None:
     report = await collect_health(get_settings(), {"a": _ok, "b": _boom})
     assert report.status == "degraded"
@@ -33,6 +35,7 @@ async def test_collect_health_one_down_is_degraded_and_does_not_raise() -> None:
     assert "ConnectionError" in (report.components["b"].detail or "")
 
 
+@pytest.mark.unit
 def test_health_endpoint_returns_503_when_degraded(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(health_mod, "DEFAULT_CHECKS", {"postgres": _ok, "qdrant": _boom})
     client = TestClient(create_app())
@@ -41,6 +44,7 @@ def test_health_endpoint_returns_503_when_degraded(monkeypatch: pytest.MonkeyPat
     assert resp.json()["components"]["qdrant"]["status"] == "down"
 
 
+@pytest.mark.unit
 def test_health_endpoint_lists_the_four_services(monkeypatch: pytest.MonkeyPatch) -> None:
     fakes = {name: _ok for name in ("postgres", "qdrant", "redis", "minio")}
     monkeypatch.setattr(health_mod, "DEFAULT_CHECKS", fakes)

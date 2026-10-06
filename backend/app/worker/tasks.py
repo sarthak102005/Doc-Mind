@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import time
 from datetime import UTC, datetime
 
 from sqlalchemy.orm import Session
@@ -24,6 +25,7 @@ def _run_stub(db: Session, document_id: str) -> None:
     doc.status = "processing"
     doc.updated_at = datetime.now(UTC)
     db.commit()
+    time.sleep(1.2)
 
     # 2. Simulate stage progression
     now = datetime.now(UTC)
@@ -47,12 +49,13 @@ def _run_stub(db: Session, document_id: str) -> None:
             stage_rec.started_at = now
 
         db.commit()
+        time.sleep(0.2)
 
         # Mark completed
         stage_rec.status = "completed"
         stage_rec.progress_percent = 100
         stage_rec.completed_at = datetime.now(UTC)
-        stage_rec.duration_ms = 50
+        stage_rec.duration_ms = 100
         db.commit()
 
     # 3. Transition to ready

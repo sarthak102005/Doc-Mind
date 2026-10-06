@@ -10,6 +10,8 @@ import pytest
 from app.core import config
 from app.core.config import HardwareProfile, Settings
 
+pytestmark = pytest.mark.unit
+
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 

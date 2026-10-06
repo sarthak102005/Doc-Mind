@@ -9,7 +9,7 @@ from datetime import timedelta
 from minio import Minio
 from minio.error import S3Error
 
-from app.core.config import Settings, get_settings
+from app.core.config import Settings, StorageBackend, get_settings
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +19,10 @@ class StorageService:
         self.settings = settings or get_settings()
         self.bucket = self.settings.minio_bucket
         self._client: Minio | None = None
-        self._mock_mode = False
+
+    @property
+    def is_minio(self) -> bool:
+        return self.settings.storage_backend == StorageBackend.MINIO
 
     @property
     def client(self) -> Minio:
@@ -35,17 +38,24 @@ class StorageService:
 
     def ensure_bucket(self) -> None:
         """Create bucket if it does not already exist."""
-        try:
-            if not self.client.bucket_exists(self.bucket):
-                self.client.make_bucket(self.bucket)
-                logger.info("Created MinIO bucket '%s'", self.bucket)
-        except Exception as exc:  # noqa: BLE001
-            logger.warning(
-                "Could not connect to MinIO (%s); falling back to local filesystem storage",
-                exc,
-            )
-            self._mock_mode = True
-            local_dir = self.settings.cache_path / "mock_storage" / self.bucket
+        if self.is_minio:
+            try:
+                if not self.client.bucket_exists(self.bucket):
+                    self.client.make_bucket(self.bucket)
+                    logger.info("Created MinIO bucket '%s'", self.bucket)
+            except Exception as exc:  # noqa: BLE001
+                logger.error(
+                    "MinIO configured (STORAGE_BACKEND=minio) but unreachable at %s: %s",
+                    self.settings.minio_endpoint,
+                    exc,
+                )
+                msg = (
+                    f"MinIO storage is configured (STORAGE_BACKEND=minio) but unreachable "
+                    f"at {self.settings.minio_endpoint}: {exc}"
+                )
+                raise RuntimeError(msg) from exc
+        else:
+            local_dir = self.settings.cache_path / "storage" / self.bucket
             local_dir.mkdir(parents=True, exist_ok=True)
 
     def upload_file(
@@ -54,32 +64,29 @@ class StorageService:
         data: bytes,
         content_type: str = "application/pdf",
     ) -> str:
-        """Upload binary data to MinIO. Returns the object key."""
-        if not self._mock_mode:
+        """Upload binary data to storage backend. Returns the object key."""
+        if self.is_minio:
+            self.ensure_bucket()
             try:
-                self.ensure_bucket()
-                if not self._mock_mode:
-                    stream = io.BytesIO(data)
-                    self.client.put_object(
-                        bucket_name=self.bucket,
-                        object_name=object_name,
-                        data=stream,
-                        length=len(data),
-                        content_type=content_type,
-                    )
-                    return object_name
-            except Exception as exc:  # noqa: BLE001
-                logger.warning(
-                    "MinIO upload failed (%s); persisting to mock storage fallback",
-                    exc,
+                stream = io.BytesIO(data)
+                self.client.put_object(
+                    bucket_name=self.bucket,
+                    object_name=object_name,
+                    data=stream,
+                    length=len(data),
+                    content_type=content_type,
                 )
-                self._mock_mode = True
-
-        # Fallback local filesystem storage
-        target = self.settings.cache_path / "mock_storage" / self.bucket / object_name
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_bytes(data)
-        return object_name
+                logger.info("Uploaded %d bytes to MinIO object %s", len(data), object_name)
+                return object_name
+            except Exception as exc:  # noqa: BLE001
+                logger.error("MinIO upload failed for %s: %s", object_name, exc)
+                raise RuntimeError(f"MinIO upload failed for {object_name}: {exc}") from exc
+        else:
+            target = self.settings.cache_path / "storage" / self.bucket / object_name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(data)
+            logger.info("Saved %d bytes to filesystem object %s", len(data), object_name)
+            return object_name
 
     def get_presigned_download_url(
         self,
@@ -87,42 +94,61 @@ class StorageService:
         expires_seconds: int = 3600,
     ) -> str:
         """Generate a presigned GET URL for downloading an object."""
-        if not self._mock_mode:
+        if self.is_minio:
             try:
                 return self.client.presigned_get_object(
                     bucket_name=self.bucket,
                     object_name=object_name,
                     expires=timedelta(seconds=expires_seconds),
                 )
-            except Exception:  # noqa: BLE001
-                pass
-
-        # In fallback mode, return a synthetic local reference URL
+            except Exception as exc:  # noqa: BLE001
+                raise RuntimeError(f"MinIO presigned download URL failed for {object_name}: {exc}") from exc
         return f"/api/v1/documents/raw/{object_name}"
+
+    def object_exists(self, object_name: str) -> bool:
+        """Check whether object exists in storage."""
+        if self.is_minio:
+            try:
+                self.client.stat_object(self.bucket, object_name)
+                return True
+            except S3Error as err:
+                if err.code in ("NoSuchKey", "404"):
+                    return False
+                raise RuntimeError(f"MinIO stat_object failed for {object_name}: {err}") from err
+            except Exception as exc:  # noqa: BLE001
+                raise RuntimeError(f"MinIO stat_object connection failed for {object_name}: {exc}") from exc
+        else:
+            target = self.settings.cache_path / "storage" / self.bucket / object_name
+            return target.is_file()
 
     def delete_file(self, object_name: str) -> None:
         """Remove an object from storage."""
-        if not self._mock_mode:
+        if self.is_minio:
             try:
                 self.client.remove_object(self.bucket, object_name)
+                logger.info("Deleted MinIO object %s", object_name)
                 return
-            except (S3Error, Exception) as exc:  # noqa: BLE001
-                logger.warning("MinIO remove_object failed: %s", exc)
+            except S3Error as err:
+                if err.code in ("NoSuchKey", "404"):
+                    return
+                raise RuntimeError(f"MinIO remove_object failed for {object_name}: {err}") from err
+            except Exception as exc:  # noqa: BLE001
+                raise RuntimeError(f"MinIO delete failed for {object_name}: {exc}") from exc
+        else:
+            target = self.settings.cache_path / "storage" / self.bucket / object_name
+            if target.exists():
+                import contextlib
 
-        # Remove from fallback local storage if present
-        target = self.settings.cache_path / "mock_storage" / self.bucket / object_name
-        if target.exists():
-            import contextlib
-
-            with contextlib.suppress(OSError):
-                target.unlink()
+                with contextlib.suppress(OSError):
+                    target.unlink()
 
 
 _storage_service: StorageService | None = None
 
 
-def get_storage_service() -> StorageService:
+def get_storage_service(settings: Settings | None = None) -> StorageService:
     global _storage_service
-    if _storage_service is None:
-        _storage_service = StorageService()
+    current = settings or get_settings()
+    if _storage_service is None or _storage_service.settings.storage_backend != current.storage_backend:
+        _storage_service = StorageService(current)
     return _storage_service

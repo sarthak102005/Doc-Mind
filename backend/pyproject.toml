@@ -48,6 +48,7 @@ packages = ["app"]
 testpaths = ["tests"]
 asyncio_mode = "auto"
 markers = [
+    "unit: fake-based unit tests running in isolation without external services",
     "integration: needs the docker-compose services running (deselect with -m 'not integration')",
 ]
 

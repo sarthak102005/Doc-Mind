@@ -13,18 +13,22 @@ from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
 
+os.environ["APP_ENV"] = "test"
+os.environ["STORAGE_BACKEND"] = "filesystem"
+os.environ["REDIS_BACKEND"] = "memory"
+os.environ["JWT_SECRET"] = "test-jwt-secret-key-at-least-32-chars-long-12345"
+
 import app.db.session as app_session
-from app.core.config import REPO_ROOT
+from app.core.config import REPO_ROOT, get_settings
 from app.db.base import Base
 from app.db.session import get_db
 from app.main import create_app
 
-# Create temporary SQLite database file for thread-safe test execution
 _tmp_dir = tempfile.gettempdir()
 TEST_DB_PATH = Path(_tmp_dir) / f"docmind_test_{os.getpid()}.db"
 TEST_DATABASE_URL = f"sqlite:///{TEST_DB_PATH.as_posix()}"
 
-os.environ["APP_ENV"] = "test"
+get_settings.cache_clear()
 
 test_engine = create_engine(
     TEST_DATABASE_URL,

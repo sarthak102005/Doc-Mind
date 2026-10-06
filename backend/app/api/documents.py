@@ -21,7 +21,7 @@ from sqlalchemy import or_
 from sqlalchemy.orm import Session
 
 from app.api.deps import get_current_active_user
-from app.core.config import get_settings
+from app.core.config import RedisBackend, get_settings
 from app.db.models.document import (
     Document,
     DocumentVersion,
@@ -174,9 +174,10 @@ async def upload_document(
     db.commit()
     db.refresh(doc)
 
-    # 7. Queue ingestion task and attach background task
+    # 7. Queue ingestion task (worker process picks up if Redis; background task if in-memory)
     await enqueue_ingestion_job(doc_id, doc_version.id)
-    background_tasks.add_task(process_document_stub, doc_id)
+    if settings.redis_backend == RedisBackend.MEMORY:
+        background_tasks.add_task(process_document_stub, doc_id)
 
     return DocumentResponse.model_validate(doc)
 
