@@ -79,3 +79,26 @@ This document tracks all overrides where Addendum A2 / A3 supersedes `docs/DocMi
 - **Status:** Approved (Addendum A2.11)
 - **Context:** LLMs tend to hallucinate corrections when documents contradict themselves (e.g., Page 11 Micro-HD battery rated at 130 ah in spec table vs 210 ah in weight notes).
 - **Decision:** The Verifier agent is explicitly forbidden from harmonizing or resolving conflicting numbers. It must report both figures with explicit page/section citations.
+
+### D-009: Unified WordBox Abstraction & Horizontal Band Reading Order
+- **Status:** Approved (Phase 2 Design Pass)
+- **Context:** Docling's default reading order on Page 2 interlaces vertical columns and places scrub deck options and controller callouts in between chassis models.
+- **Decision:**
+  - Build a single `WordBox(text, l, t, r, b, page, font_size)` abstraction fed from the native PDF text layer (PyMuPDF) on digital pages and from RapidOCR on scanned pages.
+  - Reading order detects horizontal bands first (full-width headings and significant vertical gaps), clusters columns within each band, outputs band-by-band, and attaches the band heading to each chunk's section hierarchy.
+  - Proves that "Orbital" / "Cylindrical" / "Disk" scrub deck benefits never contaminate chassis models (Micro-HD, Mini-HD, Mag-HD).
+  - Use Docling specifically for table cell structure and figure boundary detection.
+
+### D-010: X-Projection Spatial Table Segmentation & Title Proximity Linking
+- **Status:** Planned (Pending Stage 4 validation tests)
+- **Context:** On Page 11, Docling TableFormer completely missed the middle table (Mini-HD) on scanned pages, while PyMuPDF merged tables 1 and 2 on digital pages.
+- **Decision:**
+  - Table zones are derived dynamically from valleys/gaps in the word boxes' horizontal X-distribution (no hard-coded coordinates).
+  - Validated by perturbation tests ensuring stability under bounding-box scaling and coordinate translation.
+  - Table titles are linked by geometric proximity directly above each detected column zone.
+
+### D-011: Complete Tree Node Ingestion Over Markdown Export
+- **Status:** Approved (Phase 2 Design Pass)
+- **Context:** On Page 4 (cutaway diagram), Docling's `export_to_markdown()` discarded all 21 component labels as floating elements, reducing the page to 65 bytes.
+- **Decision:** Pipeline ingests all AST text nodes (`doc.export_to_dict()["texts"]`) with bounding boxes and spatial coordinates, never relying solely on flattened markdown exports.
+

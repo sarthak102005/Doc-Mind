@@ -1,0 +1,585 @@
+{
+  "texts": [
+    {
+      "self_ref": "#/texts/0",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 18.0,
+            "t": 618.2769,
+            "r": 134.0,
+            "b": 594.9106212863705,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            11
+          ]
+        },
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 476.5092,
+            "t": 631.60024,
+            "r": 710.9742000000001,
+            "b": 603.1401125267994,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            12,
+            29
+          ]
+        }
+      ],
+      "orig": "View Inside Cutaway Explained",
+      "text": "View Inside Cutaway Explained"
+    },
+    {
+      "self_ref": "#/texts/1",
+      "parent": {
+        "$ref": "#/pictures/1"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 541.3745,
+            "t": 502.1993,
+            "r": 635.7973999999999,
+            "b": 489.34784670750383,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            18
+          ]
+        }
+      ],
+      "orig": "Drain Saver Basket",
+      "text": "Drain Saver Basket"
+    },
+    {
+      "self_ref": "#/texts/2",
+      "parent": {
+        "$ref": "#/pictures/1"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 421.9158,
+            "t": 490.2525,
+            "r": 527.1088,
+            "b": 477.40104670750384,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            20
+          ]
+        }
+      ],
+      "orig": "Stainless Vac Screen",
+      "text": "Stainless Vac Screen"
+    },
+    {
+      "self_ref": "#/texts/3",
+      "parent": {
+        "$ref": "#/pictures/1"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 240.7309,
+            "t": 549.533,
+            "r": 305.87179999999995,
+            "b": 536.6815467075038,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            12
+          ]
+        }
+      ],
+      "orig": "Recovery Lid",
+      "text": "Recovery Lid"
+    },
+    {
+      "self_ref": "#/texts/4",
+      "parent": {
+        "$ref": "#/pictures/1"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 48.96,
+            "t": 434.9026,
+            "r": 148.89499999999998,
+            "b": 422.05114670750385,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            21
+          ]
+        }
+      ],
+      "orig": "Stainless Fill Screen",
+      "text": "Stainless Fill Screen"
+    },
+    {
+      "self_ref": "#/texts/5",
+      "parent": {
+        "$ref": "#/pictures/1"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 48.96,
+            "t": 518.4986,
+            "r": 187.89000000000001,
+            "b": 505.64714670750385,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            28
+          ]
+        }
+      ],
+      "orig": "6' Remote Solution Fill Hose",
+      "text": "6' Remote Solution Fill Hose"
+    },
+    {
+      "self_ref": "#/texts/6",
+      "parent": {
+        "$ref": "#/pictures/1"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 49.1709,
+            "t": 169.27239999999995,
+            "r": 161.8538,
+            "b": 156.42094670750384,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            20
+          ]
+        }
+      ],
+      "orig": "Patented Vac Bandeau",
+      "text": "Patented Vac Bandeau"
+    },
+    {
+      "self_ref": "#/texts/7",
+      "parent": {
+        "$ref": "#/pictures/1"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 48.96,
+            "t": 367.0668,
+            "r": 147.4309,
+            "b": 354.21534670750384,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            19
+          ]
+        }
+      ],
+      "orig": "Blow By Vac Muffler",
+      "text": "Blow By Vac Muffler"
+    },
+    {
+      "self_ref": "#/texts/8",
+      "parent": {
+        "$ref": "#/pictures/1"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 48.96,
+            "t": 306.0974,
+            "r": 169.01289999999997,
+            "b": 293.24594670750383,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            20
+          ]
+        }
+      ],
+      "orig": "Sound Deadening Foam",
+      "text": "Sound Deadening Foam"
+    },
+    {
+      "self_ref": "#/texts/9",
+      "parent": {
+        "$ref": "#/pictures/1"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 48.96,
+            "t": 246.6852,
+            "r": 102.44199999999998,
+            "b": 233.8337467075038,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            12
+          ]
+        }
+      ],
+      "orig": "Tall Rollers",
+      "text": "Tall Rollers"
+    },
+    {
+      "self_ref": "#/texts/10",
+      "parent": {
+        "$ref": "#/pictures/1"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 48.96,
+            "t": 81.70339999999999,
+            "r": 155.70400000000006,
+            "b": 68.85194670750377,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            20
+          ]
+        }
+      ],
+      "orig": "Stainless Scrub Deck",
+      "text": "Stainless Scrub Deck"
+    },
+    {
+      "self_ref": "#/texts/11",
+      "parent": {
+        "$ref": "#/pictures/1"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 426.04,
+            "t": 57.18029999999999,
+            "r": 496.63689999999997,
+            "b": 44.328846707503885,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            14
+          ]
+        }
+      ],
+      "orig": "HD Solid Tires",
+      "text": "HD Solid Tires"
+    },
+    {
+      "self_ref": "#/texts/12",
+      "parent": {
+        "$ref": "#/pictures/1"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 526.793,
+            "t": 57.18029999999999,
+            "r": 587.0289999999999,
+            "b": 44.328846707503885,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            11
+          ]
+        }
+      ],
+      "orig": "Steel Frame",
+      "text": "Steel Frame"
+    },
+    {
+      "self_ref": "#/texts/13",
+      "parent": {
+        "$ref": "#/pictures/1"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 272.7969,
+            "t": 57.18029999999999,
+            "r": 394.26989999999984,
+            "b": 44.328846707503885,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            22
+          ]
+        }
+      ],
+      "orig": "Bandeau Unloader Valve",
+      "text": "Bandeau Unloader Valve"
+    },
+    {
+      "self_ref": "#/texts/14",
+      "parent": {
+        "$ref": "#/pictures/1"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 619.2,
+            "t": 161.4185,
+            "r": 700.7540000000001,
+            "b": 148.56704670750383,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            16
+          ]
+        }
+      ],
+      "orig": "Poly Battery Box",
+      "text": "Poly Battery Box"
+    },
+    {
+      "self_ref": "#/texts/15",
+      "parent": {
+        "$ref": "#/pictures/1"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 633.7394,
+            "t": 69.75530000000003,
+            "r": 736.2803,
+            "b": 56.90384670750382,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            19
+          ]
+        }
+      ],
+      "orig": "Stainless Breakaway",
+      "text": "Stainless Breakaway"
+    },
+    {
+      "self_ref": "#/texts/16",
+      "parent": {
+        "$ref": "#/pictures/1"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 633.7394,
+            "t": 56.55529999999999,
+            "r": 685.1754,
+            "b": 43.703846707503885,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            8
+          ]
+        }
+      ],
+      "orig": "Squeegee",
+      "text": "Squeegee"
+    },
+    {
+      "self_ref": "#/texts/17",
+      "parent": {
+        "$ref": "#/pictures/1"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "text",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 667.719,
+            "t": 477.6646,
+            "r": 758.7153999999998,
+            "b": 464.81314670750385,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            15
+          ]
+        }
+      ],
+      "orig": "Central Command",
+      "text": "Central Command"
+    },
+    {
+      "self_ref": "#/texts/18",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "furniture",
+      "label": "page_footer",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 28.8,
+            "t": 22.93999999999994,
+            "r": 77.73,
+            "b": 17.436806451612938,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            14
+          ]
+        }
+      ],
+      "orig": "FC-WALK-BEHIND",
+      "text": "FC-WALK-BEHIND"
+    },
+    {
+      "self_ref": "#/texts/19",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "furniture",
+      "label": "page_footer",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 135.8786,
+            "t": 25.364100000000008,
+            "r": 690.4642799999996,
+            "b": 18.04523729372943,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            164
+          ]
+        }
+      ],
+      "orig": "www.factorycat.com 262-681-3583 RPS Corporation, 1711 South St, Racine, WI, 53404, USA *Images could include non-standard options. Subject to change without notice.",
+      "text": "www.factorycat.com 262-681-3583 RPS Corporation, 1711 South St, Racine, WI, 53404, USA *Images could include non-standard options. Subject to change without notice."
+    },
+    {
+      "self_ref": "#/texts/20",
+      "parent": {
+        "$ref": "#/body"
+      },
+      "children": [],
+      "content_layer": "furniture",
+      "label": "page_footer",
+      "prov": [
+        {
+          "page_no": 1,
+          "bbox": {
+            "l": 759.6301,
+            "t": 22.93999999999994,
+            "r": 763.2001,
+            "b": 17.436806451612938,
+            "coord_origin": "BOTTOMLEFT"
+          },
+          "charspan": [
+            0,
+            1
+          ]
+        }
+      ],
+      "orig": "4",
+      "text": "4"
+    }
+  ]
+}

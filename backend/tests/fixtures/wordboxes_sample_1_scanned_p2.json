@@ -1,0 +1,560 @@
+[
+  {
+    "text": "Choose Your Chassis",
+    "l": 21.93,
+    "t": 626.83,
+    "r": 234.43,
+    "b": 602.56,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Micro-HD",
+    "l": 129.18,
+    "t": 567.94,
+    "r": 189.78,
+    "b": 553.61,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Up to 52,000 sqft/Charge",
+    "l": 137.55,
+    "t": 553.61,
+    "r": 251.17,
+    "b": 539.68,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "20 - 26 inch decks",
+    "l": 138.74,
+    "t": 532.52,
+    "r": 221.67,
+    "b": 519.39,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "\u00b713/15 Gallons",
+    "l": 137.55,
+    "t": 542.47,
+    "r": 208.12,
+    "b": 529.73,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Applications",
+    "l": 158.68,
+    "t": 508.24,
+    "r": 238.82,
+    "b": 491.13,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Machine Shops",
+    "l": 161.47,
+    "t": 483.57,
+    "r": 234.43,
+    "b": 469.64,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Automotive Shops",
+    "l": 161.07,
+    "t": 494.71,
+    "r": 247.59,
+    "b": 479.59,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "\u00b7Warehouses",
+    "l": 161.47,
+    "t": 472.43,
+    "r": 222.47,
+    "b": 458.9,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Choose Your Scrub Deck",
+    "l": 14.75,
+    "t": 423.88,
+    "r": 267.12,
+    "b": 399.6,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Cylindrical Benefits",
+    "l": 111.63,
+    "t": 308.07,
+    "r": 231.64,
+    "b": 292.15,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Scrub & Sweep Simultaneously",
+    "l": 106.05,
+    "t": 285.78,
+    "r": 242.8,
+    "b": 271.06,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "\u00b7Eliminates Pre-Sweeping",
+    "l": 106.05,
+    "t": 296.53,
+    "r": 218.08,
+    "b": 282.2,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Superior Tile & Grout Cleaning",
+    "l": 105.65,
+    "t": 275.04,
+    "r": 238.82,
+    "b": 260.31,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Great for Indoor Track Fields",
+    "l": 105.65,
+    "t": 264.29,
+    "r": 232.04,
+    "b": 250.37,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Choose Your Controller",
+    "l": 11.96,
+    "t": 244.4,
+    "r": 250.78,
+    "b": 219.72,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Military Grade",
+    "l": 106.85,
+    "t": 207.78,
+    "r": 189.78,
+    "b": 191.87,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Touch Screen (Year 2010 Technology)",
+    "l": 335.7,
+    "t": 204.2,
+    "r": 442.15,
+    "b": 176.34,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "(Year 1970 Technology)",
+    "l": 106.85,
+    "t": 195.05,
+    "r": 212.1,
+    "b": 179.13,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Mini-HD",
+    "l": 396.7,
+    "t": 560.38,
+    "r": 448.92,
+    "b": 545.65,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "\u00b721/23 Gallons",
+    "l": 404.67,
+    "t": 536.1,
+    "r": 475.24,
+    "b": 522.57,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Up to 102,000 sqft/Charge",
+    "l": 405.07,
+    "t": 547.24,
+    "r": 523.88,
+    "b": 532.52,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "25 - 29 inch decks",
+    "l": 404.67,
+    "t": 525.75,
+    "r": 489.59,
+    "b": 512.22,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Applications",
+    "l": 421.02,
+    "t": 503.07,
+    "r": 500.36,
+    "b": 486.75,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Beverage Distribution",
+    "l": 420.22,
+    "t": 478.0,
+    "r": 519.09,
+    "b": 464.47,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Fabrication Shops",
+    "l": 420.22,
+    "t": 489.14,
+    "r": 504.74,
+    "b": 475.61,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Food Packaging",
+    "l": 420.62,
+    "t": 468.05,
+    "r": 495.17,
+    "b": 452.93,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Disk Benefits",
+    "l": 385.53,
+    "t": 303.29,
+    "r": 468.46,
+    "b": 288.57,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Lowest Maintenance Cost",
+    "l": 348.45,
+    "t": 280.61,
+    "r": 464.87,
+    "b": 268.27,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Largest Brush/ Pad Selection",
+    "l": 348.85,
+    "t": 291.36,
+    "r": 477.23,
+    "b": 278.22,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Best Performance on Irregular Floors",
+    "l": 347.66,
+    "t": 270.26,
+    "r": 508.73,
+    "b": 255.54,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Brushes Individually driven",
+    "l": 347.66,
+    "t": 259.52,
+    "r": 466.47,
+    "b": 245.59,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Mag-HD",
+    "l": 663.42,
+    "t": 557.19,
+    "r": 716.45,
+    "b": 540.08,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "35 / 37 Gallons",
+    "l": 667.41,
+    "t": 532.12,
+    "r": 737.97,
+    "b": 518.99,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Up to 170,000 sqft/Charge",
+    "l": 666.61,
+    "t": 543.66,
+    "r": 786.61,
+    "b": 528.54,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "29 - 34 inch decks",
+    "l": 667.8,
+    "t": 521.38,
+    "r": 751.93,
+    "b": 509.04,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Applications",
+    "l": 689.33,
+    "t": 499.09,
+    "r": 769.47,
+    "b": 481.98,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Sports Arenas",
+    "l": 688.54,
+    "t": 473.22,
+    "r": 757.91,
+    "b": 460.49,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "\u00b7Distribution",
+    "l": 688.94,
+    "t": 484.76,
+    "r": 747.14,
+    "b": 472.03,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Aviation",
+    "l": 688.94,
+    "t": 463.67,
+    "r": 731.6,
+    "b": 450.14,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Orbital Benefits",
+    "l": 638.7,
+    "t": 300.91,
+    "r": 735.98,
+    "b": 285.78,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Reduce Slip & Fall Potential",
+    "l": 621.16,
+    "t": 278.22,
+    "r": 741.56,
+    "b": 264.69,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Chemical Free Stripping",
+    "l": 621.16,
+    "t": 289.37,
+    "r": 729.2,
+    "b": 275.04,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "70% Reduction in Water Usage",
+    "l": 620.76,
+    "t": 267.88,
+    "r": 756.71,
+    "b": 253.15,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "VCT Prep & Recoat",
+    "l": 620.76,
+    "t": 256.73,
+    "r": 708.07,
+    "b": 243.2,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Settings",
+    "l": 554.58,
+    "t": 199.03,
+    "r": 589.26,
+    "b": 186.29,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Profiles",
+    "l": 603.22,
+    "t": 197.44,
+    "r": 635.11,
+    "b": 185.5,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Suds Button",
+    "l": 646.67,
+    "t": 197.04,
+    "r": 695.31,
+    "b": 184.7,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Solution Flow",
+    "l": 468.46,
+    "t": 171.57,
+    "r": 521.88,
+    "b": 159.63,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "023",
+    "l": 594.45,
+    "t": 177.14,
+    "r": 641.89,
+    "b": 156.05,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Down Pressure",
+    "l": 712.86,
+    "t": 166.4,
+    "r": 773.06,
+    "b": 153.26,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "LOW",
+    "l": 586.07,
+    "t": 156.45,
+    "r": 608.4,
+    "b": 144.91,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Battery Gauge\u2192",
+    "l": 464.47,
+    "t": 115.86,
+    "r": 530.66,
+    "b": 101.93,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Mode Wheel",
+    "l": 712.46,
+    "t": 119.04,
+    "r": 763.09,
+    "b": 107.5,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "5551",
+    "l": 551.79,
+    "t": 91.18,
+    "r": 569.33,
+    "b": 82.43,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "24.3 00",
+    "l": 527.86,
+    "t": 85.21,
+    "r": 567.73,
+    "b": 72.48,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "\u2190Hour Meter",
+    "l": 696.51,
+    "t": 86.41,
+    "r": 759.5,
+    "b": 72.48,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "00",
+    "l": 591.26,
+    "t": 81.23,
+    "r": 601.62,
+    "b": 72.88,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "00",
+    "l": 615.58,
+    "t": 81.23,
+    "r": 625.94,
+    "b": 72.48,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "Amp Draw",
+    "l": 530.26,
+    "t": 68.5,
+    "r": 572.12,
+    "b": 57.36,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "FC-WALK-BEHIND",
+    "l": 21.93,
+    "t": 31.49,
+    "r": 74.95,
+    "b": 21.14,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  },
+  {
+    "text": "2",
+    "l": 754.72,
+    "t": 18.75,
+    "r": 759.5,
+    "b": 11.99,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 2
+  }
+]

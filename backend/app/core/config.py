@@ -187,7 +187,10 @@ class Settings(BaseSettings):
     max_concurrent_ingestion: int = Field(default=1, ge=1)
     cache_dir: Path = Path(".cache/docmind")
     max_upload_mb: int = 50
-    profile_min_text_chars: int = 200
+    profile_min_text_chars: int = 50
+    profile_image_area_scanned_threshold: float = Field(default=0.3, ge=0.0, le=1.0)
+    profile_image_area_hybrid_threshold: float = Field(default=0.35, ge=0.0, le=1.0)
+    profile_text_quality_threshold: float = Field(default=0.65, ge=0.0, le=1.0)
     complex_page_image_ratio: float = Field(default=0.6, ge=0.0, le=1.0)
     doctor_ram_headroom_mb: int = 1024
 

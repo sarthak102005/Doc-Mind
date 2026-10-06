@@ -1,3 +1,0 @@
-# Backend uv configuration pointing to .cache/uv on Drive D
-cache-dir = "D:/DocMind/.cache/uv"
-link-mode = "copy"

@@ -1,0 +1,209 @@
+[
+  {
+    "text": "Choose Your Chassis",
+    "l": 558.96,
+    "t": 623.31,
+    "r": 771.86,
+    "b": 601.55,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 3
+  },
+  {
+    "text": "Size Comparison",
+    "l": 344.47,
+    "t": 586.92,
+    "r": 444.14,
+    "b": 572.28,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 3
+  },
+  {
+    "text": "Micro-HD",
+    "l": 364.8,
+    "t": 558.83,
+    "r": 422.61,
+    "b": 543.79,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 3
+  },
+  {
+    "text": "Side View",
+    "l": 137.55,
+    "t": 514.91,
+    "r": 218.08,
+    "b": 496.32,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 3
+  },
+  {
+    "text": "Mini-HD",
+    "l": 368.79,
+    "t": 520.06,
+    "r": 419.42,
+    "b": 505.02,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 3
+  },
+  {
+    "text": "Top View",
+    "l": 555.77,
+    "t": 518.47,
+    "r": 632.32,
+    "b": 496.71,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 3
+  },
+  {
+    "text": "Mag-HD",
+    "l": 367.99,
+    "t": 483.66,
+    "r": 420.62,
+    "b": 467.44,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 3
+  },
+  {
+    "text": "Polypropylene: Black / Medium - Light",
+    "l": 71.76,
+    "t": 353.89,
+    "r": 289.45,
+    "b": 333.32,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 3
+  },
+  {
+    "text": "Nylon: White / Light - Soft",
+    "l": 74.95,
+    "t": 320.26,
+    "r": 222.47,
+    "b": 303.65,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 3
+  },
+  {
+    "text": "3 Tampico: Tan / Soft",
+    "l": 53.82,
+    "t": 285.85,
+    "r": 187.38,
+    "b": 268.44,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 3
+  },
+  {
+    "text": "4 Tufted Pad Driver: Red / Variety Pads",
+    "l": 53.82,
+    "t": 257.76,
+    "r": 283.47,
+    "b": 236.39,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 3
+  },
+  {
+    "text": "Neoprene Pad Driver: Black / Variety Diamond Pucks",
+    "l": 74.95,
+    "t": 224.92,
+    "r": 369.59,
+    "b": 206.72,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 3
+  },
+  {
+    "text": "Super Grit: Orange / Extreme Rough",
+    "l": 75.75,
+    "t": 193.27,
+    "r": 279.48,
+    "b": 175.07,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 3
+  },
+  {
+    "text": "Tough Grit: Black / Very Rough",
+    "l": 76.95,
+    "t": 159.25,
+    "r": 248.38,
+    "b": 142.23,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 3
+  },
+  {
+    "text": "Midi Grit: Blue / Rough",
+    "l": 76.95,
+    "t": 127.99,
+    "r": 203.33,
+    "b": 110.98,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 3
+  },
+  {
+    "text": "9 Light Grit: Grey / Medium",
+    "l": 54.22,
+    "t": 95.15,
+    "r": 219.68,
+    "b": 77.35,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 3
+  },
+  {
+    "text": "*Not offered on Cylindrical Brushes",
+    "l": 52.63,
+    "t": 63.5,
+    "r": 215.29,
+    "b": 50.45,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 3
+  },
+  {
+    "text": "\u2462",
+    "l": 509.13,
+    "t": 383.96,
+    "r": 529.06,
+    "b": 361.01,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 3
+  },
+  {
+    "text": "Choose Your Brush",
+    "l": 575.31,
+    "t": 238.77,
+    "r": 768.27,
+    "b": 218.59,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 3
+  },
+  {
+    "text": "6",
+    "l": 436.17,
+    "t": 145.0,
+    "r": 450.12,
+    "b": 125.22,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 3
+  },
+  {
+    "text": "9",
+    "l": 706.08,
+    "t": 143.42,
+    "r": 724.02,
+    "b": 121.27,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 3
+  },
+  {
+    "text": "8",
+    "l": 617.97,
+    "t": 86.45,
+    "r": 637.9,
+    "b": 63.9,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 3
+  },
+  {
+    "text": "FC-WALK-BEHIND",
+    "l": 28.31,
+    "t": 23.55,
+    "r": 80.54,
+    "b": 14.45,
+    "coord_origin": "BOTTOMLEFT",
+    "page": 3
+  }
+]
