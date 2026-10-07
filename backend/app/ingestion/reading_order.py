@@ -488,3 +488,32 @@ def ingest_ast_text_nodes(
             )
 
     return normalize_coords_to_topleft(word_boxes, effective_height)
+
+
+def extract_page_words_pymupdf(
+    pdf_path: Path, page_number: int
+) -> tuple[list[WordBox], float, float]:
+    """Extract word boxes and page dimensions from a PDF page using PyMuPDF."""
+    import pymupdf
+
+    doc = pymupdf.open(pdf_path)
+    page = doc[page_number - 1]
+    pw = float(page.rect.width)
+    ph = float(page.rect.height)
+    raw_words = page.get_text("words")
+
+    words: list[WordBox] = [
+        WordBox(
+            text=str(w[4]),
+            l=round(float(w[0]), 2),
+            t=round(float(w[1]), 2),
+            r=round(float(w[2]), 2),
+            b=round(float(w[3]), 2),
+            page=page_number,
+            font_size=round(float(w[3] - w[1]), 1),
+            coord_origin="TOPLEFT",
+        )
+        for w in raw_words
+    ]
+    doc.close()
+    return words, pw, ph
