@@ -90,7 +90,7 @@ This document tracks all overrides where Addendum A2 / A3 supersedes `docs/DocMi
   - Use Docling specifically for table cell structure and figure boundary detection.
 
 ### D-010: X-Projection Spatial Table Segmentation & Title Proximity Linking
-- **Status:** Planned (Pending Stage 4 validation tests)
+- **Status:** Verified (Validated by Stage 4 unit & perturbation tests in `tests/test_tables.py`)
 - **Context:** On Page 11, Docling TableFormer completely missed the middle table (Mini-HD) on scanned pages, while PyMuPDF merged tables 1 and 2 on digital pages.
 - **Decision:**
   - Table zones are derived dynamically from valleys/gaps in the word boxes' horizontal X-distribution (no hard-coded coordinates).
