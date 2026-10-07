@@ -94,8 +94,68 @@ def estimate_column_count(text_blocks: list[tuple[Any, ...]], page_width: float)
     return max(1, active_columns)
 
 
+def compute_rectangles_union_area(
+    rects: list[pymupdf.Rect], page_rect: pymupdf.Rect
+) -> float:
+    """Compute the exact geometric union area of rectangles clipped to page boundary.
+
+    Uses a 1D sweep-line algorithm (Klee's measure in 2D) to avoid inflating
+    coverage when images overlap.
+    """
+    clipped: list[tuple[float, float, float, float]] = []
+    for r in rects:
+        c = pymupdf.Rect(r).intersect(page_rect)  # type: ignore[no-untyped-call]
+        if not c.is_empty and c.width > 0 and c.height > 0:
+            clipped.append((float(c.x0), float(c.y0), float(c.x1), float(c.y1)))
+
+    if not clipped:
+        return 0.0
+
+    xs = sorted(set([c[0] for c in clipped] + [c[2] for c in clipped]))
+    total_area = 0.0
+
+    for i in range(len(xs) - 1):
+        x_left, x_right = xs[i], xs[i + 1]
+        dx = x_right - x_left
+        if dx <= 0.0:
+            continue
+
+        y_intervals: list[tuple[float, float]] = [
+            (c[1], c[3]) for c in clipped if c[0] <= x_left and c[2] >= x_right
+        ]
+        if not y_intervals:
+            continue
+
+        y_intervals.sort()
+        merged_h = 0.0
+        cur_y0, cur_y1 = y_intervals[0]
+        for y0, y1 in y_intervals[1:]:
+            if y0 <= cur_y1:
+                cur_y1 = max(cur_y1, y1)
+            else:
+                merged_h += cur_y1 - cur_y0
+                cur_y0, cur_y1 = y0, y1
+        merged_h += cur_y1 - cur_y0
+        total_area += dx * merged_h
+
+    return float(total_area)
+
+
 def profile_page(page: pymupdf.Page, page_number: int) -> PageProfileResult:
-    """Profile a single PyMuPDF Page and decide the ingestion route."""
+    """Profile a single PyMuPDF Page and decide the ingestion route.
+
+    Route semantics:
+    - 'text_native': Clean, sufficient native text layer with minimal image content.
+      No OCR required.
+    - 'scanned': Missing or corrupted text layer (e.g. unmapped font glyphs).
+      Requires full-page OCR via RapidOCR.
+    - 'hybrid': High-quality native text layer exists and is used as primary text stream,
+      AND significant raster image regions exist.
+      NOTE: Hybrid does NOT mean "OCR every image region". Native text is preserved directly.
+      Region OCR runs ONLY for figures that pass informative triage (e.g. diagram callouts,
+      spec badges), decorative full-page backgrounds are skipped, and invocations are
+      capped by settings.max_region_ocr_per_doc.
+    """
     t0 = time.perf_counter()
     settings = get_settings()
 
@@ -116,14 +176,12 @@ def profile_page(page: pymupdf.Page, page_number: int) -> PageProfileResult:
     text_blocks = [b for b in raw_blocks if b[4].strip() and b[6] == 0]
     column_est = estimate_column_count(text_blocks, width)
 
-    # 3. Image inspection
+    # 3. Image inspection with union coverage (avoiding overlapping sum inflation)
     img_info_list = page.get_image_info(xrefs=True)
     image_count = len(img_info_list)
-    total_img_area = 0.0
-    for info in img_info_list:
-        bbox_rect = pymupdf.Rect(info["bbox"])  # type: ignore[no-untyped-call]
-        total_img_area += float(bbox_rect.width * bbox_rect.height)
-    image_area_ratio = round(min(1.0, total_img_area / page_area), 4)
+    image_rects = [pymupdf.Rect(info["bbox"]) for info in img_info_list]  # type: ignore[no-untyped-call]
+    union_img_area = compute_rectangles_union_area(image_rects, rect)
+    image_area_ratio = round(min(1.0, union_img_area / page_area), 4)
 
     # 4. Routing decision per settings thresholds (A2.1 / D-003)
     has_text_layer = (

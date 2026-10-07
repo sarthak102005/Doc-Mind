@@ -1,2423 +1,2429 @@
-[
-  {
-    "text": "Micro-HD v2 Series",
-    "l": 146.35,
-    "t": 534.07,
-    "r": 262.87,
-    "b": 515.7,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Mini-HD v2 Series",
-    "l": 404.84,
-    "t": 529.38,
-    "r": 513.41,
-    "b": 511.4,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Mag-HD v2 Series",
-    "l": 659.36,
-    "t": 524.69,
-    "r": 768.72,
-    "b": 505.93,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "BODYCONSTRUCTION/DIMENSIONS",
-    "l": 19.49,
-    "t": 516.48,
-    "r": 132.43,
-    "b": 504.75,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "BODYCONSTRUCTION/DIMENSIONS",
-    "l": 273.6,
-    "t": 511.79,
-    "r": 386.15,
-    "b": 500.45,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Front Wheels (0\u00d7 Width)",
-    "l": 19.09,
-    "t": 498.11,
-    "r": 89.48,
-    "b": 486.38,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Rear Casters (0 \u00d7 Wie)",
-    "l": 19.09,
-    "t": 487.94,
-    "r": 89.08,
-    "b": 477.0,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Size (L \u00d7 W \u00d7 H):",
-    "l": 19.09,
-    "t": 479.34,
-    "r": 71.58,
-    "b": 468.0,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Chassis Construction:",
-    "l": 19.49,
-    "t": 507.49,
-    "r": 90.27,
-    "b": 496.15,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "50\u00b0\u00d723\u00b0\u00d739\u00b0(07\u00d70-00cm)",
-    "l": 106.18,
-    "t": 474.26,
-    "r": 194.47,
-    "b": 460.97,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "(2\u00d7)8\u00b0\u00d722-20-5o)-Solid Black",
-    "l": 106.98,
-    "t": 496.54,
-    "r": 216.34,
-    "b": 484.42,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "(2\u00d7)2.5\u00b0\u00d71.38\"",
-    "l": 106.98,
-    "t": 487.16,
-    "r": 157.88,
-    "b": 475.82,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "3/16\" Steel",
-    "l": 107.77,
-    "t": 505.14,
-    "r": 160.66,
-    "b": 495.76,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Powder Coated",
-    "l": 159.87,
-    "t": 505.14,
-    "r": 212.36,
-    "b": 494.2,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "-Non-Marking Grey",
-    "l": 186.11,
-    "t": 485.21,
-    "r": 248.95,
-    "b": 473.48,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Rear Casters (D \u00d7 Wim)",
-    "l": 273.21,
-    "t": 483.64,
-    "r": 343.6,
-    "b": 472.3,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Size (L \u00d7 W \u00d7 H):",
-    "l": 273.21,
-    "t": 474.65,
-    "r": 326.1,
-    "b": 463.31,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Chassis Construction:",
-    "l": 273.6,
-    "t": 503.58,
-    "r": 344.39,
-    "b": 491.46,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Front Wheels (0\u00d7 Widn)",
-    "l": 273.6,
-    "t": 493.42,
-    "r": 343.99,
-    "b": 482.08,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "(2\u00d7)10\u00b0\u00d72.5\"",
-    "l": 361.49,
-    "t": 491.85,
-    "r": 408.82,
-    "b": 480.91,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "(2\u00d7)4\u00b0\u00d72\"",
-    "l": 361.49,
-    "t": 482.47,
-    "r": 398.87,
-    "b": 471.13,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "3/16\" Steelam",
-    "l": 362.29,
-    "t": 500.45,
-    "r": 415.58,
-    "b": 491.07,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "d2-/25a-o-Solid Black",
-    "l": 405.24,
-    "t": 491.07,
-    "r": 482.79,
-    "b": 479.73,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Powder Coated",
-    "l": 414.38,
-    "t": 500.45,
-    "r": 466.88,
-    "b": 489.51,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "-Non-Marking Grey",
-    "l": 426.71,
-    "t": 480.91,
-    "r": 491.53,
-    "b": 469.18,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Rear Casters (0 \u00d7 Wias)",
-    "l": 527.72,
-    "t": 478.95,
-    "r": 598.11,
-    "b": 467.61,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "BODY CONSTRUCTION/DIMENSIONS",
-    "l": 528.12,
-    "t": 507.49,
-    "r": 640.66,
-    "b": 495.76,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Front Wheels (\u00d7Widt",
-    "l": 528.52,
-    "t": 488.72,
-    "r": 599.31,
-    "b": 477.39,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Chassis Constructiont:",
-    "l": 528.92,
-    "t": 497.72,
-    "r": 598.91,
-    "b": 487.55,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "3/16\u00b0 Steel",
-    "l": 615.61,
-    "t": 497.33,
-    "r": 654.58,
-    "b": 485.99,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "(2\u00d7) 12\u00b0\u00d72.75\"",
-    "l": 616.41,
-    "t": 487.55,
-    "r": 664.92,
-    "b": 476.21,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "(2\u00d7)5\u00b0\u00d72",
-    "l": 616.41,
-    "t": 477.39,
-    "r": 653.39,
-    "b": 466.83,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "2-/30\u00d77om/-Solid Black",
-    "l": 664.92,
-    "t": 486.38,
-    "r": 736.9,
-    "b": 475.04,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Powder Coated",
-    "l": 669.3,
-    "t": 496.15,
-    "r": 721.39,
-    "b": 484.81,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "-Non-Marking Grey",
-    "l": 687.19,
-    "t": 476.21,
-    "r": 751.22,
-    "b": 464.49,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "56\u00b0\u00d728\u00b0\u00d743\u00b0(2=7\u00d71090m)",
-    "l": 360.7,
-    "t": 469.18,
-    "r": 448.98,
-    "b": 456.67,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Size (L \u00d7 W \u00d7 H):",
-    "l": 528.12,
-    "t": 469.96,
-    "r": 580.61,
-    "b": 459.01,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "BRUSH/PAD SYSTEM",
-    "l": 17.5,
-    "t": 443.37,
-    "r": 85.1,
-    "b": 432.82,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Weight (w/o Batteries):",
-    "l": 18.69,
-    "t": 461.75,
-    "r": 91.47,
-    "b": 450.02,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Weight (w/ 210 ah s",
-    "l": 18.69,
-    "t": 452.76,
-    "r": 90.67,
-    "b": 440.64,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "278-328lbs",
-    "l": 106.18,
-    "t": 460.19,
-    "r": 149.13,
-    "b": 448.85,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "410-460lbs",
-    "l": 106.18,
-    "t": 450.8,
-    "r": 149.53,
-    "b": 439.86,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "196-200 kgl",
-    "l": 149.53,
-    "t": 448.07,
-    "r": 177.76,
-    "b": 440.25,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "BRUSH/PADSYSTEM",
-    "l": 272.01,
-    "t": 438.68,
-    "r": 339.22,
-    "b": 428.13,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Weight (w/210 Btt)",
-    "l": 272.81,
-    "t": 448.07,
-    "r": 345.19,
-    "b": 435.95,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Weight (w/o Batteries):",
-    "l": 273.21,
-    "t": 457.06,
-    "r": 346.38,
-    "b": 445.33,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "625-675lbs",
-    "l": 360.7,
-    "t": 446.89,
-    "r": 403.25,
-    "b": 435.17,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "393-443lbs",
-    "l": 361.09,
-    "t": 455.49,
-    "r": 404.04,
-    "b": 444.55,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "284-300kgl",
-    "l": 403.25,
-    "t": 443.37,
-    "r": 432.68,
-    "b": 435.56,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Weight (w/o Batteries):",
-    "l": 527.72,
-    "t": 452.76,
-    "r": 600.5,
-    "b": 441.03,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Weight (w/  ah Btere:",
-    "l": 527.72,
-    "t": 442.98,
-    "r": 600.1,
-    "b": 431.65,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "62\u00b0\u00d731\u00b0\u00d743\u00b0",
-    "l": 615.21,
-    "t": 464.49,
-    "r": 663.73,
-    "b": 453.15,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "775-825 lbs",
-    "l": 615.21,
-    "t": 442.2,
-    "r": 657.77,
-    "b": 430.47,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "441-481lbs",
-    "l": 615.61,
-    "t": 450.8,
-    "r": 656.17,
-    "b": 440.25,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "052-30rkgl",
-    "l": 657.37,
-    "t": 439.86,
-    "r": 686.4,
-    "b": 430.47,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "(057 \u00d779\u00d7(09cm)",
-    "l": 663.33,
-    "t": 462.92,
-    "r": 702.31,
-    "b": 452.37,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Disk Dimensions:",
-    "l": 17.5,
-    "t": 434.38,
-    "r": 74.76,
-    "b": 423.05,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "w s s",
-    "l": 18.29,
-    "t": 424.22,
-    "r": 97.83,
-    "b": 415.23,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "26\"-(2\u00d7)1300-2-/33)",
-    "l": 105.39,
-    "t": 425.0,
-    "r": 189.3,
-    "b": 412.88,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "20-(1\u00d7)20\u00b0-5(cn)",
-    "l": 105.78,
-    "t": 433.21,
-    "r": 187.31,
-    "b": 420.7,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Disk Dimensions:",
-    "l": 272.01,
-    "t": 429.69,
-    "r": 329.28,
-    "b": 417.96,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "w    sr",
-    "l": 272.41,
-    "t": 419.92,
-    "r": 353.14,
-    "b": 410.93,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "28\u00b0-(2\u00d7)14\u00b0(n2v/35cm)",
-    "l": 359.9,
-    "t": 420.7,
-    "r": 442.62,
-    "b": 408.19,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "26\"-(2\u00d7)13\u00b00(-2-(3301)",
-    "l": 360.3,
-    "t": 428.52,
-    "r": 444.21,
-    "b": 416.01,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "BRUSH/PAD SYSTEM",
-    "l": 526.13,
-    "t": 434.38,
-    "r": 594.14,
-    "b": 423.05,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Disk Dimensions:",
-    "l": 526.93,
-    "t": 425.0,
-    "r": 583.8,
-    "b": 413.66,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "30\u00b0-(2\u00d7)15\u00b0006- 0-138con)",
-    "l": 614.82,
-    "t": 423.83,
-    "r": 698.73,
-    "b": 411.32,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "e",
-    "l": 526.93,
-    "t": 415.62,
-    "r": 608.45,
-    "b": 405.84,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "32\"-(2\u00d7)16\u00b00(2-2-()",
-    "l": 614.82,
-    "t": 416.01,
-    "r": 697.53,
-    "b": 403.5,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Disk Motor:",
-    "l": 17.5,
-    "t": 408.58,
-    "r": 56.47,
-    "b": 398.03,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "26\u00b0-(2\u00d7)0.75hp/270rpm",
-    "l": 104.99,
-    "t": 399.2,
-    "r": 190.09,
-    "b": 387.47,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "20\u00b0 (1\u00d7) 0.75 hp/200 rpm",
-    "l": 105.39,
-    "t": 407.41,
-    "r": 187.31,
-    "b": 395.29,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Disk Motor:",
-    "l": 271.62,
-    "t": 404.67,
-    "r": 310.99,
-    "b": 392.94,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "(2\u00d7) 1.0 hp/ 350 rpm",
-    "l": 360.3,
-    "t": 402.72,
-    "r": 428.3,
-    "b": 390.99,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Disk Motor:",
-    "l": 526.13,
-    "t": 399.98,
-    "r": 565.5,
-    "b": 388.25,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "34\u00b0-(2\u00d7)170(96-2-|40cm)",
-    "l": 614.42,
-    "t": 407.41,
-    "r": 698.33,
-    "b": 395.68,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "(2\u00d7) 1.0 hp/350 rpm",
-    "l": 614.82,
-    "t": 398.03,
-    "r": 681.63,
-    "b": 385.91,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Optional Motor Upgrade:",
-    "l": 17.1,
-    "t": 391.77,
-    "r": 96.64,
-    "b": 378.87,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Cylindrical Dimensions:",
-    "l": 17.1,
-    "t": 378.87,
-    "r": 92.26,
-    "b": 366.75,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "6'DBush",
-    "l": 17.5,
-    "t": 371.05,
-    "r": 43.74,
-    "b": 363.23,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "25\u00b0-(2\u00d7)6\u00b0\u00d723\"",
-    "l": 104.99,
-    "t": 377.31,
-    "r": 162.65,
-    "b": 365.58,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "(2\u00d7)1.0hp/350rpm(2-/0)",
-    "l": 105.39,
-    "t": 389.82,
-    "r": 204.41,
-    "b": 377.31,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Cylindrical Dimensions:",
-    "l": 271.22,
-    "t": 374.18,
-    "r": 346.78,
-    "b": 362.06,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "6\u00b00Bush",
-    "l": 271.22,
-    "t": 365.58,
-    "r": 298.26,
-    "b": 355.41,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Optional Motor Upgrade:",
-    "l": 272.01,
-    "t": 386.69,
-    "r": 350.76,
-    "b": 374.96,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "25\u00b0-(2\u00d7)6\u00b0\u00d723\"",
-    "l": 359.11,
-    "t": 372.61,
-    "r": 416.37,
-    "b": 361.28,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "29\"-(2\u00d7)6\u00b0\u00d727\"",
-    "l": 359.11,
-    "t": 365.19,
-    "r": 416.37,
-    "b": 353.46,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "NA",
-    "l": 359.5,
-    "t": 384.73,
-    "r": 372.63,
-    "b": 374.96,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Cylindrical Dimensions:",
-    "l": 526.13,
-    "t": 369.49,
-    "r": 601.29,
-    "b": 357.76,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Optional Motor Upgrade:",
-    "l": 526.53,
-    "t": 382.78,
-    "r": 605.67,
-    "b": 369.88,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "NA",
-    "l": 613.62,
-    "t": 380.82,
-    "r": 627.54,
-    "b": 369.88,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "29\u00b0-(2\u00d7)6\u00b0\u00d727\"",
-    "l": 613.62,
-    "t": 367.92,
-    "r": 670.89,
-    "b": 356.59,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Cylindrical Motor:",
-    "l": 16.7,
-    "t": 361.28,
-    "r": 74.76,
-    "b": 349.55,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "(2x) 0.75 hp/270 rpm(-(5s0 )",
-    "l": 104.59,
-    "t": 360.1,
-    "r": 207.19,
-    "b": 346.81,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Cylindrical Motor:",
-    "l": 271.22,
-    "t": 356.59,
-    "r": 328.88,
-    "b": 345.25,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "25\u00b0-(2x) 0.75 hp",
-    "l": 359.11,
-    "t": 355.02,
-    "r": 415.18,
-    "b": 343.68,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "(2-(550wat)",
-    "l": 412.79,
-    "t": 353.46,
-    "r": 446.6,
-    "b": 343.29,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Cylindrical Motor:",
-    "l": 525.73,
-    "t": 352.28,
-    "r": 583.8,
-    "b": 340.17,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "408rah",
-    "l": 526.53,
-    "t": 359.71,
-    "r": 553.17,
-    "b": 351.5,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "33\"-(2\u00d7)6\u00b0\u00d731\"",
-    "l": 613.62,
-    "t": 360.49,
-    "r": 670.09,
-    "b": 348.77,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "(2\u00d7) 1.0 hp(2-/ 70 at)",
-    "l": 613.62,
-    "t": 351.11,
-    "r": 681.63,
-    "b": 337.82,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "POWERSYSTEM",
-    "l": 15.11,
-    "t": 298.33,
-    "r": 75.16,
-    "b": 287.39,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Optional Battery:",
-    "l": 15.11,
-    "t": 279.57,
-    "r": 71.18,
-    "b": 266.67,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Brush Down Pressure:",
-    "l": 15.51,
-    "t": 307.72,
-    "r": 87.49,
-    "b": 295.99,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "System Voltage/Amps",
-    "l": 15.51,
-    "t": 288.95,
-    "r": 87.49,
-    "b": 276.83,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Tecludes Onboare Churger",
-    "l": 15.51,
-    "t": 270.58,
-    "r": 77.95,
-    "b": 259.63,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Orbital Motor:",
-    "l": 15.91,
-    "t": 317.1,
-    "r": 62.44,
-    "b": 305.76,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Cylindrical Brush Speed:",
-    "l": 16.3,
-    "t": 344.08,
-    "r": 95.05,
-    "b": 332.35,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Orbital Dimensions:",
-    "l": 16.3,
-    "t": 334.3,
-    "r": 79.93,
-    "b": 322.96,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Up to 175 bs/500 lbs",
-    "l": 103.0,
-    "t": 306.15,
-    "r": 189.3,
-    "b": 294.03,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "24 VDC / 130 ah WET",
-    "l": 103.0,
-    "t": 287.39,
-    "r": 171.8,
-    "b": 276.05,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "150 ah WET / 115 ah AGM* / 140 ah AGM*",
-    "l": 103.0,
-    "t": 277.61,
-    "r": 229.46,
-    "b": 265.5,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "750 rpm",
-    "l": 104.19,
-    "t": 342.9,
-    "r": 133.62,
-    "b": 331.17,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "1.0 hp (",
-    "l": 104.19,
-    "t": 315.15,
-    "r": 143.56,
-    "b": 304.59,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "20\u00b0\u00d714\"",
-    "l": 104.59,
-    "t": 332.35,
-    "r": 135.21,
-    "b": 322.57,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "24\u00b0\u00d714\u00b0",
-    "l": 104.59,
-    "t": 324.14,
-    "r": 134.42,
-    "b": 314.36,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "St+35.8.0m)",
-    "l": 136.01,
-    "t": 330.39,
-    "r": 162.65,
-    "b": 322.18,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "2,500 rpm",
-    "l": 145.55,
-    "t": 314.75,
-    "r": 181.74,
-    "b": 303.42,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Actuator Rating",
-    "l": 203.22,
-    "t": 304.2,
-    "r": 254.91,
-    "b": 292.47,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "POWERSYSTEM",
-    "l": 269.63,
-    "t": 293.25,
-    "r": 328.88,
-    "b": 283.09,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Optional Battery:",
-    "l": 269.63,
-    "t": 274.88,
-    "r": 325.3,
-    "b": 263.54,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Brush Down Pressure:",
-    "l": 270.03,
-    "t": 303.42,
-    "r": 341.61,
-    "b": 291.3,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "System Voltage/Amps",
-    "l": 270.03,
-    "t": 284.26,
-    "r": 341.61,
-    "b": 272.53,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Tecledes Onboard Changer",
-    "l": 270.03,
-    "t": 265.5,
-    "r": 332.06,
-    "b": 255.33,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Cylindrical Brush Speed:",
-    "l": 270.42,
-    "t": 339.38,
-    "r": 349.56,
-    "b": 327.66,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Orbital Motor:",
-    "l": 270.42,
-    "t": 312.8,
-    "r": 316.55,
-    "b": 301.46,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Orbital Dimensions:",
-    "l": 270.82,
-    "t": 330.0,
-    "r": 334.45,
-    "b": 318.27,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Up to 175 lbs/500 lbs",
-    "l": 357.52,
-    "t": 301.46,
-    "r": 444.21,
-    "b": 289.34,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "24 VDC / 210 ah WET",
-    "l": 357.52,
-    "t": 283.09,
-    "r": 425.52,
-    "b": 271.36,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "245 ah WET/ 250 ah AGM*",
-    "l": 357.52,
-    "t": 273.71,
-    "r": 443.02,
-    "b": 261.59,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "29\u00b0-(2\u00d7) 1.0 hp",
-    "l": 358.71,
-    "t": 347.2,
-    "r": 410.8,
-    "b": 335.47,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "750 rpm",
-    "l": 358.71,
-    "t": 338.21,
-    "r": 388.14,
-    "b": 326.48,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "24\u00b0\u00d714\"",
-    "l": 358.71,
-    "t": 328.83,
-    "r": 389.33,
-    "b": 317.1,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "28\u00b0\u00d714\u00b0",
-    "l": 358.71,
-    "t": 320.23,
-    "r": 388.93,
-    "b": 309.67,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "1.0 hp",
-    "l": 358.71,
-    "t": 310.45,
-    "r": 380.18,
-    "b": 300.29,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "(00\u00d735cm)",
-    "l": 386.94,
-    "t": 327.26,
-    "r": 413.19,
-    "b": 317.1,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "2,500 rpm",
-    "l": 400.07,
-    "t": 310.45,
-    "r": 435.86,
-    "b": 298.73,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Actustor Rating",
-    "l": 456.94,
-    "t": 299.51,
-    "r": 509.43,
-    "b": 288.17,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "POWERSYSTEM",
-    "l": 524.14,
-    "t": 289.73,
-    "r": 584.19,
-    "b": 278.01,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Optional Battery:",
-    "l": 524.14,
-    "t": 270.58,
-    "r": 579.82,
-    "b": 258.85,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Orbital Motor:",
-    "l": 524.94,
-    "t": 308.11,
-    "r": 571.07,
-    "b": 296.77,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Brush Down Pressure:",
-    "l": 524.94,
-    "t": 298.73,
-    "r": 596.12,
-    "b": 286.61,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "System Voltage/Amps",
-    "l": 524.94,
-    "t": 279.57,
-    "r": 596.12,
-    "b": 267.45,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Cylindrical Brush Speed:",
-    "l": 525.34,
-    "t": 335.08,
-    "r": 604.08,
-    "b": 322.57,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Orbital Dimensions:",
-    "l": 525.73,
-    "t": 325.31,
-    "r": 588.97,
-    "b": 313.58,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Up to 185 Ibs",
-    "l": 612.03,
-    "t": 297.16,
-    "r": 656.57,
-    "b": 285.82,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "24 VDC/ 310 ah WET",
-    "l": 612.03,
-    "t": 278.4,
-    "r": 680.43,
-    "b": 267.06,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "750rpm",
-    "l": 613.22,
-    "t": 333.52,
-    "r": 642.65,
-    "b": 321.79,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "32\"\u00d714\u00b0",
-    "l": 613.22,
-    "t": 314.75,
-    "r": 643.85,
-    "b": 305.37,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "1.0 hp",
-    "l": 613.22,
-    "t": 305.76,
-    "r": 634.3,
-    "b": 295.6,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "28\u00b0\u00d714\u00b0",
-    "l": 613.62,
-    "t": 322.96,
-    "r": 644.64,
-    "b": 313.58,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "(71=35.cm)",
-    "l": 641.06,
-    "t": 321.4,
-    "r": 668.1,
-    "b": 313.19,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "(8t\u00d735cm)",
-    "l": 641.86,
-    "t": 313.19,
-    "r": 668.1,
-    "b": 304.98,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "/500lbs",
-    "l": 651.0,
-    "t": 295.99,
-    "r": 699.92,
-    "b": 285.04,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "2,500rpm",
-    "l": 654.98,
-    "t": 305.37,
-    "r": 690.38,
-    "b": 294.82,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Actuator Rating",
-    "l": 712.65,
-    "t": 295.21,
-    "r": 765.14,
-    "b": 283.48,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Run Time:",
-    "l": 14.71,
-    "t": 261.59,
-    "r": 50.11,
-    "b": 251.03,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Up to 2.5 Hours**",
-    "l": 102.6,
-    "t": 260.8,
-    "r": 158.28,
-    "b": 249.08,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Run Time:",
-    "l": 269.23,
-    "t": 256.89,
-    "r": 303.83,
-    "b": 246.34,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Up to 3.5 Hours**",
-    "l": 356.72,
-    "t": 255.72,
-    "r": 412.79,
-    "b": 244.38,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Run Time:",
-    "l": 524.14,
-    "t": 252.99,
-    "r": 558.34,
-    "b": 241.26,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Up to 5.0 Hours**",
-    "l": 611.63,
-    "t": 251.42,
-    "r": 668.1,
-    "b": 240.08,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "DRIVESYSTEM",
-    "l": 13.12,
-    "t": 244.78,
-    "r": 69.2,
-    "b": 233.83,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "DRIVESYSTEM",
-    "l": 267.64,
-    "t": 240.48,
-    "r": 323.71,
-    "b": 229.14,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Power:",
-    "l": 14.71,
-    "t": 234.22,
-    "r": 40.17,
-    "b": 224.45,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "0.75hp - All Gear/ Sealed",
-    "l": 102.2,
-    "t": 233.44,
-    "r": 183.33,
-    "b": 222.1,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "DRIVE SYSTEM",
-    "l": 522.95,
-    "t": 235.39,
-    "r": 578.63,
-    "b": 224.45,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Reverse Speed:",
-    "l": 13.12,
-    "t": 207.24,
-    "r": 66.41,
-    "b": 195.52,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "SOLUTION/RECOVERYSYSTEMS",
-    "l": 13.52,
-    "t": 198.25,
-    "r": 114.93,
-    "b": 186.92,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Scrubbing Speed:",
-    "l": 13.92,
-    "t": 216.63,
-    "r": 72.78,
-    "b": 204.9,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Forward Speed:",
-    "l": 14.32,
-    "t": 226.4,
-    "r": 66.02,
-    "b": 214.28,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "0-130ft/min/0-1.5mph",
-    "l": 101.41,
-    "t": 206.07,
-    "r": 184.13,
-    "b": 193.56,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "0-184ft/min/0-2mph",
-    "l": 101.81,
-    "t": 214.67,
-    "r": 180.15,
-    "b": 203.34,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "0-230tt/min/0-2.6mph",
-    "l": 102.2,
-    "t": 224.45,
-    "r": 185.72,
-    "b": 212.33,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "wn/0-3kmh",
-    "l": 199.64,
-    "t": 210.76,
-    "r": 232.25,
-    "b": 202.94,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "SOLUTION/RECOVERY SYSTEMS",
-    "l": 267.64,
-    "t": 193.17,
-    "r": 369.05,
-    "b": 182.62,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Forward Speed:",
-    "l": 268.04,
-    "t": 221.71,
-    "r": 320.53,
-    "b": 209.98,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Reverse Speed:",
-    "l": 268.04,
-    "t": 202.55,
-    "r": 320.53,
-    "b": 191.22,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Scrubbing Speed:",
-    "l": 268.83,
-    "t": 211.15,
-    "r": 326.89,
-    "b": 200.6,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Powen:",
-    "l": 269.23,
-    "t": 229.53,
-    "r": 294.28,
-    "b": 219.75,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "0-229ft/min/0-2.6mph",
-    "l": 355.92,
-    "t": 210.76,
-    "r": 441.03,
-    "b": 198.25,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "0-202ft/min/0-2.3mph",
-    "l": 356.32,
-    "t": 200.99,
-    "r": 439.84,
-    "b": 189.26,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "0.75hp - All Gear /Sealed",
-    "l": 356.72,
-    "t": 229.14,
-    "r": 437.85,
-    "b": 217.02,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "0-290ft/min/0-3.3mph",
-    "l": 356.72,
-    "t": 219.75,
-    "r": 440.23,
-    "b": 208.03,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "-70.m/s/0-4km/tl",
-    "l": 442.62,
-    "t": 206.85,
-    "r": 493.52,
-    "b": 197.86,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Reverse Speed:",
-    "l": 522.95,
-    "t": 198.25,
-    "r": 575.05,
-    "b": 186.92,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Power:",
-    "l": 523.35,
-    "t": 225.62,
-    "r": 549.6,
-    "b": 214.67,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Scrubbing Speed:",
-    "l": 523.35,
-    "t": 207.24,
-    "r": 581.81,
-    "b": 195.91,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Forward Speed:",
-    "l": 523.75,
-    "t": 217.41,
-    "r": 575.45,
-    "b": 205.29,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "0-229ft/min/0-2.6mph0-70m/0m/",
-    "l": 610.44,
-    "t": 205.68,
-    "r": 748.44,
-    "b": 192.78,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "0-202ft/min/0-2.3mph",
-    "l": 610.44,
-    "t": 196.69,
-    "r": 694.75,
-    "b": 184.57,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "0-290ft/min/0-3.3mph",
-    "l": 610.84,
-    "t": 215.06,
-    "r": 695.15,
-    "b": 203.73,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "0.75hp - All Gear / Sealed  on",
-    "l": 611.24,
-    "t": 224.45,
-    "r": 716.22,
-    "b": 212.33,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "GENERAL",
-    "l": 11.53,
-    "t": 107.16,
-    "r": 48.91,
-    "b": 96.61,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Drain Saver:",
-    "l": 11.93,
-    "t": 134.53,
-    "r": 53.69,
-    "b": 122.8,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Vacuum Power",
-    "l": 12.33,
-    "t": 124.76,
-    "r": 62.44,
-    "b": 113.42,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "(Water Lift/ Airflow):",
-    "l": 12.33,
-    "t": 116.55,
-    "r": 70.39,
-    "b": 104.82,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Recovery Tank Capacity:",
-    "l": 13.12,
-    "t": 170.5,
-    "r": 92.66,
-    "b": 158.38,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Demisting Chamber:",
-    "l": 13.12,
-    "t": 143.52,
-    "r": 79.14,
-    "b": 131.79,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Solution Flow / Filter:",
-    "l": 13.52,
-    "t": 179.88,
-    "r": 82.72,
-    "b": 168.15,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Small Tank Capacity:",
-    "l": 13.52,
-    "t": 161.11,
-    "r": 79.93,
-    "b": 148.6,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Solution Tank Capacity:",
-    "l": 13.92,
-    "t": 189.26,
-    "r": 89.88,
-    "b": 177.14,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "0.8 hp/3Stage/5.7\u00b00",
-    "l": 100.22,
-    "t": 123.19,
-    "r": 176.57,
-    "b": 111.07,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "68\u00b0/72cfm(r3om/2om)",
-    "l": 100.22,
-    "t": 115.37,
-    "r": 171.8,
-    "b": 102.86,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "N/A",
-    "l": 100.61,
-    "t": 158.77,
-    "r": 116.92,
-    "b": 148.21,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "1.25 Gallons (i",
-    "l": 100.61,
-    "t": 141.96,
-    "r": 162.25,
-    "b": 130.23,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "30 cubic inches",
-    "l": 100.61,
-    "t": 132.57,
-    "r": 151.91,
-    "b": 121.63,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "13 Gallons- w/ Graduated Site Tube",
-    "l": 101.01,
-    "t": 187.31,
-    "r": 232.64,
-    "b": 174.8,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "15 Gallons-1.5\u00b0  Drain Hose",
-    "l": 101.01,
-    "t": 168.93,
-    "r": 216.74,
-    "b": 156.42,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "0-0.5 GPM/Stainless Inline",
-    "l": 101.41,
-    "t": 178.31,
-    "r": 192.08,
-    "b": 166.59,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "GENERAL",
-    "l": 266.05,
-    "t": 102.86,
-    "r": 302.64,
-    "b": 92.31,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Demisting Chamber:",
-    "l": 266.84,
-    "t": 139.61,
-    "r": 334.05,
-    "b": 126.71,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Drain Saver:",
-    "l": 267.24,
-    "t": 129.06,
-    "r": 308.2,
-    "b": 118.5,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Vacuum Power",
-    "l": 267.24,
-    "t": 120.06,
-    "r": 316.16,
-    "b": 108.34,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "(Water Lift/ Airflow):",
-    "l": 267.24,
-    "t": 111.07,
-    "r": 324.11,
-    "b": 100.91,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Small Tank Capacity:",
-    "l": 267.64,
-    "t": 156.03,
-    "r": 334.45,
-    "b": 144.3,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Solution Flow / Filter:",
-    "l": 268.04,
-    "t": 175.19,
-    "r": 336.84,
-    "b": 163.85,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Tank Solution Capacity:",
-    "l": 268.43,
-    "t": 184.57,
-    "r": 343.99,
-    "b": 172.45,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Tank Recovery Capacity:",
-    "l": 268.43,
-    "t": 165.8,
-    "r": 347.18,
-    "b": 153.69,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "0.8 hp/3Stage/5.7\u00b0",
-    "l": 354.33,
-    "t": 118.5,
-    "r": 425.12,
-    "b": 106.77,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "68\u00b0/72 cfm(730m/20m)",
-    "l": 354.33,
-    "t": 110.68,
-    "r": 426.31,
-    "b": 98.56,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "30 cubic inches",
-    "l": 354.73,
-    "t": 127.88,
-    "r": 406.83,
-    "b": 116.94,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "1.25 Gallons (c/itong)",
-    "l": 355.13,
-    "t": 137.66,
-    "r": 415.97,
-    "b": 125.54,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "21 Gallons - w/ Graduated Site Tube",
-    "l": 355.53,
-    "t": 183.01,
-    "r": 486.76,
-    "b": 170.5,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "0-0.7GPM/Stainless Inline",
-    "l": 355.53,
-    "t": 174.01,
-    "r": 446.2,
-    "b": 161.9,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "23 Gallons-1.5\u00b0 0 Drain Hose",
-    "l": 355.53,
-    "t": 164.24,
-    "r": 468.07,
-    "b": 151.73,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "16 Gal",
-    "l": 355.92,
-    "t": 154.08,
-    "r": 378.59,
-    "b": 144.3,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Recovery",
-    "l": 394.9,
-    "t": 145.48,
-    "r": 427.11,
-    "b": 134.92,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Solution",
-    "l": 395.69,
-    "t": 153.69,
-    "r": 425.12,
-    "b": 143.13,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "(580 woh)",
-    "l": 420.75,
-    "t": 116.15,
-    "r": 446.99,
-    "b": 107.16,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Drain Saver:",
-    "l": 521.36,
-    "t": 125.15,
-    "r": 563.12,
-    "b": 113.81,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Demisting Chamben:",
-    "l": 521.76,
-    "t": 134.14,
-    "r": 588.17,
-    "b": 122.8,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "(Water Lit / Airflow):",
-    "l": 521.76,
-    "t": 106.77,
-    "r": 578.63,
-    "b": 96.22,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "SOLUTION/RECOVERYSYSTEMS",
-    "l": 522.16,
-    "t": 188.87,
-    "r": 623.96,
-    "b": 177.53,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Small Tank Capacity:",
-    "l": 522.16,
-    "t": 151.34,
-    "r": 589.36,
-    "b": 139.61,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Vacuum Power",
-    "l": 522.16,
-    "t": 115.76,
-    "r": 570.67,
-    "b": 104.04,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Solution Flow /Filter:",
-    "l": 522.55,
-    "t": 170.89,
-    "r": 591.75,
-    "b": 159.16,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Tank Recovery Capacity:",
-    "l": 522.95,
-    "t": 161.11,
-    "r": 602.09,
-    "b": 148.99,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Tank Solution Capacity:",
-    "l": 523.35,
-    "t": 179.88,
-    "r": 598.91,
-    "b": 167.76,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "0.8 hp/3 Stage /5.7\"(s u)",
-    "l": 608.85,
-    "t": 113.81,
-    "r": 702.31,
-    "b": 101.69,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "68\u00b0/72 cfm (73om/2cml",
-    "l": 608.85,
-    "t": 105.99,
-    "r": 681.23,
-    "b": 93.87,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "1.25 Gallons(47on",
-    "l": 609.65,
-    "t": 132.57,
-    "r": 670.49,
-    "b": 121.24,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "30 cubic inches",
-    "l": 609.65,
-    "t": 123.19,
-    "r": 661.34,
-    "b": 112.25,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "35 Gallons-w/ Graduated Site Tube",
-    "l": 610.04,
-    "t": 178.31,
-    "r": 744.86,
-    "b": 165.8,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "37 Gallons -1.5\"@ Drain Hose",
-    "l": 610.04,
-    "t": 159.55,
-    "r": 724.58,
-    "b": 147.43,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "0-1.0 GPM/Stainless Inline",
-    "l": 610.44,
-    "t": 169.32,
-    "r": 700.32,
-    "b": 157.2,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "32 Gal",
-    "l": 610.44,
-    "t": 149.39,
-    "r": 644.64,
-    "b": 140.0,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "33 Gal",
-    "l": 610.44,
-    "t": 142.35,
-    "r": 633.9,
-    "b": 131.79,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Solution",
-    "l": 651.8,
-    "t": 148.21,
-    "r": 681.23,
-    "b": 138.83,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Recovery",
-    "l": 652.2,
-    "t": 141.57,
-    "r": 685.21,
-    "b": 129.84,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Productivity -Theoretical",
-    "l": 12.33,
-    "t": 97.78,
-    "r": 95.05,
-    "b": 85.66,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Up to 26,000 sqft/hr",
-    "l": 99.02,
-    "t": 96.22,
-    "r": 195.66,
-    "b": 83.71,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Productivity -Theoretical",
-    "l": 266.45,
-    "t": 93.09,
-    "r": 349.16,
-    "b": 80.97,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Productivity-Theoretical",
-    "l": 520.96,
-    "t": 88.4,
-    "r": 604.08,
-    "b": 76.67,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "GENERAL",
-    "l": 521.36,
-    "t": 97.39,
-    "r": 557.15,
-    "b": 88.01,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Up to 33,932 sqft/hr12",
-    "l": 608.45,
-    "t": 86.83,
-    "r": 703.5,
-    "b": 74.71,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Productivity-Practical:",
-    "l": 11.53,
-    "t": 80.19,
-    "r": 86.3,
-    "b": 68.85,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "ased o ol 5A t Ceong Times",
-    "l": 13.12,
-    "t": 70.41,
-    "r": 87.09,
-    "b": 60.64,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Up to 12,059 sqft/hr",
-    "l": 99.42,
-    "t": 78.62,
-    "r": 170.61,
-    "b": 67.29,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Productivity-Practical:",
-    "l": 266.05,
-    "t": 75.89,
-    "r": 340.81,
-    "b": 63.77,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Up to 13,454 sqft /hr 250 s",
-    "l": 353.54,
-    "t": 74.32,
-    "r": 438.24,
-    "b": 62.2,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Productivity-Practical:",
-    "l": 520.56,
-    "t": 71.59,
-    "r": 595.33,
-    "b": 59.47,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Up to 15,784 sqft /hr",
-    "l": 608.45,
-    "t": 69.63,
-    "r": 674.87,
-    "b": 57.9,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "l o l A 2 eg Tes",
-    "l": 267.64,
-    "t": 65.33,
-    "r": 341.21,
-    "b": 55.95,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "\u53e3",
-    "l": 114.93,
-    "t": 32.49,
-    "r": 129.25,
-    "b": 21.16,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "A",
-    "l": 250.54,
-    "t": 29.76,
-    "r": 262.07,
-    "b": 19.2,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "Specifications",
-    "l": 628.34,
-    "t": 616.17,
-    "r": 782.24,
-    "b": 591.93,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "FC-WALK-BEHIND",
-    "l": 20.68,
-    "t": 33.27,
-    "r": 73.97,
-    "b": 21.94,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  },
-  {
-    "text": "n",
-    "l": 751.22,
-    "t": 19.2,
-    "r": 759.97,
-    "b": 10.99,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 11
-  }
-]
+{
+  "page_width": 792.0,
+  "page_height": 633.6,
+  "unit": "pt",
+  "coord_origin": "TOPLEFT",
+  "words": [
+    {
+      "text": "Micro-HD v2 Series",
+      "l": 146.35,
+      "t": 534.07,
+      "r": 262.87,
+      "b": 515.7,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Mini-HD v2 Series",
+      "l": 404.84,
+      "t": 529.38,
+      "r": 513.41,
+      "b": 511.4,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Mag-HD v2 Series",
+      "l": 659.36,
+      "t": 524.69,
+      "r": 768.72,
+      "b": 505.93,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "BODYCONSTRUCTION/DIMENSIONS",
+      "l": 19.49,
+      "t": 516.48,
+      "r": 132.43,
+      "b": 504.75,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "BODYCONSTRUCTION/DIMENSIONS",
+      "l": 273.6,
+      "t": 511.79,
+      "r": 386.15,
+      "b": 500.45,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Front Wheels (0\u00d7 Width)",
+      "l": 19.09,
+      "t": 498.11,
+      "r": 89.48,
+      "b": 486.38,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Rear Casters (0 \u00d7 Wie)",
+      "l": 19.09,
+      "t": 487.94,
+      "r": 89.08,
+      "b": 477.0,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Size (L \u00d7 W \u00d7 H):",
+      "l": 19.09,
+      "t": 479.34,
+      "r": 71.58,
+      "b": 468.0,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Chassis Construction:",
+      "l": 19.49,
+      "t": 507.49,
+      "r": 90.27,
+      "b": 496.15,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "50\u00b0\u00d723\u00b0\u00d739\u00b0(07\u00d70-00cm)",
+      "l": 106.18,
+      "t": 474.26,
+      "r": 194.47,
+      "b": 460.97,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "(2\u00d7)8\u00b0\u00d722-20-5o)-Solid Black",
+      "l": 106.98,
+      "t": 496.54,
+      "r": 216.34,
+      "b": 484.42,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "(2\u00d7)2.5\u00b0\u00d71.38\"",
+      "l": 106.98,
+      "t": 487.16,
+      "r": 157.88,
+      "b": 475.82,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "3/16\" Steel",
+      "l": 107.77,
+      "t": 505.14,
+      "r": 160.66,
+      "b": 495.76,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Powder Coated",
+      "l": 159.87,
+      "t": 505.14,
+      "r": 212.36,
+      "b": 494.2,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "-Non-Marking Grey",
+      "l": 186.11,
+      "t": 485.21,
+      "r": 248.95,
+      "b": 473.48,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Rear Casters (D \u00d7 Wim)",
+      "l": 273.21,
+      "t": 483.64,
+      "r": 343.6,
+      "b": 472.3,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Size (L \u00d7 W \u00d7 H):",
+      "l": 273.21,
+      "t": 474.65,
+      "r": 326.1,
+      "b": 463.31,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Chassis Construction:",
+      "l": 273.6,
+      "t": 503.58,
+      "r": 344.39,
+      "b": 491.46,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Front Wheels (0\u00d7 Widn)",
+      "l": 273.6,
+      "t": 493.42,
+      "r": 343.99,
+      "b": 482.08,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "(2\u00d7)10\u00b0\u00d72.5\"",
+      "l": 361.49,
+      "t": 491.85,
+      "r": 408.82,
+      "b": 480.91,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "(2\u00d7)4\u00b0\u00d72\"",
+      "l": 361.49,
+      "t": 482.47,
+      "r": 398.87,
+      "b": 471.13,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "3/16\" Steelam",
+      "l": 362.29,
+      "t": 500.45,
+      "r": 415.58,
+      "b": 491.07,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "d2-/25a-o-Solid Black",
+      "l": 405.24,
+      "t": 491.07,
+      "r": 482.79,
+      "b": 479.73,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Powder Coated",
+      "l": 414.38,
+      "t": 500.45,
+      "r": 466.88,
+      "b": 489.51,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "-Non-Marking Grey",
+      "l": 426.71,
+      "t": 480.91,
+      "r": 491.53,
+      "b": 469.18,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Rear Casters (0 \u00d7 Wias)",
+      "l": 527.72,
+      "t": 478.95,
+      "r": 598.11,
+      "b": 467.61,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "BODY CONSTRUCTION/DIMENSIONS",
+      "l": 528.12,
+      "t": 507.49,
+      "r": 640.66,
+      "b": 495.76,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Front Wheels (\u00d7Widt",
+      "l": 528.52,
+      "t": 488.72,
+      "r": 599.31,
+      "b": 477.39,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Chassis Constructiont:",
+      "l": 528.92,
+      "t": 497.72,
+      "r": 598.91,
+      "b": 487.55,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "3/16\u00b0 Steel",
+      "l": 615.61,
+      "t": 497.33,
+      "r": 654.58,
+      "b": 485.99,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "(2\u00d7) 12\u00b0\u00d72.75\"",
+      "l": 616.41,
+      "t": 487.55,
+      "r": 664.92,
+      "b": 476.21,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "(2\u00d7)5\u00b0\u00d72",
+      "l": 616.41,
+      "t": 477.39,
+      "r": 653.39,
+      "b": 466.83,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "2-/30\u00d77om/-Solid Black",
+      "l": 664.92,
+      "t": 486.38,
+      "r": 736.9,
+      "b": 475.04,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Powder Coated",
+      "l": 669.3,
+      "t": 496.15,
+      "r": 721.39,
+      "b": 484.81,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "-Non-Marking Grey",
+      "l": 687.19,
+      "t": 476.21,
+      "r": 751.22,
+      "b": 464.49,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "56\u00b0\u00d728\u00b0\u00d743\u00b0(2=7\u00d71090m)",
+      "l": 360.7,
+      "t": 469.18,
+      "r": 448.98,
+      "b": 456.67,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Size (L \u00d7 W \u00d7 H):",
+      "l": 528.12,
+      "t": 469.96,
+      "r": 580.61,
+      "b": 459.01,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "BRUSH/PAD SYSTEM",
+      "l": 17.5,
+      "t": 443.37,
+      "r": 85.1,
+      "b": 432.82,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Weight (w/o Batteries):",
+      "l": 18.69,
+      "t": 461.75,
+      "r": 91.47,
+      "b": 450.02,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Weight (w/ 210 ah s",
+      "l": 18.69,
+      "t": 452.76,
+      "r": 90.67,
+      "b": 440.64,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "278-328lbs",
+      "l": 106.18,
+      "t": 460.19,
+      "r": 149.13,
+      "b": 448.85,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "410-460lbs",
+      "l": 106.18,
+      "t": 450.8,
+      "r": 149.53,
+      "b": 439.86,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "196-200 kgl",
+      "l": 149.53,
+      "t": 448.07,
+      "r": 177.76,
+      "b": 440.25,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "BRUSH/PADSYSTEM",
+      "l": 272.01,
+      "t": 438.68,
+      "r": 339.22,
+      "b": 428.13,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Weight (w/210 Btt)",
+      "l": 272.81,
+      "t": 448.07,
+      "r": 345.19,
+      "b": 435.95,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Weight (w/o Batteries):",
+      "l": 273.21,
+      "t": 457.06,
+      "r": 346.38,
+      "b": 445.33,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "625-675lbs",
+      "l": 360.7,
+      "t": 446.89,
+      "r": 403.25,
+      "b": 435.17,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "393-443lbs",
+      "l": 361.09,
+      "t": 455.49,
+      "r": 404.04,
+      "b": 444.55,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "284-300kgl",
+      "l": 403.25,
+      "t": 443.37,
+      "r": 432.68,
+      "b": 435.56,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Weight (w/o Batteries):",
+      "l": 527.72,
+      "t": 452.76,
+      "r": 600.5,
+      "b": 441.03,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Weight (w/  ah Btere:",
+      "l": 527.72,
+      "t": 442.98,
+      "r": 600.1,
+      "b": 431.65,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "62\u00b0\u00d731\u00b0\u00d743\u00b0",
+      "l": 615.21,
+      "t": 464.49,
+      "r": 663.73,
+      "b": 453.15,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "775-825 lbs",
+      "l": 615.21,
+      "t": 442.2,
+      "r": 657.77,
+      "b": 430.47,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "441-481lbs",
+      "l": 615.61,
+      "t": 450.8,
+      "r": 656.17,
+      "b": 440.25,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "052-30rkgl",
+      "l": 657.37,
+      "t": 439.86,
+      "r": 686.4,
+      "b": 430.47,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "(057 \u00d779\u00d7(09cm)",
+      "l": 663.33,
+      "t": 462.92,
+      "r": 702.31,
+      "b": 452.37,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Disk Dimensions:",
+      "l": 17.5,
+      "t": 434.38,
+      "r": 74.76,
+      "b": 423.05,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "w s s",
+      "l": 18.29,
+      "t": 424.22,
+      "r": 97.83,
+      "b": 415.23,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "26\"-(2\u00d7)1300-2-/33)",
+      "l": 105.39,
+      "t": 425.0,
+      "r": 189.3,
+      "b": 412.88,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "20-(1\u00d7)20\u00b0-5(cn)",
+      "l": 105.78,
+      "t": 433.21,
+      "r": 187.31,
+      "b": 420.7,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Disk Dimensions:",
+      "l": 272.01,
+      "t": 429.69,
+      "r": 329.28,
+      "b": 417.96,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "w    sr",
+      "l": 272.41,
+      "t": 419.92,
+      "r": 353.14,
+      "b": 410.93,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "28\u00b0-(2\u00d7)14\u00b0(n2v/35cm)",
+      "l": 359.9,
+      "t": 420.7,
+      "r": 442.62,
+      "b": 408.19,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "26\"-(2\u00d7)13\u00b00(-2-(3301)",
+      "l": 360.3,
+      "t": 428.52,
+      "r": 444.21,
+      "b": 416.01,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "BRUSH/PAD SYSTEM",
+      "l": 526.13,
+      "t": 434.38,
+      "r": 594.14,
+      "b": 423.05,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Disk Dimensions:",
+      "l": 526.93,
+      "t": 425.0,
+      "r": 583.8,
+      "b": 413.66,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "30\u00b0-(2\u00d7)15\u00b0006- 0-138con)",
+      "l": 614.82,
+      "t": 423.83,
+      "r": 698.73,
+      "b": 411.32,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "e",
+      "l": 526.93,
+      "t": 415.62,
+      "r": 608.45,
+      "b": 405.84,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "32\"-(2\u00d7)16\u00b00(2-2-()",
+      "l": 614.82,
+      "t": 416.01,
+      "r": 697.53,
+      "b": 403.5,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Disk Motor:",
+      "l": 17.5,
+      "t": 408.58,
+      "r": 56.47,
+      "b": 398.03,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "26\u00b0-(2\u00d7)0.75hp/270rpm",
+      "l": 104.99,
+      "t": 399.2,
+      "r": 190.09,
+      "b": 387.47,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "20\u00b0 (1\u00d7) 0.75 hp/200 rpm",
+      "l": 105.39,
+      "t": 407.41,
+      "r": 187.31,
+      "b": 395.29,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Disk Motor:",
+      "l": 271.62,
+      "t": 404.67,
+      "r": 310.99,
+      "b": 392.94,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "(2\u00d7) 1.0 hp/ 350 rpm",
+      "l": 360.3,
+      "t": 402.72,
+      "r": 428.3,
+      "b": 390.99,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Disk Motor:",
+      "l": 526.13,
+      "t": 399.98,
+      "r": 565.5,
+      "b": 388.25,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "34\u00b0-(2\u00d7)170(96-2-|40cm)",
+      "l": 614.42,
+      "t": 407.41,
+      "r": 698.33,
+      "b": 395.68,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "(2\u00d7) 1.0 hp/350 rpm",
+      "l": 614.82,
+      "t": 398.03,
+      "r": 681.63,
+      "b": 385.91,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Optional Motor Upgrade:",
+      "l": 17.1,
+      "t": 391.77,
+      "r": 96.64,
+      "b": 378.87,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Cylindrical Dimensions:",
+      "l": 17.1,
+      "t": 378.87,
+      "r": 92.26,
+      "b": 366.75,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "6'DBush",
+      "l": 17.5,
+      "t": 371.05,
+      "r": 43.74,
+      "b": 363.23,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "25\u00b0-(2\u00d7)6\u00b0\u00d723\"",
+      "l": 104.99,
+      "t": 377.31,
+      "r": 162.65,
+      "b": 365.58,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "(2\u00d7)1.0hp/350rpm(2-/0)",
+      "l": 105.39,
+      "t": 389.82,
+      "r": 204.41,
+      "b": 377.31,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Cylindrical Dimensions:",
+      "l": 271.22,
+      "t": 374.18,
+      "r": 346.78,
+      "b": 362.06,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "6\u00b00Bush",
+      "l": 271.22,
+      "t": 365.58,
+      "r": 298.26,
+      "b": 355.41,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Optional Motor Upgrade:",
+      "l": 272.01,
+      "t": 386.69,
+      "r": 350.76,
+      "b": 374.96,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "25\u00b0-(2\u00d7)6\u00b0\u00d723\"",
+      "l": 359.11,
+      "t": 372.61,
+      "r": 416.37,
+      "b": 361.28,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "29\"-(2\u00d7)6\u00b0\u00d727\"",
+      "l": 359.11,
+      "t": 365.19,
+      "r": 416.37,
+      "b": 353.46,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "NA",
+      "l": 359.5,
+      "t": 384.73,
+      "r": 372.63,
+      "b": 374.96,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Cylindrical Dimensions:",
+      "l": 526.13,
+      "t": 369.49,
+      "r": 601.29,
+      "b": 357.76,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Optional Motor Upgrade:",
+      "l": 526.53,
+      "t": 382.78,
+      "r": 605.67,
+      "b": 369.88,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "NA",
+      "l": 613.62,
+      "t": 380.82,
+      "r": 627.54,
+      "b": 369.88,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "29\u00b0-(2\u00d7)6\u00b0\u00d727\"",
+      "l": 613.62,
+      "t": 367.92,
+      "r": 670.89,
+      "b": 356.59,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Cylindrical Motor:",
+      "l": 16.7,
+      "t": 361.28,
+      "r": 74.76,
+      "b": 349.55,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "(2x) 0.75 hp/270 rpm(-(5s0 )",
+      "l": 104.59,
+      "t": 360.1,
+      "r": 207.19,
+      "b": 346.81,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Cylindrical Motor:",
+      "l": 271.22,
+      "t": 356.59,
+      "r": 328.88,
+      "b": 345.25,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "25\u00b0-(2x) 0.75 hp",
+      "l": 359.11,
+      "t": 355.02,
+      "r": 415.18,
+      "b": 343.68,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "(2-(550wat)",
+      "l": 412.79,
+      "t": 353.46,
+      "r": 446.6,
+      "b": 343.29,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Cylindrical Motor:",
+      "l": 525.73,
+      "t": 352.28,
+      "r": 583.8,
+      "b": 340.17,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "408rah",
+      "l": 526.53,
+      "t": 359.71,
+      "r": 553.17,
+      "b": 351.5,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "33\"-(2\u00d7)6\u00b0\u00d731\"",
+      "l": 613.62,
+      "t": 360.49,
+      "r": 670.09,
+      "b": 348.77,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "(2\u00d7) 1.0 hp(2-/ 70 at)",
+      "l": 613.62,
+      "t": 351.11,
+      "r": 681.63,
+      "b": 337.82,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "POWERSYSTEM",
+      "l": 15.11,
+      "t": 298.33,
+      "r": 75.16,
+      "b": 287.39,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Optional Battery:",
+      "l": 15.11,
+      "t": 279.57,
+      "r": 71.18,
+      "b": 266.67,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Brush Down Pressure:",
+      "l": 15.51,
+      "t": 307.72,
+      "r": 87.49,
+      "b": 295.99,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "System Voltage/Amps",
+      "l": 15.51,
+      "t": 288.95,
+      "r": 87.49,
+      "b": 276.83,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Tecludes Onboare Churger",
+      "l": 15.51,
+      "t": 270.58,
+      "r": 77.95,
+      "b": 259.63,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Orbital Motor:",
+      "l": 15.91,
+      "t": 317.1,
+      "r": 62.44,
+      "b": 305.76,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Cylindrical Brush Speed:",
+      "l": 16.3,
+      "t": 344.08,
+      "r": 95.05,
+      "b": 332.35,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Orbital Dimensions:",
+      "l": 16.3,
+      "t": 334.3,
+      "r": 79.93,
+      "b": 322.96,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Up to 175 bs/500 lbs",
+      "l": 103.0,
+      "t": 306.15,
+      "r": 189.3,
+      "b": 294.03,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "24 VDC / 130 ah WET",
+      "l": 103.0,
+      "t": 287.39,
+      "r": 171.8,
+      "b": 276.05,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "150 ah WET / 115 ah AGM* / 140 ah AGM*",
+      "l": 103.0,
+      "t": 277.61,
+      "r": 229.46,
+      "b": 265.5,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "750 rpm",
+      "l": 104.19,
+      "t": 342.9,
+      "r": 133.62,
+      "b": 331.17,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "1.0 hp (",
+      "l": 104.19,
+      "t": 315.15,
+      "r": 143.56,
+      "b": 304.59,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "20\u00b0\u00d714\"",
+      "l": 104.59,
+      "t": 332.35,
+      "r": 135.21,
+      "b": 322.57,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "24\u00b0\u00d714\u00b0",
+      "l": 104.59,
+      "t": 324.14,
+      "r": 134.42,
+      "b": 314.36,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "St+35.8.0m)",
+      "l": 136.01,
+      "t": 330.39,
+      "r": 162.65,
+      "b": 322.18,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "2,500 rpm",
+      "l": 145.55,
+      "t": 314.75,
+      "r": 181.74,
+      "b": 303.42,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Actuator Rating",
+      "l": 203.22,
+      "t": 304.2,
+      "r": 254.91,
+      "b": 292.47,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "POWERSYSTEM",
+      "l": 269.63,
+      "t": 293.25,
+      "r": 328.88,
+      "b": 283.09,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Optional Battery:",
+      "l": 269.63,
+      "t": 274.88,
+      "r": 325.3,
+      "b": 263.54,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Brush Down Pressure:",
+      "l": 270.03,
+      "t": 303.42,
+      "r": 341.61,
+      "b": 291.3,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "System Voltage/Amps",
+      "l": 270.03,
+      "t": 284.26,
+      "r": 341.61,
+      "b": 272.53,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Tecledes Onboard Changer",
+      "l": 270.03,
+      "t": 265.5,
+      "r": 332.06,
+      "b": 255.33,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Cylindrical Brush Speed:",
+      "l": 270.42,
+      "t": 339.38,
+      "r": 349.56,
+      "b": 327.66,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Orbital Motor:",
+      "l": 270.42,
+      "t": 312.8,
+      "r": 316.55,
+      "b": 301.46,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Orbital Dimensions:",
+      "l": 270.82,
+      "t": 330.0,
+      "r": 334.45,
+      "b": 318.27,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Up to 175 lbs/500 lbs",
+      "l": 357.52,
+      "t": 301.46,
+      "r": 444.21,
+      "b": 289.34,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "24 VDC / 210 ah WET",
+      "l": 357.52,
+      "t": 283.09,
+      "r": 425.52,
+      "b": 271.36,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "245 ah WET/ 250 ah AGM*",
+      "l": 357.52,
+      "t": 273.71,
+      "r": 443.02,
+      "b": 261.59,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "29\u00b0-(2\u00d7) 1.0 hp",
+      "l": 358.71,
+      "t": 347.2,
+      "r": 410.8,
+      "b": 335.47,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "750 rpm",
+      "l": 358.71,
+      "t": 338.21,
+      "r": 388.14,
+      "b": 326.48,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "24\u00b0\u00d714\"",
+      "l": 358.71,
+      "t": 328.83,
+      "r": 389.33,
+      "b": 317.1,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "28\u00b0\u00d714\u00b0",
+      "l": 358.71,
+      "t": 320.23,
+      "r": 388.93,
+      "b": 309.67,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "1.0 hp",
+      "l": 358.71,
+      "t": 310.45,
+      "r": 380.18,
+      "b": 300.29,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "(00\u00d735cm)",
+      "l": 386.94,
+      "t": 327.26,
+      "r": 413.19,
+      "b": 317.1,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "2,500 rpm",
+      "l": 400.07,
+      "t": 310.45,
+      "r": 435.86,
+      "b": 298.73,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Actustor Rating",
+      "l": 456.94,
+      "t": 299.51,
+      "r": 509.43,
+      "b": 288.17,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "POWERSYSTEM",
+      "l": 524.14,
+      "t": 289.73,
+      "r": 584.19,
+      "b": 278.01,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Optional Battery:",
+      "l": 524.14,
+      "t": 270.58,
+      "r": 579.82,
+      "b": 258.85,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Orbital Motor:",
+      "l": 524.94,
+      "t": 308.11,
+      "r": 571.07,
+      "b": 296.77,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Brush Down Pressure:",
+      "l": 524.94,
+      "t": 298.73,
+      "r": 596.12,
+      "b": 286.61,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "System Voltage/Amps",
+      "l": 524.94,
+      "t": 279.57,
+      "r": 596.12,
+      "b": 267.45,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Cylindrical Brush Speed:",
+      "l": 525.34,
+      "t": 335.08,
+      "r": 604.08,
+      "b": 322.57,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Orbital Dimensions:",
+      "l": 525.73,
+      "t": 325.31,
+      "r": 588.97,
+      "b": 313.58,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Up to 185 Ibs",
+      "l": 612.03,
+      "t": 297.16,
+      "r": 656.57,
+      "b": 285.82,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "24 VDC/ 310 ah WET",
+      "l": 612.03,
+      "t": 278.4,
+      "r": 680.43,
+      "b": 267.06,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "750rpm",
+      "l": 613.22,
+      "t": 333.52,
+      "r": 642.65,
+      "b": 321.79,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "32\"\u00d714\u00b0",
+      "l": 613.22,
+      "t": 314.75,
+      "r": 643.85,
+      "b": 305.37,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "1.0 hp",
+      "l": 613.22,
+      "t": 305.76,
+      "r": 634.3,
+      "b": 295.6,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "28\u00b0\u00d714\u00b0",
+      "l": 613.62,
+      "t": 322.96,
+      "r": 644.64,
+      "b": 313.58,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "(71=35.cm)",
+      "l": 641.06,
+      "t": 321.4,
+      "r": 668.1,
+      "b": 313.19,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "(8t\u00d735cm)",
+      "l": 641.86,
+      "t": 313.19,
+      "r": 668.1,
+      "b": 304.98,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "/500lbs",
+      "l": 651.0,
+      "t": 295.99,
+      "r": 699.92,
+      "b": 285.04,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "2,500rpm",
+      "l": 654.98,
+      "t": 305.37,
+      "r": 690.38,
+      "b": 294.82,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Actuator Rating",
+      "l": 712.65,
+      "t": 295.21,
+      "r": 765.14,
+      "b": 283.48,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Run Time:",
+      "l": 14.71,
+      "t": 261.59,
+      "r": 50.11,
+      "b": 251.03,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Up to 2.5 Hours**",
+      "l": 102.6,
+      "t": 260.8,
+      "r": 158.28,
+      "b": 249.08,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Run Time:",
+      "l": 269.23,
+      "t": 256.89,
+      "r": 303.83,
+      "b": 246.34,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Up to 3.5 Hours**",
+      "l": 356.72,
+      "t": 255.72,
+      "r": 412.79,
+      "b": 244.38,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Run Time:",
+      "l": 524.14,
+      "t": 252.99,
+      "r": 558.34,
+      "b": 241.26,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Up to 5.0 Hours**",
+      "l": 611.63,
+      "t": 251.42,
+      "r": 668.1,
+      "b": 240.08,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "DRIVESYSTEM",
+      "l": 13.12,
+      "t": 244.78,
+      "r": 69.2,
+      "b": 233.83,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "DRIVESYSTEM",
+      "l": 267.64,
+      "t": 240.48,
+      "r": 323.71,
+      "b": 229.14,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Power:",
+      "l": 14.71,
+      "t": 234.22,
+      "r": 40.17,
+      "b": 224.45,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "0.75hp - All Gear/ Sealed",
+      "l": 102.2,
+      "t": 233.44,
+      "r": 183.33,
+      "b": 222.1,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "DRIVE SYSTEM",
+      "l": 522.95,
+      "t": 235.39,
+      "r": 578.63,
+      "b": 224.45,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Reverse Speed:",
+      "l": 13.12,
+      "t": 207.24,
+      "r": 66.41,
+      "b": 195.52,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "SOLUTION/RECOVERYSYSTEMS",
+      "l": 13.52,
+      "t": 198.25,
+      "r": 114.93,
+      "b": 186.92,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Scrubbing Speed:",
+      "l": 13.92,
+      "t": 216.63,
+      "r": 72.78,
+      "b": 204.9,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Forward Speed:",
+      "l": 14.32,
+      "t": 226.4,
+      "r": 66.02,
+      "b": 214.28,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "0-130ft/min/0-1.5mph",
+      "l": 101.41,
+      "t": 206.07,
+      "r": 184.13,
+      "b": 193.56,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "0-184ft/min/0-2mph",
+      "l": 101.81,
+      "t": 214.67,
+      "r": 180.15,
+      "b": 203.34,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "0-230tt/min/0-2.6mph",
+      "l": 102.2,
+      "t": 224.45,
+      "r": 185.72,
+      "b": 212.33,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "wn/0-3kmh",
+      "l": 199.64,
+      "t": 210.76,
+      "r": 232.25,
+      "b": 202.94,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "SOLUTION/RECOVERY SYSTEMS",
+      "l": 267.64,
+      "t": 193.17,
+      "r": 369.05,
+      "b": 182.62,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Forward Speed:",
+      "l": 268.04,
+      "t": 221.71,
+      "r": 320.53,
+      "b": 209.98,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Reverse Speed:",
+      "l": 268.04,
+      "t": 202.55,
+      "r": 320.53,
+      "b": 191.22,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Scrubbing Speed:",
+      "l": 268.83,
+      "t": 211.15,
+      "r": 326.89,
+      "b": 200.6,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Powen:",
+      "l": 269.23,
+      "t": 229.53,
+      "r": 294.28,
+      "b": 219.75,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "0-229ft/min/0-2.6mph",
+      "l": 355.92,
+      "t": 210.76,
+      "r": 441.03,
+      "b": 198.25,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "0-202ft/min/0-2.3mph",
+      "l": 356.32,
+      "t": 200.99,
+      "r": 439.84,
+      "b": 189.26,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "0.75hp - All Gear /Sealed",
+      "l": 356.72,
+      "t": 229.14,
+      "r": 437.85,
+      "b": 217.02,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "0-290ft/min/0-3.3mph",
+      "l": 356.72,
+      "t": 219.75,
+      "r": 440.23,
+      "b": 208.03,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "-70.m/s/0-4km/tl",
+      "l": 442.62,
+      "t": 206.85,
+      "r": 493.52,
+      "b": 197.86,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Reverse Speed:",
+      "l": 522.95,
+      "t": 198.25,
+      "r": 575.05,
+      "b": 186.92,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Power:",
+      "l": 523.35,
+      "t": 225.62,
+      "r": 549.6,
+      "b": 214.67,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Scrubbing Speed:",
+      "l": 523.35,
+      "t": 207.24,
+      "r": 581.81,
+      "b": 195.91,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Forward Speed:",
+      "l": 523.75,
+      "t": 217.41,
+      "r": 575.45,
+      "b": 205.29,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "0-229ft/min/0-2.6mph0-70m/0m/",
+      "l": 610.44,
+      "t": 205.68,
+      "r": 748.44,
+      "b": 192.78,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "0-202ft/min/0-2.3mph",
+      "l": 610.44,
+      "t": 196.69,
+      "r": 694.75,
+      "b": 184.57,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "0-290ft/min/0-3.3mph",
+      "l": 610.84,
+      "t": 215.06,
+      "r": 695.15,
+      "b": 203.73,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "0.75hp - All Gear / Sealed  on",
+      "l": 611.24,
+      "t": 224.45,
+      "r": 716.22,
+      "b": 212.33,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "GENERAL",
+      "l": 11.53,
+      "t": 107.16,
+      "r": 48.91,
+      "b": 96.61,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Drain Saver:",
+      "l": 11.93,
+      "t": 134.53,
+      "r": 53.69,
+      "b": 122.8,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Vacuum Power",
+      "l": 12.33,
+      "t": 124.76,
+      "r": 62.44,
+      "b": 113.42,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "(Water Lift/ Airflow):",
+      "l": 12.33,
+      "t": 116.55,
+      "r": 70.39,
+      "b": 104.82,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Recovery Tank Capacity:",
+      "l": 13.12,
+      "t": 170.5,
+      "r": 92.66,
+      "b": 158.38,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Demisting Chamber:",
+      "l": 13.12,
+      "t": 143.52,
+      "r": 79.14,
+      "b": 131.79,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Solution Flow / Filter:",
+      "l": 13.52,
+      "t": 179.88,
+      "r": 82.72,
+      "b": 168.15,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Small Tank Capacity:",
+      "l": 13.52,
+      "t": 161.11,
+      "r": 79.93,
+      "b": 148.6,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Solution Tank Capacity:",
+      "l": 13.92,
+      "t": 189.26,
+      "r": 89.88,
+      "b": 177.14,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "0.8 hp/3Stage/5.7\u00b00",
+      "l": 100.22,
+      "t": 123.19,
+      "r": 176.57,
+      "b": 111.07,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "68\u00b0/72cfm(r3om/2om)",
+      "l": 100.22,
+      "t": 115.37,
+      "r": 171.8,
+      "b": 102.86,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "N/A",
+      "l": 100.61,
+      "t": 158.77,
+      "r": 116.92,
+      "b": 148.21,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "1.25 Gallons (i",
+      "l": 100.61,
+      "t": 141.96,
+      "r": 162.25,
+      "b": 130.23,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "30 cubic inches",
+      "l": 100.61,
+      "t": 132.57,
+      "r": 151.91,
+      "b": 121.63,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "13 Gallons- w/ Graduated Site Tube",
+      "l": 101.01,
+      "t": 187.31,
+      "r": 232.64,
+      "b": 174.8,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "15 Gallons-1.5\u00b0  Drain Hose",
+      "l": 101.01,
+      "t": 168.93,
+      "r": 216.74,
+      "b": 156.42,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "0-0.5 GPM/Stainless Inline",
+      "l": 101.41,
+      "t": 178.31,
+      "r": 192.08,
+      "b": 166.59,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "GENERAL",
+      "l": 266.05,
+      "t": 102.86,
+      "r": 302.64,
+      "b": 92.31,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Demisting Chamber:",
+      "l": 266.84,
+      "t": 139.61,
+      "r": 334.05,
+      "b": 126.71,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Drain Saver:",
+      "l": 267.24,
+      "t": 129.06,
+      "r": 308.2,
+      "b": 118.5,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Vacuum Power",
+      "l": 267.24,
+      "t": 120.06,
+      "r": 316.16,
+      "b": 108.34,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "(Water Lift/ Airflow):",
+      "l": 267.24,
+      "t": 111.07,
+      "r": 324.11,
+      "b": 100.91,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Small Tank Capacity:",
+      "l": 267.64,
+      "t": 156.03,
+      "r": 334.45,
+      "b": 144.3,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Solution Flow / Filter:",
+      "l": 268.04,
+      "t": 175.19,
+      "r": 336.84,
+      "b": 163.85,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Tank Solution Capacity:",
+      "l": 268.43,
+      "t": 184.57,
+      "r": 343.99,
+      "b": 172.45,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Tank Recovery Capacity:",
+      "l": 268.43,
+      "t": 165.8,
+      "r": 347.18,
+      "b": 153.69,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "0.8 hp/3Stage/5.7\u00b0",
+      "l": 354.33,
+      "t": 118.5,
+      "r": 425.12,
+      "b": 106.77,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "68\u00b0/72 cfm(730m/20m)",
+      "l": 354.33,
+      "t": 110.68,
+      "r": 426.31,
+      "b": 98.56,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "30 cubic inches",
+      "l": 354.73,
+      "t": 127.88,
+      "r": 406.83,
+      "b": 116.94,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "1.25 Gallons (c/itong)",
+      "l": 355.13,
+      "t": 137.66,
+      "r": 415.97,
+      "b": 125.54,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "21 Gallons - w/ Graduated Site Tube",
+      "l": 355.53,
+      "t": 183.01,
+      "r": 486.76,
+      "b": 170.5,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "0-0.7GPM/Stainless Inline",
+      "l": 355.53,
+      "t": 174.01,
+      "r": 446.2,
+      "b": 161.9,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "23 Gallons-1.5\u00b0 0 Drain Hose",
+      "l": 355.53,
+      "t": 164.24,
+      "r": 468.07,
+      "b": 151.73,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "16 Gal",
+      "l": 355.92,
+      "t": 154.08,
+      "r": 378.59,
+      "b": 144.3,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Recovery",
+      "l": 394.9,
+      "t": 145.48,
+      "r": 427.11,
+      "b": 134.92,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Solution",
+      "l": 395.69,
+      "t": 153.69,
+      "r": 425.12,
+      "b": 143.13,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "(580 woh)",
+      "l": 420.75,
+      "t": 116.15,
+      "r": 446.99,
+      "b": 107.16,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Drain Saver:",
+      "l": 521.36,
+      "t": 125.15,
+      "r": 563.12,
+      "b": 113.81,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Demisting Chamben:",
+      "l": 521.76,
+      "t": 134.14,
+      "r": 588.17,
+      "b": 122.8,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "(Water Lit / Airflow):",
+      "l": 521.76,
+      "t": 106.77,
+      "r": 578.63,
+      "b": 96.22,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "SOLUTION/RECOVERYSYSTEMS",
+      "l": 522.16,
+      "t": 188.87,
+      "r": 623.96,
+      "b": 177.53,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Small Tank Capacity:",
+      "l": 522.16,
+      "t": 151.34,
+      "r": 589.36,
+      "b": 139.61,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Vacuum Power",
+      "l": 522.16,
+      "t": 115.76,
+      "r": 570.67,
+      "b": 104.04,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Solution Flow /Filter:",
+      "l": 522.55,
+      "t": 170.89,
+      "r": 591.75,
+      "b": 159.16,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Tank Recovery Capacity:",
+      "l": 522.95,
+      "t": 161.11,
+      "r": 602.09,
+      "b": 148.99,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Tank Solution Capacity:",
+      "l": 523.35,
+      "t": 179.88,
+      "r": 598.91,
+      "b": 167.76,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "0.8 hp/3 Stage /5.7\"(s u)",
+      "l": 608.85,
+      "t": 113.81,
+      "r": 702.31,
+      "b": 101.69,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "68\u00b0/72 cfm (73om/2cml",
+      "l": 608.85,
+      "t": 105.99,
+      "r": 681.23,
+      "b": 93.87,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "1.25 Gallons(47on",
+      "l": 609.65,
+      "t": 132.57,
+      "r": 670.49,
+      "b": 121.24,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "30 cubic inches",
+      "l": 609.65,
+      "t": 123.19,
+      "r": 661.34,
+      "b": 112.25,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "35 Gallons-w/ Graduated Site Tube",
+      "l": 610.04,
+      "t": 178.31,
+      "r": 744.86,
+      "b": 165.8,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "37 Gallons -1.5\"@ Drain Hose",
+      "l": 610.04,
+      "t": 159.55,
+      "r": 724.58,
+      "b": 147.43,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "0-1.0 GPM/Stainless Inline",
+      "l": 610.44,
+      "t": 169.32,
+      "r": 700.32,
+      "b": 157.2,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "32 Gal",
+      "l": 610.44,
+      "t": 149.39,
+      "r": 644.64,
+      "b": 140.0,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "33 Gal",
+      "l": 610.44,
+      "t": 142.35,
+      "r": 633.9,
+      "b": 131.79,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Solution",
+      "l": 651.8,
+      "t": 148.21,
+      "r": 681.23,
+      "b": 138.83,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Recovery",
+      "l": 652.2,
+      "t": 141.57,
+      "r": 685.21,
+      "b": 129.84,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Productivity -Theoretical",
+      "l": 12.33,
+      "t": 97.78,
+      "r": 95.05,
+      "b": 85.66,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Up to 26,000 sqft/hr",
+      "l": 99.02,
+      "t": 96.22,
+      "r": 195.66,
+      "b": 83.71,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Productivity -Theoretical",
+      "l": 266.45,
+      "t": 93.09,
+      "r": 349.16,
+      "b": 80.97,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Productivity-Theoretical",
+      "l": 520.96,
+      "t": 88.4,
+      "r": 604.08,
+      "b": 76.67,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "GENERAL",
+      "l": 521.36,
+      "t": 97.39,
+      "r": 557.15,
+      "b": 88.01,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Up to 33,932 sqft/hr12",
+      "l": 608.45,
+      "t": 86.83,
+      "r": 703.5,
+      "b": 74.71,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Productivity-Practical:",
+      "l": 11.53,
+      "t": 80.19,
+      "r": 86.3,
+      "b": 68.85,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "ased o ol 5A t Ceong Times",
+      "l": 13.12,
+      "t": 70.41,
+      "r": 87.09,
+      "b": 60.64,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Up to 12,059 sqft/hr",
+      "l": 99.42,
+      "t": 78.62,
+      "r": 170.61,
+      "b": 67.29,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Productivity-Practical:",
+      "l": 266.05,
+      "t": 75.89,
+      "r": 340.81,
+      "b": 63.77,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Up to 13,454 sqft /hr 250 s",
+      "l": 353.54,
+      "t": 74.32,
+      "r": 438.24,
+      "b": 62.2,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Productivity-Practical:",
+      "l": 520.56,
+      "t": 71.59,
+      "r": 595.33,
+      "b": 59.47,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Up to 15,784 sqft /hr",
+      "l": 608.45,
+      "t": 69.63,
+      "r": 674.87,
+      "b": 57.9,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "l o l A 2 eg Tes",
+      "l": 267.64,
+      "t": 65.33,
+      "r": 341.21,
+      "b": 55.95,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "\u53e3",
+      "l": 114.93,
+      "t": 32.49,
+      "r": 129.25,
+      "b": 21.16,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "A",
+      "l": 250.54,
+      "t": 29.76,
+      "r": 262.07,
+      "b": 19.2,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "Specifications",
+      "l": 628.34,
+      "t": 616.17,
+      "r": 782.24,
+      "b": 591.93,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "FC-WALK-BEHIND",
+      "l": 20.68,
+      "t": 33.27,
+      "r": 73.97,
+      "b": 21.94,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    },
+    {
+      "text": "n",
+      "l": 751.22,
+      "t": 19.2,
+      "r": 759.97,
+      "b": 10.99,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 11
+    }
+  ]
+}

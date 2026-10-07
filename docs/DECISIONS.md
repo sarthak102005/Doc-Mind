@@ -102,3 +102,14 @@ This document tracks all overrides where Addendum A2 / A3 supersedes `docs/DocMi
 - **Context:** On Page 4 (cutaway diagram), Docling's `export_to_markdown()` discarded all 21 component labels as floating elements, reducing the page to 65 bytes.
 - **Decision:** Pipeline ingests all AST text nodes (`doc.export_to_dict()["texts"]`) with bounding boxes and spatial coordinates, never relying solely on flattened markdown exports.
 
+### D-012: Explicit Hybrid Ingestion Semantics & Geometric Image Union
+- **Status:** Approved (Stage 1 / Stage 2 Refinement Pass)
+- **Context:** Simple summation of image bounding boxes inflated raster coverage to 1.000 on multi-image digital pages, obscuring clean native text layers.
+- **Decision:**
+  - Page image coverage is computed via exact geometric union of image rectangles clipped to the page boundary (1D sweep-line algorithm).
+  - The `hybrid` ingestion route is explicitly defined:
+    1. High-quality native text layer is extracted directly as primary text stream via `WordBox`.
+    2. Hybrid does NOT mean "OCR every image region". Decorative full-page backgrounds (e.g. image area ratio > 0.95 with zero text) are skipped.
+    3. Region OCR runs selectively only for informative figure regions that pass figure triage (diagram labels, callouts, spec badges) and is capped within a per-document budget (`settings.max_region_ocr_per_doc = 50`).
+
+

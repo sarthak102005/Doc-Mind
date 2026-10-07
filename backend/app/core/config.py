@@ -192,6 +192,8 @@ class Settings(BaseSettings):
     profile_image_area_hybrid_threshold: float = Field(default=0.35, ge=0.0, le=1.0)
     profile_text_quality_threshold: float = Field(default=0.65, ge=0.0, le=1.0)
     complex_page_image_ratio: float = Field(default=0.6, ge=0.0, le=1.0)
+    max_region_ocr_per_doc: int = Field(default=50, ge=1)
+    skip_decorative_backgrounds: bool = True
     doctor_ram_headroom_mb: int = 1024
 
     # Populated by the model validator below; not read from a single env var.

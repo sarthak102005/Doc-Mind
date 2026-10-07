@@ -1,200 +1,206 @@
-[
-  {
-    "text": "View Inside",
-    "l": 22.25,
-    "t": 629.04,
-    "r": 141.68,
-    "b": 604.73,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 4
-  },
-  {
-    "text": "Recovery Lid",
-    "l": 242.02,
-    "t": 555.74,
-    "r": 311.85,
-    "b": 538.65,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 4
-  },
-  {
-    "text": "6' Remote Solution Fill Hose",
-    "l": 50.1,
-    "t": 528.01,
-    "r": 193.18,
-    "b": 511.68,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 4
-  },
-  {
-    "text": "Drain Saver Basket",
-    "l": 542.69,
-    "t": 502.19,
-    "r": 641.13,
-    "b": 488.13,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 4
-  },
-  {
-    "text": "Stainless Vac Screen",
-    "l": 422.5,
-    "t": 493.07,
-    "r": 532.0,
-    "b": 477.5,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 4
-  },
-  {
-    "text": "Central Command",
-    "l": 668.98,
-    "t": 475.6,
-    "r": 763.22,
-    "b": 461.17,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 4
-  },
-  {
-    "text": "Stainless Fill Screen",
-    "l": 48.58,
-    "t": 444.84,
-    "r": 154.27,
-    "b": 428.88,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 4
-  },
-  {
-    "text": "Blow By Vac Muffler",
-    "l": 47.43,
-    "t": 376.09,
-    "r": 150.45,
-    "b": 360.52,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 4
-  },
-  {
-    "text": "Foam",
-    "l": 499.19,
-    "t": 367.35,
-    "r": 536.58,
-    "b": 352.54,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 4
-  },
-  {
-    "text": "Clean Solution",
-    "l": 244.69,
-    "t": 360.14,
-    "r": 336.27,
-    "b": 345.33,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 4
-  },
-  {
-    "text": "Dirty Recovery",
-    "l": 465.99,
-    "t": 336.21,
-    "r": 558.33,
-    "b": 319.5,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 4
-  },
-  {
-    "text": "Sound Deadening Foam",
-    "l": 47.05,
-    "t": 315.7,
-    "r": 171.05,
-    "b": 298.61,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 4
-  },
-  {
-    "text": "Tall Rollers",
-    "l": 45.52,
-    "t": 256.83,
-    "r": 103.9,
-    "b": 241.26,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 4
-  },
-  {
-    "text": "Patented Vac Bandeau",
-    "l": 44.38,
-    "t": 178.21,
-    "r": 161.52,
-    "b": 163.02,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 4
-  },
-  {
-    "text": "Poly Battery Box",
-    "l": 614.04,
-    "t": 160.36,
-    "r": 699.89,
-    "b": 144.79,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 4
-  },
-  {
-    "text": "Stainless Scrub Deck",
-    "l": 42.47,
-    "t": 90.85,
-    "r": 153.89,
-    "b": 76.04,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 4
-  },
-  {
-    "text": "Stainless Breakaway",
-    "l": 627.01,
-    "t": 69.21,
-    "r": 733.08,
-    "b": 52.11,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 4
-  },
-  {
-    "text": "Bandeau Unloader Valve",
-    "l": 266.44,
-    "t": 62.37,
-    "r": 390.83,
-    "b": 46.8,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 4
-  },
-  {
-    "text": "HD Solid Tires",
-    "l": 419.06,
-    "t": 60.09,
-    "r": 493.47,
-    "b": 45.28,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 4
-  },
-  {
-    "text": "Steel Frame",
-    "l": 520.18,
-    "t": 58.19,
-    "r": 583.51,
-    "b": 43.76,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 4
-  },
-  {
-    "text": "Squeegee",
-    "l": 626.63,
-    "t": 55.15,
-    "r": 682.34,
-    "b": 39.2,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 4
-  },
-  {
-    "text": "FC-WALK-BEHIND",
-    "l": 21.1,
-    "t": 32.36,
-    "r": 73.76,
-    "b": 22.49,
-    "coord_origin": "BOTTOMLEFT",
-    "page": 4
-  }
-]
+{
+  "page_width": 792.0,
+  "page_height": 633.6,
+  "unit": "pt",
+  "coord_origin": "TOPLEFT",
+  "words": [
+    {
+      "text": "View Inside",
+      "l": 22.25,
+      "t": 629.04,
+      "r": 141.68,
+      "b": 604.73,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 4
+    },
+    {
+      "text": "Recovery Lid",
+      "l": 242.02,
+      "t": 555.74,
+      "r": 311.85,
+      "b": 538.65,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 4
+    },
+    {
+      "text": "6' Remote Solution Fill Hose",
+      "l": 50.1,
+      "t": 528.01,
+      "r": 193.18,
+      "b": 511.68,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 4
+    },
+    {
+      "text": "Drain Saver Basket",
+      "l": 542.69,
+      "t": 502.19,
+      "r": 641.13,
+      "b": 488.13,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 4
+    },
+    {
+      "text": "Stainless Vac Screen",
+      "l": 422.5,
+      "t": 493.07,
+      "r": 532.0,
+      "b": 477.5,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 4
+    },
+    {
+      "text": "Central Command",
+      "l": 668.98,
+      "t": 475.6,
+      "r": 763.22,
+      "b": 461.17,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 4
+    },
+    {
+      "text": "Stainless Fill Screen",
+      "l": 48.58,
+      "t": 444.84,
+      "r": 154.27,
+      "b": 428.88,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 4
+    },
+    {
+      "text": "Blow By Vac Muffler",
+      "l": 47.43,
+      "t": 376.09,
+      "r": 150.45,
+      "b": 360.52,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 4
+    },
+    {
+      "text": "Foam",
+      "l": 499.19,
+      "t": 367.35,
+      "r": 536.58,
+      "b": 352.54,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 4
+    },
+    {
+      "text": "Clean Solution",
+      "l": 244.69,
+      "t": 360.14,
+      "r": 336.27,
+      "b": 345.33,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 4
+    },
+    {
+      "text": "Dirty Recovery",
+      "l": 465.99,
+      "t": 336.21,
+      "r": 558.33,
+      "b": 319.5,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 4
+    },
+    {
+      "text": "Sound Deadening Foam",
+      "l": 47.05,
+      "t": 315.7,
+      "r": 171.05,
+      "b": 298.61,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 4
+    },
+    {
+      "text": "Tall Rollers",
+      "l": 45.52,
+      "t": 256.83,
+      "r": 103.9,
+      "b": 241.26,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 4
+    },
+    {
+      "text": "Patented Vac Bandeau",
+      "l": 44.38,
+      "t": 178.21,
+      "r": 161.52,
+      "b": 163.02,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 4
+    },
+    {
+      "text": "Poly Battery Box",
+      "l": 614.04,
+      "t": 160.36,
+      "r": 699.89,
+      "b": 144.79,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 4
+    },
+    {
+      "text": "Stainless Scrub Deck",
+      "l": 42.47,
+      "t": 90.85,
+      "r": 153.89,
+      "b": 76.04,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 4
+    },
+    {
+      "text": "Stainless Breakaway",
+      "l": 627.01,
+      "t": 69.21,
+      "r": 733.08,
+      "b": 52.11,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 4
+    },
+    {
+      "text": "Bandeau Unloader Valve",
+      "l": 266.44,
+      "t": 62.37,
+      "r": 390.83,
+      "b": 46.8,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 4
+    },
+    {
+      "text": "HD Solid Tires",
+      "l": 419.06,
+      "t": 60.09,
+      "r": 493.47,
+      "b": 45.28,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 4
+    },
+    {
+      "text": "Steel Frame",
+      "l": 520.18,
+      "t": 58.19,
+      "r": 583.51,
+      "b": 43.76,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 4
+    },
+    {
+      "text": "Squeegee",
+      "l": 626.63,
+      "t": 55.15,
+      "r": 682.34,
+      "b": 39.2,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 4
+    },
+    {
+      "text": "FC-WALK-BEHIND",
+      "l": 21.1,
+      "t": 32.36,
+      "r": 73.76,
+      "b": 22.49,
+      "coord_origin": "BOTTOMLEFT",
+      "page": 4
+    }
+  ]
+}

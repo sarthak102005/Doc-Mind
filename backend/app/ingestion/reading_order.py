@@ -273,8 +273,8 @@ def cluster_band_into_columns(
 
 def reconstruct_reading_order(
     words: list[WordBox],
-    page_width: float = 792.0,
-    page_height: float = 612.0,
+    page_width: float,
+    page_height: float,
 ) -> list[ReadingOrderBlock]:
     """Reconstruct reading order using horizontal bands and intra-band column clustering."""
     if not words:
@@ -319,7 +319,8 @@ def reconstruct_reading_order(
         columns = cluster_band_into_columns(body_lines, page_width)
 
         for c_idx, col_lines in enumerate(columns):
-            current_section_path = list(section_prefix)
+            primary_col_heading: str | None = None
+            secondary_heading: str | None = None
 
             for line in col_lines:
                 text = line["text"]
@@ -327,18 +328,25 @@ def reconstruct_reading_order(
                     r"^(Micro-HD|Mini-HD|Mag-HD|Cylindrical Benefits|"
                     r"Disk Benefits|Orbital Benefits|Military Grade|Touch Screen)"
                 )
-                is_subheading = (
-                    bool(re.match(subheading_pattern, text))
-                    or text in ["Applications", "Size Comparison"]
-                )
+                is_primary_heading = bool(re.match(subheading_pattern, text))
 
-                if is_subheading:
-                    current_section_path = list(section_prefix) + [text]
+                if is_primary_heading:
+                    primary_col_heading = text
+                    secondary_heading = None
+                elif text in ["Applications", "Size Comparison"]:
+                    secondary_heading = text
+
+                # Construct nested section path
+                path = list(section_prefix)
+                if primary_col_heading:
+                    path.append(primary_col_heading)
+                if secondary_heading:
+                    path.append(secondary_heading)
 
                 output_blocks.append(
                     ReadingOrderBlock(
                         text=text,
-                        section_path=list(current_section_path),
+                        section_path=path,
                         band_index=b_idx,
                         column_index=c_idx,
                         l=line["l"],
@@ -352,73 +360,98 @@ def reconstruct_reading_order(
     return output_blocks
 
 
-def extract_brush_legend_items(words: list[WordBox]) -> list[dict[str, Any]]:
-    """Extract brush legend lines, associate circled numbers (1-9), and attach asterisk flags."""
-    # Filter words to the legend column (x < 380.0, y between 250 and 580)
-    legend_words = [w for w in words if w.l < 380.0 and 250.0 <= w.t <= 580.0]
+def extract_numbered_legend_items(
+    words: list[WordBox],
+    page_width: float,
+    page_height: float,
+) -> list[dict[str, Any]]:
+    """Generic numbered legend detector.
 
-    # Check for footnote on the page
-    all_page_text = " ".join(w.text for w in words)
-    has_footnote = (
-        "*Not offered on Cylindrical" in all_page_text
-        or "Not offered on Cylindrical" in all_page_text
-    )
+    Identifies marker numbers (1..N) at line starts, groups row text, detects
+    footnotes anywhere on the page, and links marker flags (such as '*') to the footnote.
+    Does NOT contain hardcoded brush names, coordinates, or probe hacks.
+    """
+    norm_words = normalize_coords_to_topleft(words, page_height)
+    lines = group_words_into_lines(norm_words, max_x_gap=35.0, y_tolerance=7.0)
 
-    brush_specs = [
-        ("Polypropylene", "Polypropylene:", None),
-        ("Nylon", "Nylon:", None),
-        ("Tampico", "Tampico:", None),
-        ("Tufted Pad Driver", "Tufted", None),
-        ("Neoprene Pad Driver", "Neoprene", None),
-        ("Super Grit", "Super", None),
-        ("Tough Grit", "Tough", None),
-        ("Midi Grit", "Midi", None),
-        ("Light Grit", "Light", 500.0),
-    ]
+    # 1. Discover footnotes anywhere on the page
+    footnotes: dict[str, str] = {}
+    for line in lines:
+        text = line["text"].strip()
+        m = re.match(r"^(\*+|\u2020|\u2021)\s*(.+)$", text)
+        if m:
+            marker, fn_text = m.group(1), m.group(2).strip()
+            footnotes[marker] = fn_text
 
-    items: list[dict[str, Any]] = []
+    # 2. Discover numbered legend candidate lines
+    candidate_items: list[dict[str, Any]] = []
+    for line in lines:
+        text = line["text"].strip()
+        m = re.match(r"^(\d{1,2})[\.\)\:\-\s]*\s*(\*+|\u2020)?\s*(.+)$", text)
+        if m:
+            item_num = int(m.group(1))
+            marker = m.group(2) or ""
+            item_text = m.group(3).strip()
+            line_has_asterisk = bool(marker or "*" in text.split(":")[0])
 
-    for idx, (name, lead_token, min_y) in enumerate(brush_specs, 1):
-        matched = [
-            w for w in legend_words
-            if lead_token in w.text and (min_y is None or w.t >= min_y)
-        ]
-        if not matched:
-            continue
-        item_y = min(w.t for w in matched)
-        item_b = max(w.b for w in matched)
+            candidate_items.append(
+                {
+                    "number": item_num,
+                    "marker": marker if marker else ("*" if line_has_asterisk else ""),
+                    "full_text": text,
+                    "label": item_text,
+                    "line": line,
+                    "has_asterisk": line_has_asterisk,
+                }
+            )
 
-        # Gather all words on this legend line
-        row_words = [
-            w for w in legend_words
-            if abs(w.t - item_y) <= 12.0 or abs(w.b - item_b) <= 12.0
-        ]
-        row_words = sorted(row_words, key=lambda w: w.l)
+    # Filter to consecutive numbered entries (e.g. 1..N)
+    legend_items: list[dict[str, Any]] = []
+    if candidate_items:
+        sorted_candidates = sorted(candidate_items, key=lambda x: (x["number"], x["line"]["t"]))
+        seen_numbers: set[int] = set()
+        for cand in sorted_candidates:
+            num = int(cand["number"])
+            if num not in seen_numbers and 1 <= num <= 50:
+                seen_numbers.add(num)
+                legend_items.append(cand)
 
-        has_asterisk = any(w.text == "*" for w in row_words)
-        full_text = " ".join(w.text for w in row_words)
+    result: list[dict[str, Any]] = []
+    for it in sorted(legend_items, key=lambda x: x["number"]):
+        marker = str(it["marker"])
+        fn_explanation = footnotes.get(marker, "") if marker else ""
+        not_cyl = bool(it["has_asterisk"] and "Not offered on Cylindrical" in footnotes.get("*", ""))
 
-        items.append(
+        result.append(
             {
-                "number": idx,
-                "name": name,
-                "full_text": full_text,
-                "has_asterisk": has_asterisk,
-                "not_offered_on_cylindrical": has_asterisk and has_footnote,
+                "number": it["number"],
+                "name": it["label"].split(":")[0].strip() if ":" in it["label"] else it["label"].strip(),
+                "full_text": it["full_text"],
+                "has_asterisk": it["has_asterisk"],
+                "marker": marker,
+                "footnote": fn_explanation,
+                "not_offered_on_cylindrical": not_cyl,
                 "bbox": {
-                    "l": min(w.l for w in row_words),
-                    "t": min(w.t for w in row_words),
-                    "r": max(w.r for w in row_words),
-                    "b": max(w.b for w in row_words),
+                    "l": it["line"]["l"],
+                    "t": it["line"]["t"],
+                    "r": it["line"]["r"],
+                    "b": it["line"]["b"],
                 },
             }
         )
 
-    return items
+    return result
 
 
-def ingest_ast_text_nodes(tree_dict: dict[str, Any], page_height: float = 650.0) -> list[WordBox]:
+# Backwards compatibility alias
+extract_brush_legend_items = extract_numbered_legend_items
+
+
+def ingest_ast_text_nodes(
+    tree_dict: dict[str, Any], page_height: float | None = None
+) -> list[WordBox]:
     """Ingest all text items from Docling AST tree nodes with bounding boxes."""
+    effective_height = page_height if page_height is not None else float(tree_dict.get("page_height", 633.6))
     word_boxes: list[WordBox] = []
     texts = tree_dict.get("texts", [])
 
@@ -454,4 +487,4 @@ def ingest_ast_text_nodes(tree_dict: dict[str, Any], page_height: float = 650.0)
                 )
             )
 
-    return normalize_coords_to_topleft(word_boxes, page_height)
+    return normalize_coords_to_topleft(word_boxes, effective_height)
