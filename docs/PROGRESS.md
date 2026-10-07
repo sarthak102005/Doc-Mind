@@ -52,14 +52,16 @@
 - [x] Verification: 19/19 backend tests passing (`tests/test_phase1.py` covering auth, validation, isolation, and lifecycle with `benchmark/sample_1.pdf`), Ruff clean, Mypy clean, Vite React production build passing.
 
 ### Phase 2: Document Ingestion & Multimodal Extraction Pipeline
-- [ ] Ground-truth inspection: run Docling on `benchmark/sample_1.pdf` and dump raw trees to `benchmark/debug/`.
-- [ ] Page profiling (`backend/app/ingestion/profile.py`): text character density, image ratio, scanned classification.
-- [ ] OCR routing via ONNX Runtime & RapidOCR on image regions and scanned pages.
-- [ ] Reading order reconstruction using bounding-box layout clustering (Page 2 unit test).
-- [ ] Boilerplate detection: header/footer normalization across pages and metadata extraction.
-- [ ] Table extraction: spatial-gap segmentation (Page 11 3-table separation) & `table_records` population.
-- [ ] Figure triage & classification: diagrams, labelled renders, UI screenshots, decorative.
-- [ ] Content caching by SHA-256 hash.
+- [x] Ground-truth inspection: run Docling on benchmark PDFs and dump raw trees to `benchmark/debug/`.
+- [x] Page profiling (`backend/app/ingestion/profile.py`): text character density, geometric image union ratio, text layer quality score, routing table.
+- [x] OCR routing via ONNX Runtime & RapidOCR on image regions and scanned pages.
+- [x] Reading order reconstruction using bounding-box horizontal banding and column clustering (Page 2 unit test).
+- [x] Boilerplate detection: relative header/footer margins, digit normalization, multi-page fuzzy recurrence (`backend/app/ingestion/boilerplate.py`).
+- [x] Table extraction: spatial X-gap segmentation (Page 11 3-table separation, perturbation invariance D-010) & table OCR fallback (`backend/app/ingestion/tables.py`, `table_ocr_fallback.py`).
+- [x] Figure triage & MinIO crop storage (`backend/app/ingestion/figures.py`).
+- [x] Ingestion pipeline & worker integration (`backend/app/ingestion/pipeline.py`, `backend/app/worker/tasks.py`).
+- [x] OCR accuracy report & evaluation metrics (`backend/eval/report_ocr_accuracy.py`, `backend/eval/metrics/ocr.py`).
+- [x] Content caching by SHA-256 hash.
 
 ### Phase 3: Indexing & Hybrid Representation
 - [ ] Hierarchy-aware & card-based layout chunking with running headings.
