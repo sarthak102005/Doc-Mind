@@ -129,4 +129,21 @@ This document tracks all overrides where Addendum A2 / A3 supersedes `docs/DocMi
     - Multi-page boilerplate stripping (< 0.01 s per page).
   - **Important Scope Limitation:** The custom dynamic X-gap projection and band ordering path is currently validated on **only one document family** (the FactoryCat walk-behind scrubber brochure/manual family). Further generalization to diverse document geometries is tested via synthetic multi-column/ruled layouts and benchmark suites.
 
-
+### D-014: Scanned Dense-Table OCR Limitation & Phase 6 Vision-Model Transcription Mitigation
+- **Status:** Approved & Planned (Evaluation Guarded)
+- **Context & Measured Limitation:**
+  - On dense specification pages with small font sizes and low contrast (e.g. Page 11 of scanned documents), raster-based OCR achieves:
+    - 150 DPI Scanned: 31.37% multiset numeric recall (61.87% set-membership recall).
+    - 250 DPI Scanned: 51.85% multiset numeric recall (74.07% set-membership recall).
+    - Page 4 cutaway callout CER: 6.44% on 150 DPI (target < 5.0%).
+  - General OCR engines (RapidOCR / PP-OCR) suffer from character fragmentation and cell boundary confusion on dense 6-8pt tabular text at 150-250 DPI, preventing reliable attainment of the >= 95% numeric recall done criterion purely through classical OCR.
+- **Mitigation & Strategy:**
+  1. **OCR Confidence Tracking & Guardrails:**
+     - Per-box OCR recognition scores are tracked on the unified `WordBox.confidence` field.
+     - Constituent word confidence is aggregated into `TableRecord.confidence`.
+     - Table rows with average confidence < 0.75 or containing any character box < 0.60 are explicitly flagged with `low_confidence = True`.
+  2. **Phase 6 Vision-Model Transcription:**
+     - In Phase 6 (Advanced Multimodal & Layout Understanding), candidate dense table zones flagged with `low_confidence` will be transcribed using a multimodal vision model (e.g., Gemini Flash / DocVQA).
+     - The vision-model structured transcription will be reconciled against the OCR stream via positional and alphanumeric agreement, lifting dense table numeric recall to the >= 95% production target without heavy CPU raster preprocessing.
+  3. **Regression Testing:**
+     - The >= 95% recall and < 5% CER targets are codified as `@pytest.mark.xfail` tests with exact current empirical metrics recorded in the failure reasons.

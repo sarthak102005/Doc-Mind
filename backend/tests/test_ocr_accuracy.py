@@ -124,12 +124,35 @@ def test_page_3_and_4_body_text_cer() -> None:
 
 
 @pytest.mark.unit
+@pytest.mark.xfail(
+    reason="Page 4 cutaway diagram callouts achieve 6.44% CER on 150 dpi scanned raster (target < 5.0%); planned for Phase 6 vision-model reconciliation."
+)
+def test_page_4_body_text_cer_target_five_percent() -> None:
+    """Target test: Page 4 body text CER under 5.0%."""
+    dig_path = FIXTURES_DIR / "wordboxes_sample_1_p4.json"
+    scan_path = FIXTURES_DIR / "wordboxes_sample_1_scanned_p4.json"
+    assert dig_path.exists() and scan_path.exists()
+
+    dig_data = json.loads(dig_path.read_text("utf-8"))
+    scan_data = json.loads(scan_path.read_text("utf-8"))
+
+    dig_blocks = reconstruct_reading_order([WordBox(**w) for w in dig_data["words"]], 792.0, 633.6)
+    scan_blocks = reconstruct_reading_order([WordBox(**w) for w in scan_data["words"]], 792.0, 633.6)
+
+    dig_lines = [clean_line_text(b.text) for b in dig_blocks if len(clean_line_text(b.text)) > 3]
+    scan_lines = [clean_line_text(b.text) for b in scan_blocks if len(clean_line_text(b.text)) > 3]
+
+    cer, _, _ = compute_aligned_cer(dig_lines, scan_lines)
+    assert cer < 0.05, f"Expected Page 4 CER < 0.05, got {cer:.4f}"
+
+
+@pytest.mark.unit
 def test_page_11_spec_numeric_recall() -> None:
     """Verify numeric recall on Page 11 and ensure key runtime specs are captured.
 
     Note on metrics: Under strict multiset Counter matching, repeated values across the
-    3 spec tables must match 1-to-1, yielding ~31.65% on the faint 150 dpi raster.
-    Set-membership matching on distinct numeric tokens yields > 70% (71.16%).
+    3 spec tables must match 1-to-1, yielding ~31.37% on the faint 150 dpi raster.
+    Set-membership matching on distinct numeric tokens yields > 60% (61.87%).
     """
     p11_dig_path = FIXTURES_DIR / "wordboxes_sample_1_p11.json"
     p11_scan_path = FIXTURES_DIR / "wordboxes_sample_1_scanned_p11.json"
@@ -156,3 +179,50 @@ def test_page_11_spec_numeric_recall() -> None:
     # Critical spec numbers must be recalled in the scanned OCR tokens
     for spec_val in ["2.5", "3.5", "5.0", "130", "210"]:
         assert spec_val in matched, f"Critical spec value {spec_val} should be recalled"
+
+
+@pytest.mark.unit
+@pytest.mark.xfail(
+    reason="Dense spec tables achieve 31.37% multiset recall on 150 dpi and 51.85% on 250 dpi (target >= 95.0%); planned for Phase 6 vision-model transcription."
+)
+def test_page_11_spec_numeric_recall_target_ninety_five_percent() -> None:
+    """Target test: Dense specification table numeric recall >= 95.0%."""
+    p11_dig_path = FIXTURES_DIR / "wordboxes_sample_1_p11.json"
+    p11_scan_path = FIXTURES_DIR / "wordboxes_sample_1_scanned_p11.json"
+    assert p11_dig_path.exists() and p11_scan_path.exists()
+
+    dig_text = " ".join(w["text"] for w in json.loads(p11_dig_path.read_text("utf-8"))["words"])
+    scan_text = " ".join(w["text"] for w in json.loads(p11_scan_path.read_text("utf-8"))["words"])
+
+    recall, _, _ = compute_numeric_token_recall(dig_text, scan_text)
+    assert recall >= 0.95, f"Expected numeric recall >= 0.95, got {recall:.4f}"
+
+
+@pytest.mark.unit
+def test_table_record_ocr_confidence_flagging() -> None:
+    """Verify that WordBox confidence is tracked and TableRecords below threshold are flagged as low_confidence."""
+    from app.ingestion.tables import parse_zone_records
+
+    # Low confidence OCR boxes
+    low_conf_words = [
+        WordBox(text="Run", l=10.0, t=10.0, r=30.0, b=20.0, confidence=0.45),
+        WordBox(text="Time:", l=32.0, t=10.0, r=60.0, b=20.0, confidence=0.55),
+        WordBox(text="2.5", l=65.0, t=10.0, r=80.0, b=20.0, confidence=0.50),
+        WordBox(text="hours", l=85.0, t=10.0, r=110.0, b=20.0, confidence=0.52),
+    ]
+    _, records = parse_zone_records(low_conf_words, entity="Micro-HD")
+    assert len(records) == 1
+    assert records[0].low_confidence is True
+    assert records[0].confidence < 0.60
+
+    # High confidence native boxes
+    high_conf_words = [
+        WordBox(text="Run", l=10.0, t=10.0, r=30.0, b=20.0, confidence=1.0),
+        WordBox(text="Time:", l=32.0, t=10.0, r=60.0, b=20.0, confidence=1.0),
+        WordBox(text="2.5", l=65.0, t=10.0, r=80.0, b=20.0, confidence=1.0),
+        WordBox(text="hours", l=85.0, t=10.0, r=110.0, b=20.0, confidence=1.0),
+    ]
+    _, high_records = parse_zone_records(high_conf_words, entity="Micro-HD")
+    assert len(high_records) == 1
+    assert high_records[0].low_confidence is False
+    assert high_records[0].confidence >= 0.95

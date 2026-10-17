@@ -32,6 +32,8 @@ class TableRecord(BaseModel):
     value: str
     unit_variants: dict[str, str] = Field(default_factory=dict)
     footnotes: list[str] = Field(default_factory=list)
+    confidence: float = Field(default=1.0, description="OCR confidence score")
+    low_confidence: bool = Field(default=False, description="Flagged true if confidence falls below threshold")
 
 
 class TableZone(BaseModel):
@@ -224,6 +226,12 @@ def parse_zone_records(
                     unit_variants["hours"] = m_h.group(1)
                     unit_variants["minutes"] = str(int(float(m_h.group(1)) * 60))
 
+            line_words = sorted_words
+            avg_conf = (
+                sum(getattr(w, "confidence", 1.0) for w in line_words) / len(line_words)
+            ) if line_words else 1.0
+            is_low_conf = avg_conf < 0.75 or any(getattr(w, "confidence", 1.0) < 0.60 for w in line_words)
+
             records.append(
                 TableRecord(
                     entity=entity,
@@ -232,6 +240,8 @@ def parse_zone_records(
                     value=val,
                     unit_variants=unit_variants,
                     footnotes=[],
+                    confidence=round(avg_conf, 3),
+                    low_confidence=is_low_conf,
                 )
             )
 

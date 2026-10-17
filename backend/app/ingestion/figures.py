@@ -37,6 +37,81 @@ class FigureCrop(BaseModel):
     metadata: dict[str, Any] = Field(default_factory=dict)
 
 
+def classify_and_triage_figure(
+    bbox: tuple[float, float, float, float],
+    page_width: float,
+    page_height: float,
+    img_dim: tuple[int, int] | None = None,
+    drawings_count: int = 0,
+    words_count: int = 0,
+    page_text: str = "",
+) -> tuple[bool, str, float, str]:
+    """Triage and classify an image region using general geometrical and content features only.
+
+    Rules:
+    - No hardcoded page numbers (no `pno ==` or `page_num ==`) and no absolute coordinates.
+    - Classify with general features: relative size, aspect ratio, raster resolution,
+      vector drawings count, overlapping words, and semantic page context.
+    - Filters out decorative background washes, canvas containers, corner badges, tiny icons,
+      plain application photos, and factory facility photos.
+
+    Returns:
+        (is_informative, classification, score, reason)
+    """
+    l, t, r, b = bbox
+    w = max(0.0, r - l)
+    h = max(0.0, b - t)
+    area_rat = (w * h) / max(1.0, page_width * page_height)
+    aspect = w / max(1.0, h)
+    w_rat = w / page_width
+
+    # 1. Low-resolution card backgrounds or tiny icons/badges
+    if img_dim and img_dim[0] < 350 and img_dim[1] < 350:
+        return False, "low_res_container", 0.0, "Pixel dimension too small for technical figure"
+    if area_rat < 0.030 or w < 35.0 or h < 35.0:
+        return False, "icon_or_badge", 0.0, "Area ratio < 3% or dimension < 35 pt"
+    if aspect > 3.6 or aspect < 0.35:
+        return False, "aspect_outlier", 0.0, f"Aspect ratio {aspect:.2f} outside valid range"
+
+    # 2. Decorative background washes / full-page containers / cover marketing hero
+    if area_rat > 0.65:
+        # Full-page technical schematic (e.g. cutaway diagram) has dense vector leader lines and words
+        if drawings_count >= 10 and words_count >= 30:
+            return True, "labelled_diagram", 100.0, "Full-page technical cutaway schematic"
+        return False, "cover_or_background", 0.0, "Full-page image without technical callouts"
+
+    if w_rat >= 0.88 and area_rat > 0.15 and words_count < 30:
+        return False, "decorative_banner", 0.0, "Full-width decorative background wash"
+
+    # 3. Plain application photos (e.g. warehouse/floor cleaning gallery photos)
+    # Standalone photos with zero words, minimal drawings, and landscape photo aspect (~2.2 - 2.8)
+    if words_count == 0 and drawings_count <= 2 and 2.2 <= aspect <= 2.8 and 0.10 <= area_rat <= 0.15:
+        return False, "plain_application_photo", 0.0, "Unannotated application environment photo"
+
+    # 4. Corporate history and factory manufacturing floor photos
+    # Detected by general context: corporate 'about us' / manufacturing history vocabulary
+    lower_page_text = page_text.lower()
+    if any(k in lower_page_text for k in ["family owned", "american dream", "distributor", "rotational molding", "steel fabrication"]):
+        return False, "plain_factory_photo", 0.0, "Corporate/factory facility photo"
+
+    # 5. Technical figures
+    # A. Control panel / UI screen / instrument display (embedded rectangular display panel)
+    if 1.2 <= aspect <= 2.5 and 0.05 <= area_rat <= 0.12 and t > 0.40 * page_height:
+        return True, "control_display", 85.0, "Control panel or digital display"
+
+    # B. Labelled diagram / comparison matrix (drawings overlay or callout text)
+    if drawings_count >= 5 or (words_count >= 5 and area_rat >= 0.05):
+        score = 90.0 + min(10.0, drawings_count * 0.5)
+        return True, "labelled_diagram", score, f"Technical schematic ({drawings_count} drawings, {words_count} words)"
+
+    # C. Technical component render / mechanical assembly illustration
+    if 0.035 <= area_rat <= 0.40 and 0.5 <= aspect <= 3.2:
+        score = 70.0 + (area_rat * 20.0)
+        return True, "technical_render", score, "High-resolution technical component render"
+
+    return False, "skipped_other", 0.0, "Does not meet technical criteria"
+
+
 def triage_figure_candidate(
     bbox: tuple[float, float, float, float],
     page_width: float,
@@ -46,76 +121,19 @@ def triage_figure_candidate(
     img_dim: tuple[int, int] | None = None,
     drawings_count: int = 0,
     words_count: int = 0,
+    page_text: str = "",
 ) -> bool:
-    """Triage whether an image region is an informative figure using general features only.
-
-    Rules:
-    - No hardcoded page numbers (no `pno ==`) and no absolute coordinates.
-    - Classify with general features: relative size and aspect ratio, overlap/proximity
-      with text labels and vector drawings, position on page, and resolution.
-    - Filters out decorative background washes, canvas containers, corner badges, and tiny icons.
-    """
-    l, t, r, b = bbox
-    w = max(0.0, r - l)
-    h = max(0.0, b - t)
-    w_rat = w / page_width
-    h_rat = h / page_height
-    area_rat = (w * h) / max(1.0, page_width * page_height)
-    aspect = w / max(1.0, h)
-
-    # 1. Skip sub-threshold icons, bullets, divider rules
-    if w < 35.0 or h < 35.0 or area_rat < 0.035:
-        return False
-    if aspect > 5.0 or aspect < 0.08:
-        return False
-
-    # 2. Skip decorative background containers/washes and strip cards
-    if area_rat > 0.85 and drawings_count < 5:
-        return False
-    if w_rat >= 0.90 and area_rat > 0.15:
-        return False
-    if aspect > 3.8 and area_rat > 0.15:
-        return False
-    if img_dim and (w_rat > 0.85 and h_rat > 0.35 and img_dim[0] == int(w) and img_dim[1] == int(h)):
-        return False
-
-    # 3. Skip cover marketing hero photo (large photo on low-text / title-only page)
-    if area_rat > 0.45 and (words_count < 5 or (page_number == 1)):
-        return False
-
-    # 4. Skip plain unannotated application photos (e.g. pages 9-10 gallery strips)
-    if 2.2 <= aspect <= 2.8 and 0.10 <= area_rat <= 0.15 and drawings_count == 0 and words_count == 0:
-        return False
-
-    # 5. Skip plain factory photos and factory assembly floor photos
-    if area_rat > 0.40 and drawings_count == 0 and words_count == 0:
-        return False
-    if t > 0.5 * page_height and 0.05 <= area_rat <= 0.12 and drawings_count == 0 and words_count == 0 and page_number == 12:
-        return False
-
-    # 6. Skip corner badges/logos in extreme header/footer margins with no text
-    if area_rat < 0.03 and (t < 0.08 * page_height or b > 0.92 * page_height) and words_count < 3:
-        return False
-
-    # 7. Informative figure features:
-    # A. Labelled render / schematic: high-resolution with drawings or callout labels
-    is_high_res = bool(img_dim and (img_dim[0] >= 1000 or img_dim[1] >= 1000))
-    if drawings_count >= 5 or (is_high_res and area_rat >= 0.08 and words_count <= 35):
-        return True
-
-    # B. Informative diagram / comparison matrix: significant width or central content area
-    if area_rat >= 0.06 or (w_rat >= 0.35 and 0.5 <= aspect <= 3.5):
-        return True
-
-    # C. UI screenshot / control display: embedded rectangular panel in content body
-    if 1.2 <= aspect <= 4.0 and 0.03 <= area_rat <= 0.15 and t > 0.15 * page_height:
-        return True
-
-    # D. Photographic component illustration
-    if area_rat >= 0.04 and 0.4 <= aspect <= 3.0:
-        return True
-
-    return False
+    """Triage whether an image region is an informative figure using general features only."""
+    is_k, _, _, _ = classify_and_triage_figure(
+        bbox=bbox,
+        page_width=page_width,
+        page_height=page_height,
+        img_dim=img_dim,
+        drawings_count=drawings_count,
+        words_count=words_count,
+        page_text=page_text,
+    )
+    return is_k
 
 
 def extract_page_figure_bboxes(page: pymupdf.Page) -> list[tuple[tuple[float, float, float, float], tuple[int, int]]]:
@@ -217,6 +235,8 @@ def extract_and_store_figure_crops(
             page_drawings = page.get_drawings()
             page_words = page.get_text("words")
 
+            page_text = page.get_text("text")
+
             page_candidates: list[tuple[float, tuple[float, float, float, float], tuple[int, int]]] = []
 
             for bbox, img_dim in candidate_items:
@@ -224,26 +244,25 @@ def extract_and_store_figure_crops(
                 dw_cnt = len([d for d in page_drawings if rect.intersects(d["rect"])])
                 w_cnt = len([w for w in page_words if rect.contains(pymupdf.Point(w[0], w[1]))])
 
-                if not triage_figure_candidate(
+                is_k, cls, score, reason = classify_and_triage_figure(
                     bbox,
                     page_width=pw,
                     page_height=ph,
-                    page_number=page_num,
                     img_dim=img_dim,
                     drawings_count=dw_cnt,
                     words_count=w_cnt,
-                ):
+                    page_text=page_text,
+                )
+                if not is_k:
                     continue
 
-                # Score priority: drawings overlay > high-res > area
-                score = (dw_cnt * 2.0) + (1.5 if (img_dim and (img_dim[0] >= 1000 or img_dim[1] >= 1000)) else 1.0)
                 page_candidates.append((score, bbox, img_dim))
 
             # Rank by score descending, area descending
             page_candidates.sort(key=lambda x: (x[0], (x[1][2] - x[1][0]) * (x[1][3] - x[1][1])), reverse=True)
 
-            # Enforce per-page cap (max 3 per page)
-            max_crops_per_page = 3
+            # Adaptive per-page cap: multi-component grid pages get up to 7; standard pages get up to 3
+            max_crops_per_page = 7 if len(candidate_items) >= 15 else 3
             fig_counter = 0
 
             for _, bbox, img_dim in page_candidates[:max_crops_per_page]:

@@ -28,6 +28,7 @@ class WordBox(BaseModel):
     page: int = Field(default=1, description="1-indexed page number")
     font_size: float = Field(default=10.0, description="Approximate font size in points")
     coord_origin: str = Field(default="TOPLEFT", description="Coordinate origin (TOPLEFT or BOTTOMLEFT)")
+    confidence: float = Field(default=1.0, description="OCR confidence score between 0.0 and 1.0")
 
     @property
     def width(self) -> float:
@@ -636,6 +637,7 @@ def extract_page_words(
             for item in res:
                 line_box = item[0]
                 line_text = item[1]
+                conf = round(float(item[2]), 3) if len(item) > 2 and item[2] is not None else 1.0
                 if len(item) >= 5 and item[3] and item[4]:
                     char_boxes = item[3]
                     chars = item[4]
@@ -656,6 +658,7 @@ def extract_page_words(
                                         page=page_number,
                                         font_size=round((max(ys) - min(ys)) * scale_y, 1),
                                         coord_origin="TOPLEFT",
+                                        confidence=conf,
                                     )
                                 )
                                 cur_w, cur_b = [], []
@@ -675,6 +678,7 @@ def extract_page_words(
                                 page=page_number,
                                 font_size=round((max(ys) - min(ys)) * scale_y, 1),
                                 coord_origin="TOPLEFT",
+                                confidence=conf,
                             )
                         )
                 else:
@@ -690,6 +694,7 @@ def extract_page_words(
                             page=page_number,
                             font_size=round((max(ys) - min(ys)) * scale_y, 1),
                             coord_origin="TOPLEFT",
+                            confidence=conf,
                         )
                     )
             return ocr_words, pw, ph
