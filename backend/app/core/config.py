@@ -196,6 +196,24 @@ class Settings(BaseSettings):
     skip_decorative_backgrounds: bool = True
     doctor_ram_headroom_mb: int = 1024
 
+    # Layout & reading order relative thresholds (relative to line height and page width)
+    reading_order_line_gap_ratio: float = Field(
+        default=2.5,
+        description="Max word gap in line fragment, as multiplier of median line height",
+    )
+    reading_order_band_gap_ratio: float = Field(
+        default=3.5,
+        description="Vertical band separation gap, as multiplier of median line height",
+    )
+    reading_order_min_gutter_width_ratio: float = Field(
+        default=0.0227,
+        description="Minimum column gutter width, as fraction of page width",
+    )
+    reading_order_heading_height_ratio: float = Field(
+        default=2.5,
+        description="Minimum heading line height, as multiplier of median line height",
+    )
+
     # Populated by the model validator below; not read from a single env var.
     # (Named llm_endpoints, not llm_chain, so it cannot collide with LLM_CHAIN.)
     llm_endpoints: list[LLMEndpoint] = Field(default_factory=list, exclude=True)

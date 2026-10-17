@@ -81,3 +81,13 @@ def sample_pdf_path() -> Path:
     path = REPO_ROOT / "benchmark" / "sample_1.pdf"
     assert path.is_file(), f"sample_1.pdf not found at {path}"
     return path
+
+
+@pytest.fixture(autouse=True)
+def clean_redis_and_event_loop() -> Generator[None, None, None]:
+    """Ensure redis client singleton is cleanly reset between tests."""
+    from app.services import redis_client
+    redis_client._redis_client = None
+    yield
+    redis_client._redis_client = None
+

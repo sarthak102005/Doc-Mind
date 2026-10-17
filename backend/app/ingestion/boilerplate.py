@@ -155,24 +155,24 @@ class BoilerplateDetector:
         printed_page_num: int | None = None
 
         for line in lines:
-            is_in_margin = line["t"] < top_threshold or line["b"] > bottom_threshold
-            if not is_in_margin:
-                continue
-
             line_text = line["text"]
-            norm_tpl = normalize_boilerplate_text(line_text)
+            is_legal_contact = is_contact_or_legal_text(line_text)
+            is_in_margin = line["t"] < top_threshold or line["b"] > bottom_threshold
 
-            # Check if this line matches a repeating template
-            if norm_tpl in doc_summary.repeated_templates:
+            norm_tpl = normalize_boilerplate_text(line_text)
+            is_repeated_margin = is_in_margin and (norm_tpl in doc_summary.repeated_templates)
+
+            # Strip repeating margin boilerplate or legal/contact disclaimer text
+            if is_repeated_margin or is_legal_contact:
                 for w in line["words"]:
                     words_to_remove.add(id(w))
                 stripped_lines.append(line_text)
 
-                # Attempt page number extraction from this stripped margin line
-                pg_candidate = extract_page_number_from_text(line_text)
-                if pg_candidate is not None:
-                    printed_page_num = pg_candidate
-            else:
+                if is_in_margin:
+                    pg_candidate = extract_page_number_from_text(line_text)
+                    if pg_candidate is not None:
+                        printed_page_num = pg_candidate
+            elif is_in_margin:
                 # Check individual word boxes for standalone page number in bottom margin
                 if line["b"] > bottom_threshold:
                     pg_cand = extract_page_number_from_text(line_text)

@@ -29,6 +29,14 @@ async def get_redis() -> aioredis.Redis | None:
     if settings.redis_backend == RedisBackend.MEMORY:
         return None
 
+    if _redis_client is not None:
+        try:
+            loop = getattr(getattr(_redis_client, "connection_pool", None), "_loop", None)
+            if loop is not None and loop.is_closed():
+                _redis_client = None
+        except Exception:
+            _redis_client = None
+
     if _redis_client is None:
         try:
             client = aioredis.from_url(

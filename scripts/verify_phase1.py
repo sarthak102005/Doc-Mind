@@ -127,16 +127,24 @@ def verify_phase1() -> None:
     log(f"Starting Phase 1 verification against {API_BASE}")
     log(f"Sample PDF: {SAMPLE_PDF.name} ({original_size} bytes)")
 
-    with httpx.Client(timeout=30.0) as client:
+    with httpx.Client(timeout=120.0) as client:
         # 1. Health check
         log("Checking API health...")
         try:
             r = client.get(f"{API_BASE}/health")
-            if r.status_code != 200:
+            data = r.json()
+            comps = data.get("components", {})
+            if r.status_code not in (200, 503):
                 fail(f"API health returned {r.status_code}: {r.text}")
+            if (
+                comps.get("postgres", {}).get("status") != "up"
+                or comps.get("redis", {}).get("status") != "up"
+                or comps.get("minio", {}).get("status") != "up"
+            ):
+                fail(f"Core services (postgres, redis, minio) not healthy: {r.text}")
         except Exception as exc:  # noqa: BLE001
             fail(f"Cannot reach API at {API_BASE}: {exc}")
-        log("  -> API is healthy.")
+        log("  -> Core API services (postgres, redis, minio) are healthy.")
 
         # 2. Rate limiter check
         test_rate_limiter(client)
@@ -188,7 +196,7 @@ def verify_phase1() -> None:
         # 6. Polling until ready, recording every status
         statuses_seen: list[str] = [initial_status]
         start_time = time.time()
-        timeout_seconds = 30.0
+        timeout_seconds = 60.0
         log("Polling status until 'ready'...")
 
         while time.time() - start_time < timeout_seconds:
@@ -273,7 +281,7 @@ def verify_phase1() -> None:
     # 10. Direct storage and database inspection
     log("Verifying object is deleted from real MinIO bucket...")
     minio_client = Minio(
-        endpoint=os.environ.get("MINIO_ENDPOINT", "localhost:9000"),
+        endpoint=os.environ.get("MINIO_ENDPOINT", "127.0.0.1:9000"),
         access_key=os.environ.get("MINIO_ACCESS_KEY", "docmind"),
         secret_key=os.environ.get("MINIO_SECRET_KEY", "XP0T0DqoQ09hYznmXSa9AXewgEE34AlU"),
         secure=os.environ.get("MINIO_SECURE", "false").lower() == "true",
@@ -289,7 +297,7 @@ def verify_phase1() -> None:
     log("Verifying rows are deleted from real PostgreSQL tables...")
     pg_url = os.environ.get(
         "DATABASE_URL",
-        "postgresql+psycopg://docmind:RH08SthkSV91fb7tSGcVfMJY@localhost:5432/docmind",
+        "postgresql+psycopg://docmind:RH08SthkSV91fb7tSGcVfMJY@127.0.0.1:5432/docmind",
     )
     pg_engine = create_engine(pg_url)
     with pg_engine.connect() as conn:

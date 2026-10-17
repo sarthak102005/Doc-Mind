@@ -24,12 +24,14 @@ from app.ingestion.profile import PageProfileResult, profile_document
 from app.ingestion.reading_order import (
     ReadingOrderBlock,
     WordBox,
+    extract_page_words,
     extract_page_words_pymupdf,
     reconstruct_reading_order,
 )
 from app.ingestion.tables import (
     TableZone,
     detect_table_zones_from_x_gaps,
+    detect_tables,
 )
 
 logger = logging.getLogger(__name__)
@@ -182,7 +184,7 @@ class IngestionPipeline:
             if page_words_cache and p_num in page_words_cache:
                 words, pw, ph = page_words_cache[p_num]
             else:
-                words, pw, ph = extract_page_words_pymupdf(pdf_path, p_num)
+                words, pw, ph = extract_page_words(pdf_path, p_num, route=prof.route)
             raw_pages_words.append((p_num, words, pw, ph))
 
         # Stage 3: Multi-page boilerplate analysis
@@ -207,7 +209,9 @@ class IngestionPipeline:
             # Stage 4: Detect tables if page is multi-column or table-heavy
             page_tables: list[TableZone] = []
             if p_num == 11 or len(words) > 300:
-                page_tables = detect_table_zones_from_x_gaps(
+                page_tables, _ = detect_tables(
+                    pdf_path=pdf_path,
+                    page_number=p_num,
                     words=bp_result.cleaned_words,
                     page_width=pw,
                     page_height=ph,

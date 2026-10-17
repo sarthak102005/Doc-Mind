@@ -39,7 +39,7 @@ from app.schemas.document import (
 from app.services.redis_client import enqueue_ingestion_job
 from app.services.storage import get_storage_service
 from app.services.vector_store import delete_document_vectors
-from app.worker.tasks import STAGES, process_document_stub
+from app.worker.tasks import STAGES, process_document_pipeline
 
 router = APIRouter(prefix="/documents", tags=["documents"])
 
@@ -177,7 +177,7 @@ async def upload_document(
     # 7. Queue ingestion task (worker process picks up if Redis; background task if in-memory)
     await enqueue_ingestion_job(doc_id, doc_version.id)
     if settings.redis_backend == RedisBackend.MEMORY:
-        background_tasks.add_task(process_document_stub, doc_id)
+        background_tasks.add_task(process_document_pipeline, doc_id)
 
     return DocumentResponse.model_validate(doc)
 

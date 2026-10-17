@@ -1,17 +1,22 @@
 """OCR Accuracy Evaluation Metrics (Addendum A2.2, Done Criteria).
 
 Implements:
-1. Levenshtein edit distance and Character Error Rate (CER) on body text lines.
-2. Numeric token extraction and recall on dense specification pages (Page 11).
+1. Levenshtein edit distance and Character Error Rate (CER) on text lines and full text.
+2. Order-invariant token normalization (splitting numbers from units, hyphen ranges, thousands commas).
+3. Multiset (Counter) matching for token Precision, Recall, and F1 to strictly handle duplicate tokens.
 """
 
 from __future__ import annotations
 
+import collections
+import difflib
 import re
 
 
 def levenshtein_distance(s1: str, s2: str) -> int:
     """Compute the Levenshtein edit distance between two strings."""
+    if s1 == s2:
+        return 0
     if len(s1) < len(s2):
         return levenshtein_distance(s2, s1)
     if len(s2) == 0:
@@ -31,11 +36,18 @@ def levenshtein_distance(s1: str, s2: str) -> int:
 
 def clean_line_text(s: str) -> str:
     """Normalize whitespace and strip leading/trailing bullet artifacts for fair CER comparison."""
-    # Remove leading bullets, dashes, asterisks
     s = re.sub(r"^[\s\u2022\u25cf\u2043\xb7\x95\-\*]+", "", s)
     s = re.sub(r"[\s\u2022\u25cf\u2043\xb7\x95\-\*]+$", "", s)
     s = re.sub(r"\s+", " ", s)
     return s.strip()
+
+
+def compute_cer(gt: str, pred: str) -> float:
+    """Compute standard Character Error Rate (CER) = Levenshtein distance / len(gt)."""
+    if not gt:
+        return 0.0 if not pred else 1.0
+    dist = levenshtein_distance(gt, pred)
+    return dist / len(gt)
 
 
 def compute_aligned_cer(gt_lines: list[str], ocr_lines: list[str]) -> tuple[float, int, int]:
@@ -69,33 +81,98 @@ def compute_aligned_cer(gt_lines: list[str], ocr_lines: list[str]) -> tuple[floa
     return (cer, total_edits, total_gt_len)
 
 
+def normalize_tokens(text: str) -> list[str]:
+    """Normalize text into canonical order-invariant tokens.
+
+    Handles:
+    - Stripping thousands commas between digits: 1,200 -> 1200
+    - Separating digits from adjacent units/letters: 441lbs -> 441 lbs, 24VDC -> 24 VDC
+    - Splitting hyphenated ranges: 441-481 -> 441 - 481
+    - Isolating quotes, asterisks, units
+    - Lowercasing and trimming non-essential punctuation
+    """
+    # 1. Strip thousands commas between digits: 1,200 -> 1200
+    t = re.sub(r"(\d),(\d)", r"\1\2", text)
+    # 2. Split digits from adjacent letters/units: 441lbs -> 441 lbs, 24VDC -> 24 VDC
+    t = re.sub(r"(\d+)([a-zA-Z]+)", r"\1 \2", t)
+    t = re.sub(r"([a-zA-Z]+)(\d+)", r"\1 \2", t)
+    # 3. Split hyphenated ranges: 441-481 -> 441 - 481
+    t = re.sub(r"(\d+)-(\d+)", r"\1 - \2", t)
+    # 4. Separate quotes, asterisks, units
+    t = re.sub(r"(\d+)([\"'\*\+])", r"\1 \2", t)
+    t = re.sub(r"([\*]+)", r" \1 ", t)
+    # 5. Lowercase and strip punctuation noise
+    tokens = []
+    for tok in t.split():
+        clean = tok.strip(" ,;:()[]{}").lower()
+        if clean:
+            tokens.append(clean)
+    return tokens
+
+
+def compute_token_f1(
+    gt_tokens: list[str], ocr_tokens: list[str]
+) -> tuple[float, float, float]:
+    """Compute order-invariant token precision, recall, and F1 using multiset (Counter) matching.
+
+    Duplicate tokens are tracked strictly: if token X appears 3 times in GT
+    and 1 time in OCR, matched = 1, giving Recall = 1/3.
+    """
+    if not gt_tokens and not ocr_tokens:
+        return 1.0, 1.0, 1.0
+    if not gt_tokens or not ocr_tokens:
+        return 0.0, 0.0, 0.0
+
+    gt_counts = collections.Counter(gt_tokens)
+    ocr_counts = collections.Counter(ocr_tokens)
+
+    # Intersection of multisets takes min(count_gt, count_ocr) for every token
+    common = gt_counts & ocr_counts
+    matched = sum(common.values())
+
+    precision = matched / len(ocr_tokens)
+    recall = matched / len(gt_tokens)
+    f1 = (2 * precision * recall / (precision + recall)) if (precision + recall) > 0 else 0.0
+    return precision, recall, f1
+
+
 def extract_numeric_tokens(text: str) -> list[str]:
-    """Extract all numeric tokens (integers and decimals) from text."""
-    return re.findall(r"\b\d+(?:\.\d+)?\b", text)
+    """Extract all normalized numeric tokens from text."""
+    tokens = normalize_tokens(text)
+    return [tok for tok in tokens if re.search(r"\d", tok)]
 
 
 def compute_numeric_token_recall(
     gt_text: str, ocr_text: str
 ) -> tuple[float, list[str], list[str]]:
-    """Compute recall of numeric tokens from ground truth in OCR hypothesis.
+    """Compute recall of numeric tokens using strict multiset Counter matching.
 
     Returns:
         (recall, matched_tokens, missed_tokens)
     """
     gt_tokens = extract_numeric_tokens(gt_text)
-    ocr_token_set = set(extract_numeric_tokens(ocr_text))
+    ocr_tokens = extract_numeric_tokens(ocr_text)
 
     if not gt_tokens:
         return (1.0, [], [])
 
+    gt_counts = collections.Counter(gt_tokens)
+    ocr_counts = collections.Counter(ocr_tokens)
+
+    common = gt_counts & ocr_counts
+    matched_count = sum(common.values())
+
+    # Build matched and missed token lists preserving counts
     matched: list[str] = []
     missed: list[str] = []
 
+    remaining_ocr = collections.Counter(ocr_counts)
     for tok in gt_tokens:
-        if tok in ocr_token_set:
+        if remaining_ocr[tok] > 0:
             matched.append(tok)
+            remaining_ocr[tok] -= 1
         else:
             missed.append(tok)
 
-    recall = len(matched) / len(gt_tokens)
+    recall = matched_count / len(gt_tokens)
     return (recall, matched, missed)

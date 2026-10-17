@@ -112,4 +112,21 @@ This document tracks all overrides where Addendum A2 / A3 supersedes `docs/DocMi
     2. Hybrid does NOT mean "OCR every image region". Decorative full-page backgrounds (e.g. image area ratio > 0.95 with zero text) are skipped.
     3. Region OCR runs selectively only for informative figure regions that pass figure triage (diagram labels, callouts, spec badges) and is capped within a per-document budget (`settings.max_region_ocr_per_doc = 50`).
 
+### D-013: Docling Role in Runtime Ingestion Pipeline vs. Custom Path Validation Scope
+- **Status:** Approved & Verified (Stage 6 Ingestion Pipeline Execution)
+- **Context & Correction:** 
+  - On digital Page 11, Docling's layout engine and TableFormer did correctly separate all three distinct specification tables (`Micro-HD`, `Mini-HD`, `Mag-HD`). The composite table merging observed during early exploratory prototyping was actually caused by PyMuPDF's heuristic `find_tables()`, not Docling.
+  - However, runtime execution uses the custom lightweight pipeline instead of Docling due to the real operational constraints:
+    1. **Severe Runtime Latency on CPU:** Docling requires 30 to 75 seconds per page on the host CPU (averaging > 54 s/page), causing prohibitive queue backlogs for multi-page service manuals on memory/CPU-constrained hardware.
+    2. **Dropped Table Structure on Scanned Pages:** On raster scanned pages (150 dpi), Docling completely missed the middle table (`Mini-HD`) and dropped critical cells.
+    3. **Resource Footprint:** Docling's neural models require excessive memory working sets that risk OOM under concurrent tasks on machines with tight RAM/C: drive limits.
+- **Decision:**
+  - Docling is strictly relegated to offline diagnostic evaluation and golden benchmark analysis (`scripts/offline_eval.py`, `benchmark/debug/`).
+  - Runtime execution in `process_document_pipeline` utilizes the deterministic custom path:
+    - Native `WordBox` stream via PyMuPDF (< 0.15 s per page) or RapidOCR ONNX (< 1.2 s per page for standard layouts).
+    - Dynamic horizontal X-gap projection (`detect_table_zones_from_x_gaps`) for table segmentation (< 0.05 s per page).
+    - Reading order with horizontal band detection and median line height relative thresholds (< 0.02 s per page).
+    - Multi-page boilerplate stripping (< 0.01 s per page).
+  - **Important Scope Limitation:** The custom dynamic X-gap projection and band ordering path is currently validated on **only one document family** (the FactoryCat walk-behind scrubber brochure/manual family). Further generalization to diverse document geometries is tested via synthetic multi-column/ruled layouts and benchmark suites.
+
 

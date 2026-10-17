@@ -9,6 +9,8 @@ and deterministic lookup.
 
 from __future__ import annotations
 
+import logging
+from pathlib import Path
 import re
 from typing import Any
 
@@ -128,49 +130,110 @@ def parse_zone_records(
     words: list[WordBox],
     entity: str,
     y_tolerance: float = 4.0,
-    max_x_gap: float = 40.0,
 ) -> tuple[list[str], list[TableRecord]]:
-    """Parse words inside a table zone into section headers and attribute-value rows."""
-    lines = group_words_into_lines(words, max_x_gap=max_x_gap, y_tolerance=y_tolerance)
-    if not lines:
+    """Parse words inside a table zone into section headers and attribute-value rows with footnotes."""
+    if not words:
         return [], []
+
+    # 1. Bucket words by baseline (y-coordinate) to form coherent horizontal table rows
+    y_buckets: list[list[WordBox]] = []
+    for w in sorted(words, key=lambda x: (x.t, x.l)):
+        placed = False
+        for bucket in y_buckets:
+            ref = bucket[0]
+            if abs(w.t - ref.t) <= y_tolerance or abs(w.mid_y - ref.mid_y) <= y_tolerance:
+                bucket.append(w)
+                placed = True
+                break
+        if not placed:
+            y_buckets.append([w])
 
     sections: list[str] = []
     records: list[TableRecord] = []
     curr_section = "GENERAL"
 
-    for line in lines:
-        text = line["text"].strip()
-        if not text:
+    for bucket in y_buckets:
+        sorted_words = sorted(bucket, key=lambda x: x.l)
+        row_text = " ".join(w.text for w in sorted_words).strip()
+        if not row_text:
             continue
 
-        # Check if line is a section header (all uppercase, no colons/units)
+        # Check for footnotes starting with asterisks or quotes (treat *, **, ", and ” as the same marker class)
+        # Link by position: search records in this zone for matching marker or attribute (e.g. Run Time)
+        is_fn_marker = bool(
+            re.match(r"^[\*\s\"'“”]{1,4}", row_text)
+            or re.match(r"^[\*\s\"'“”]*Based\s+(?:on|off)", row_text, re.IGNORECASE)
+        )
+        if is_fn_marker:
+            canonical_fn = re.sub(r"^[\*\s\"'“”]+", "* ", row_text).strip()
+            # Link by position: search records in this zone for matching marker or attribute (e.g. Run Time)
+            linked = False
+            for rec in reversed(records):
+                if any(m in rec.attribute or m in rec.value for m in ["*", "**", "\"", "”", "Run Time"]):
+                    rec.footnotes.append(canonical_fn)
+                    linked = True
+                    break
+            if not linked and records:
+                records[-1].footnotes.append(canonical_fn)
+            continue
+
+        # Check if line is a section header (all uppercase, no numbers, colons, or electrical units)
         is_section_header = (
-            text.isupper()
-            and len(text) > 3
-            and not any(delim in text for delim in [":", "LBS", "KG", "RPM", "HP"])
+            row_text.isupper()
+            and len(row_text) > 3
+            and not any(
+                delim in row_text
+                for delim in [":", "LBS", "KG", "RPM", "HP", "VDC", "AH", "GALLONS"]
+            )
         )
 
         if is_section_header:
-            curr_section = text
+            curr_section = row_text
             if curr_section not in sections:
                 sections.append(curr_section)
             continue
 
-        # Parse key-value attribute pairs
-        if ":" in text:
-            parts = text.split(":", 1)
+        # Parse key-value attribute pairs (by colon or standard table attribute pattern)
+        attr: str | None = None
+        val: str | None = None
+
+        if ":" in row_text:
+            parts = row_text.split(":", 1)
             attr = parts[0].strip()
             val = parts[1].strip()
-            if attr:
-                records.append(
-                    TableRecord(
-                        entity=entity,
-                        section=curr_section,
-                        attribute=attr,
-                        value=val,
-                    )
+        else:
+            m = re.match(r"^(System Voltage(?:/Amps)?)\s+(.*)$", row_text, re.I)
+            if m:
+                attr = m.group(1).strip()
+                val = m.group(2).strip()
+
+        if attr and val:
+            # Parse imperial and metric unit variants if present in parentheses
+            unit_variants: dict[str, str] = {}
+            m_units = re.search(
+                r"([\d\.\s\-]+(?:lbs|gal|gpm|hp|sqft/hr))\s*\(([\d\.\s\-]+(?:kg|liters|lpm|watts|sqm))\)",
+                val,
+                re.I,
+            )
+            if m_units:
+                unit_variants["imperial"] = m_units.group(1).strip()
+                unit_variants["metric"] = m_units.group(2).strip()
+            elif "hours" in val.lower():
+                m_h = re.search(r"([\d\.]+)\s*hours", val, re.I)
+                if m_h:
+                    unit_variants["hours"] = m_h.group(1)
+                    unit_variants["minutes"] = str(int(float(m_h.group(1)) * 60))
+
+            records.append(
+                TableRecord(
+                    entity=entity,
+                    section=curr_section,
+                    attribute=attr,
+                    value=val,
+                    unit_variants=unit_variants,
+                    footnotes=[],
                 )
+            )
 
     return sections, records
 
@@ -304,6 +367,150 @@ def perturb_wordboxes(
         )
         for w in words
     ]
+
+
+def has_ruled_grid_lines(page: pymupdf.Page, min_vert_lines: int = 2) -> bool:
+    """Check if the page has vector vertical grid lines indicating a ruled table."""
+    drawings = page.get_drawings()
+    vert_count = 0
+    for d in drawings:
+        rect = d.get("rect")
+        if not rect:
+            continue
+        # Vertical line: significant vertical extent and narrow width
+        if (rect.y1 - rect.y0) > 25.0 and (rect.x1 - rect.x0) < 3.5:
+            vert_count += 1
+    return vert_count >= min_vert_lines
+
+
+def detect_tables(
+    pdf_path: Path | str | None,
+    page_number: int,
+    words: list[WordBox],
+    page_width: float,
+    page_height: float,
+    top_margin_ratio: float = 0.08,
+    bottom_margin_ratio: float = 0.08,
+) -> tuple[list[TableZone], str]:
+    """Hybrid table detector routing ruled tables to PyMuPDF find_tables and borderless tables to X-gap.
+
+    Returns:
+        (table_zones, method_used)
+    """
+    logger = logging.getLogger(__name__)
+
+    # Default fallback: X-gap method
+    xgap_zones = detect_table_zones_from_x_gaps(
+        words=words,
+        page_width=page_width,
+        page_height=page_height,
+        top_margin_ratio=top_margin_ratio,
+        bottom_margin_ratio=bottom_margin_ratio,
+    )
+
+    if not pdf_path:
+        return xgap_zones, "xgap_projection"
+
+    target_path = Path(pdf_path)
+    if not target_path.exists():
+        return xgap_zones, "xgap_projection"
+
+    try:
+        import pymupdf
+        doc = pymupdf.open(target_path)
+        if page_number > len(doc) or page_number < 1:
+            doc.close()
+            return xgap_zones, "xgap_projection"
+
+        page = doc[page_number - 1]
+        is_ruled = has_ruled_grid_lines(page)
+        tabs = page.find_tables()
+        found_tables = tabs.tables if tabs else []
+
+        if is_ruled and len(found_tables) > 0:
+            ruled_zones: list[TableZone] = []
+            all_lines = group_words_into_lines(words, max_x_gap=20.0, y_tolerance=4.0)
+
+            for z_idx, t in enumerate(found_tables):
+                t_bbox = (float(t.bbox[0]), float(t.bbox[1]), float(t.bbox[2]), float(t.bbox[3]))
+                z_words = [
+                    w for w in words
+                    if (t_bbox[0] - 5.0) <= w.l and w.r <= (t_bbox[2] + 5.0)
+                    and (t_bbox[1] - 5.0) <= w.t and w.b <= (t_bbox[3] + 5.0)
+                ]
+
+                # Proximity search for title above table bbox
+                cand_titles = [
+                    l for l in all_lines
+                    if l["b"] <= (t_bbox[1] + 15.0)
+                    and (t_bbox[1] - l["b"]) <= 50.0
+                    and (t_bbox[0] - 25.0) <= ((l["l"] + l["r"]) / 2.0) <= (t_bbox[2] + 25.0)
+                ]
+                title = f"Table {z_idx + 1}"
+                if cand_titles:
+                    cand_titles.sort(key=lambda l: abs(t_bbox[1] - l["b"]))
+                    title = cand_titles[0]["text"]
+                elif z_words:
+                    title = z_words[0].text
+
+                # Parse records from PyMuPDF extracted rows or zone words
+                records: list[TableRecord] = []
+                extracted_data = t.extract()
+                if extracted_data and len(extracted_data) > 1:
+                    for row_idx, row in enumerate(extracted_data[1:]):
+                        row_vals = [str(c or "").strip() for c in row]
+                        if not any(row_vals):
+                            continue
+                        attr = row_vals[0] if row_vals else f"Row {row_idx + 1}"
+                        val = " | ".join(row_vals[1:]) if len(row_vals) > 1 else ""
+                        records.append(
+                            TableRecord(
+                                entity=title,
+                                section="SPECIFICATIONS",
+                                attribute=attr,
+                                value=val,
+                                unit_variants={},
+                                footnotes=[],
+                            )
+                        )
+                else:
+                    _, records = parse_zone_records(z_words, entity=title)
+
+                ruled_zones.append(
+                    TableZone(
+                        zone_id=z_idx,
+                        title=title,
+                        bbox=t_bbox,
+                        words=z_words,
+                        sections=["SPECIFICATIONS"],
+                        records=records,
+                    )
+                )
+
+            doc.close()
+
+            if len(ruled_zones) != len(xgap_zones):
+                logger.info(
+                    "Table detection disagreement on page %d: PyMuPDF find_tables found %d ruled table(s), "
+                    "X-gap projection found %d zone(s). Selected PyMuPDF find_tables (ruled grid detected).",
+                    page_number, len(ruled_zones), len(xgap_zones)
+                )
+            return ruled_zones, "pymupdf_find_tables"
+
+        doc.close()
+
+        if len(found_tables) != len(xgap_zones):
+            logger.info(
+                "Table detection disagreement on page %d: PyMuPDF find_tables found %d table(s), "
+                "X-gap projection found %d zone(s). Selected X-gap projection (borderless table layout).",
+                page_number, len(found_tables), len(xgap_zones)
+            )
+
+        return xgap_zones, "xgap_projection"
+
+    except Exception as e:
+        logger.warning("Error running PyMuPDF find_tables on page %d: %s. Falling back to X-gap.", page_number, e)
+        return xgap_zones, "xgap_projection"
 
 
 def format_table_as_markdown(zone: TableZone) -> str:

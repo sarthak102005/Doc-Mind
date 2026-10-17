@@ -221,3 +221,82 @@ def test_format_table_as_markdown(digital_p11_data: dict[str, Any]) -> None:
     assert "| Section | Attribute | Value |" in md
     assert "| --- | --- | --- |" in md
     assert "BODY CONSTRUCTION" in md
+
+
+@pytest.mark.unit
+def test_critical_values_voltage_amps_runtime_and_footnotes(
+    digital_p11_data: dict[str, Any], scanned_p11_data: dict[str, Any]
+) -> None:
+    """Verify System Voltage/Amps, Run Time, and footnotes across models on both digital and scanned."""
+    for dataset, label in [(digital_p11_data, "digital"), (scanned_p11_data, "scanned")]:
+        words = [WordBox(**w) for w in dataset["words"]]
+        tables = detect_table_zones_from_x_gaps(
+            words,
+            page_width=dataset["page_width"],
+            page_height=dataset["page_height"],
+        )
+        assert len(tables) == 3, f"Expected 3 tables for {label}"
+
+        # 1. Micro-HD v2 Series
+        t0_records = {r.attribute: r for r in tables[0].records}
+        assert "Run Time" in t0_records
+        assert "2.5" in t0_records["Run Time"].value
+        if label == "digital":
+            assert len(t0_records["Run Time"].footnotes) > 0
+            assert "continuous scrubbing" in t0_records["Run Time"].footnotes[0].lower()
+            assert any(
+                "130" in r.value and "WET" in r.value
+                for attr, r in t0_records.items()
+                if "Voltage" in attr
+            )
+
+        # 2. Mini-HD v2 Series
+        t1_records = {r.attribute: r for r in tables[1].records}
+        assert "Run Time" in t1_records
+        assert "3.5" in t1_records["Run Time"].value
+        if label == "digital":
+            assert any(
+                "210" in r.value and "WET" in r.value
+                for attr, r in t1_records.items()
+                if "Voltage" in attr
+            )
+
+        # 3. Mag-HD v2 Series
+        t2_records = {r.attribute: r for r in tables[2].records}
+        assert "Run Time" in t2_records
+        assert "5.0" in t2_records["Run Time"].value
+
+        # Confirm Mag-HD's system value is 310 ah WET and 315 appears in the weight row
+        volt_rec = next(r for attr, r in t2_records.items() if "Voltage" in attr)
+        assert "310" in volt_rec.value, f"Expected 310 ah in Mag-HD system voltage, got {volt_rec.value}"
+        assert "WET" in volt_rec.value
+
+        if label == "digital":
+            weight_315 = [
+                r for attr, r in t2_records.items() if "315" in attr or "315" in r.value
+            ]
+            assert len(weight_315) > 0, "Expected 315 in Mag-HD weight row"
+            assert any("Weight" in r.attribute for r in weight_315)
+
+
+@pytest.mark.unit
+def test_sample_record_unit_variants_and_footnotes(digital_p11_data: dict[str, Any]) -> None:
+    """Verify that structured TableRecords parse unit variants and link footnotes."""
+    words = [WordBox(**w) for w in digital_p11_data["words"]]
+    tables = detect_table_zones_from_x_gaps(
+        words,
+        page_width=digital_p11_data["page_width"],
+        page_height=digital_p11_data["page_height"],
+    )
+
+    t0 = tables[0]
+    runtime_rec = next(r for r in t0.records if r.attribute == "Run Time")
+
+    # Sample record structure verification
+    assert runtime_rec.entity == "Micro-HD v2 Series"
+    assert runtime_rec.section == "POWER SYSTEM"
+    assert "2.5 Hours" in runtime_rec.value
+    assert runtime_rec.unit_variants.get("hours") == "2.5"
+    assert runtime_rec.unit_variants.get("minutes") == "150"
+    assert len(runtime_rec.footnotes) == 1
+    assert "continuous scrubbing" in runtime_rec.footnotes[0]

@@ -170,3 +170,49 @@ def test_pipeline_on_multi_page_fixtures(
     table_chunks = [c for c in parsed_doc.chunks if c.chunk_type == "table"]
     assert len(table_chunks) >= 3
     assert any("Micro-HD v2 Series" in c.text for c in table_chunks)
+
+
+@pytest.mark.unit
+def test_pipeline_footer_and_legal_boilerplate_stripped_and_tagline_preserved(
+    digital_fixtures: dict[int, tuple[list[WordBox], float, float]],
+) -> None:
+    """Assert on real pipeline output that no footer, legal, or contact text appears
+
+    in any chunk, and that the page 1 tagline is kept.
+    """
+    benchmark_pdf = Path(__file__).parents[2] / "benchmark" / "sample_1.pdf"
+    assert benchmark_pdf.exists()
+
+    pipeline = IngestionPipeline()
+    parsed_doc = pipeline.process_document(
+        pdf_path=benchmark_pdf,
+        document_id="doc_footer_test",
+        page_words_cache=digital_fixtures,
+    )
+
+    # 1. Assert no footer/legal/contact boilerplate in any chunk
+    forbidden_terms = [
+        "www.factorycat.com",
+        "262-681-3583",
+        "1711 South St",
+        "RPS Corporation",
+        "Subject to change without notice",
+    ]
+    for chunk in parsed_doc.chunks:
+        for term in forbidden_terms:
+            assert term not in chunk.text, (
+                f"Forbidden boilerplate '{term}' found in chunk {chunk.chunk_id} on page {chunk.page_number}!"
+            )
+
+    # 2. Assert page 1 tagline is preserved in chunks
+    p1_chunks = [c for c in parsed_doc.chunks if c.page_number == 1]
+    assert len(p1_chunks) > 0, "Page 1 must have at least one chunk"
+    p1_text = " ".join(c.text for c in p1_chunks)
+    assert any(
+        tag in p1_text
+        for tag in [
+            "Premium Walk-Behind Scrubbers",
+            "Handmade in U.S.A.",
+            "Family-Owned & Operated",
+        ]
+    ), f"Page 1 tagline was stripped! Got: {p1_text}"

@@ -7,7 +7,7 @@ import logging
 
 from app.core.config import get_settings
 from app.services.redis_client import pop_ingestion_job
-from app.worker.tasks import process_document_stub
+from app.worker.tasks import process_document_pipeline
 
 logger = logging.getLogger("docmind.worker")
 
@@ -29,7 +29,7 @@ async def run_worker() -> None:
                 if doc_id:
                     logger.info("Worker picked up ingestion job for document %s", doc_id)
                     # Run worker task in threadpool so async loop isn't blocked
-                    await asyncio.to_thread(process_document_stub, doc_id)
+                    await asyncio.to_thread(process_document_pipeline, doc_id)
             else:
                 await asyncio.sleep(0.1)
         except asyncio.CancelledError:

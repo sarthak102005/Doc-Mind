@@ -88,6 +88,44 @@ class StorageService:
             logger.info("Saved %d bytes to filesystem object %s", len(data), object_name)
             return object_name
 
+    def download_file(self, object_name: str) -> bytes:
+        """Download binary data of an object from storage."""
+        if self.is_minio:
+            try:
+                response = self.client.get_object(self.bucket, object_name)
+                try:
+                    return response.read()
+                finally:
+                    response.close()
+                    response.release_conn()
+            except Exception as exc:  # noqa: BLE001
+                logger.error("MinIO download failed for %s: %s", object_name, exc)
+                raise RuntimeError(f"MinIO download failed for {object_name}: {exc}") from exc
+        else:
+            target = self.settings.cache_path / "storage" / self.bucket / object_name
+            return target.read_bytes()
+
+    def list_objects(self, prefix: str = "") -> list[str]:
+        """List object keys matching prefix."""
+        if self.is_minio:
+            try:
+                objects = self.client.list_objects(self.bucket, prefix=prefix, recursive=True)
+                return [obj.object_name for obj in objects]
+            except Exception as exc:  # noqa: BLE001
+                logger.error("MinIO list_objects failed for prefix %s: %s", prefix, exc)
+                raise RuntimeError(f"MinIO list_objects failed: {exc}") from exc
+        else:
+            target_dir = self.settings.cache_path / "storage" / self.bucket
+            if not target_dir.exists():
+                return []
+            res: list[str] = []
+            for p in target_dir.rglob("*"):
+                if p.is_file():
+                    rel = p.relative_to(target_dir).as_posix()
+                    if rel.startswith(prefix):
+                        res.append(rel)
+            return res
+
     def get_presigned_download_url(
         self,
         object_name: str,

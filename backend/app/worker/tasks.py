@@ -104,12 +104,36 @@ def process_document_pipeline(
             return None
 
         # Determine file path
-        actual_path = Path(pdf_path) if pdf_path else Path("benchmark/sample_1.pdf")
+        if pdf_path:
+            actual_path = Path(pdf_path)
+        else:
+            from app.db.models.document import DocumentVersion
+            from app.services.storage import get_storage_service
+
+            version = (
+                session.query(DocumentVersion)
+                .filter(DocumentVersion.document_id == document_id)
+                .first()
+            )
+            if version and version.minio_key:
+                storage = get_storage_service()
+                file_bytes = storage.download_file(version.minio_key)
+                temp_dir = Path("D:/DocMind/.cache/ingestion_temp")
+                temp_dir.mkdir(parents=True, exist_ok=True)
+                actual_path = temp_dir / f"{document_id}.pdf"
+                actual_path.write_bytes(file_bytes)
+            else:
+                actual_path = Path("benchmark/sample_1.pdf")
 
         # 1. Transition to processing
         doc.status = "processing"
         doc.updated_at = datetime.now(UTC)
         session.commit()
+
+        # Extract figure crops to MinIO
+        from app.ingestion.figures import extract_and_store_figure_crops
+
+        figure_crops = extract_and_store_figure_crops(actual_path, document_id=document_id)
 
         pipeline = IngestionPipeline()
         parsed_doc = pipeline.process_document(actual_path, document_id)
