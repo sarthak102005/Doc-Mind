@@ -6,12 +6,15 @@ from pathlib import Path
 import fitz  # PyMuPDF
 import psutil
 
+REPO_ROOT = Path(__file__).resolve().parent.parent
+CACHE_DIR = REPO_ROOT / ".cache"
+
 # Ensure env vars are set before importing docling
-os.environ["TEMP"] = r"D:\DocMind\.cache\tmp"
-os.environ["TMP"] = r"D:\DocMind\.cache\tmp"
-os.environ["HF_HOME"] = r"D:\DocMind\.cache\huggingface"
-os.environ["TORCH_HOME"] = r"D:\DocMind\.cache\torch"
-os.environ["DOCLING_ARTIFACTS_PATH"] = r"D:\DocMind\.cache\docling"
+os.environ["TEMP"] = str(CACHE_DIR / "tmp")
+os.environ["TMP"] = str(CACHE_DIR / "tmp")
+os.environ["HF_HOME"] = str(CACHE_DIR / "huggingface")
+os.environ["TORCH_HOME"] = str(CACHE_DIR / "torch")
+os.environ["DOCLING_ARTIFACTS_PATH"] = str(CACHE_DIR / "docling")
 os.environ["OMP_NUM_THREADS"] = "2"
 
 from docling.document_converter import DocumentConverter, PdfFormatOption
@@ -31,7 +34,7 @@ def extract_single_page(pdf_path: str, page_num: int, out_path: str):
     doc.close()
 
 def run_page(pdf_path: str, page_num: int, is_scanned: bool = False):
-    tmp_dir = Path(r"D:\DocMind\.cache\tmp")
+    tmp_dir = CACHE_DIR / "tmp"
     tmp_dir.mkdir(parents=True, exist_ok=True)
     temp_pdf = tmp_dir / f"temp_p{page_num}_{'scanned' if is_scanned else 'digital'}.pdf"
     
@@ -39,7 +42,7 @@ def run_page(pdf_path: str, page_num: int, is_scanned: bool = False):
     
     accel = AcceleratorOptions(num_threads=2)
     pipeline_opts = PdfPipelineOptions(
-        artifacts_path=r"D:\DocMind\.cache\docling",
+        artifacts_path=str(CACHE_DIR / "docling"),
         accelerator_options=accel,
         do_table_structure=True,
         do_ocr=is_scanned,

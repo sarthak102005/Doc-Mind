@@ -147,3 +147,27 @@ This document tracks all overrides where Addendum A2 / A3 supersedes `docs/DocMi
      - The vision-model structured transcription will be reconciled against the OCR stream via positional and alphanumeric agreement, lifting dense table numeric recall to the >= 95% production target without heavy CPU raster preprocessing.
   3. **Regression Testing:**
      - The >= 95% recall and < 5% CER targets are codified as `@pytest.mark.xfail` tests with exact current empirical metrics recorded in the failure reasons.
+
+### D-015: Docling GPU Acceleration Benchmark & Runtime Fallback Recommendation
+- **Status:** Approved (Stage 7 Evaluation & Benchmark)
+- **Context:**
+  - With the local GPU enabled (`HARDWARE_PROFILE=gpu_4gb`, NVIDIA GeForce RTX 2050 4GB VRAM), Docling's PyTorch models (`docling-layout-heron` layout detection and `tableformer` table structure model) were evaluated with CUDA acceleration on key diagnostic pages (Pages 2, 3, 4, 11) of `sample_1.pdf`.
+  - Objective: Determine whether GPU acceleration resolves the severe latency bottlenecks identified in D-013 (which saw 30-75 s/page on CPU) and whether Docling should return to the runtime path for table and figure extraction fallback.
+- **Empirical GPU Benchmark Results (`scripts/benchmark_docling_gpu.py`):**
+  | Page | Page Type | Latency (s) | Peak VRAM (MB) | Tables Detected | Texts Extracted | Figures Extracted | Notes |
+  | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+  | **P2** | Multi-column + specs | 33.28s | 575.2 MB | 0 | 45 | 10 | Includes one-time cold model load (~27s); warm conversion ~1.65s |
+  | **P3** | Text & features | 0.81s | 503.2 MB | 0 | 39 | 10 | Warm execution; rapid layout segmentation |
+  | **P4** | Cutaway diagram | 0.62s | 503.2 MB | 0 | 21 | 2 | Warm execution; 21 callout labels correctly isolated |
+  | **P11** | 3 Borderless tables | 7.78s | 503.2 MB | 3 | 5 | 6 | TableFormer autoregressively separates Micro-HD, Mini-HD, Mag-HD |
+- **Analysis:**
+  1. **Latency Improvements:** On GPU, warm page layout detection drops from ~45s (CPU) to 0.62–0.81s (a ~60x speedup). Dense TableFormer table structure extraction drops from ~75s (CPU) to 7.78s (a ~10x speedup).
+  2. **Memory Footprint:** Peak VRAM consumption is 503.2–575.2 MB, safely within the 4096 MB VRAM budget of the RTX 2050.
+  3. **Runtime Viability vs Custom Path:**
+     - The custom deterministic pipeline (PyMuPDF `WordBox` + dynamic X-gap projection) executes table extraction and reading order in **< 0.05s** (50 ms) per page, which is ~150x faster than Docling on GPU (7.78s) and has zero cold-load latency overhead.
+     - Under `gpu_4gb`, our operational constraint dictates "load one heavy model at a time". Keeping Docling permanently resident in VRAM competes with SigLIP2 and bge-reranker. Loading it dynamically incurs a ~27s cold load.
+     - On scanned low-contrast pages (150/250 dpi), TableFormer still misses degraded cell boundaries, where Phase 6 multimodal vision-model transcription provides superior recall.
+- **Decision:**
+  - **Do NOT restore Docling to the primary synchronous runtime path.** The custom deterministic path remains the default runtime engine for ingestion throughput and predictable latency.
+  - **Retain Docling as an offline diagnostic engine and golden benchmark validator** (`scripts/offline_eval.py`, `scripts/benchmark_docling_gpu.py`).
+  - **Authorize Docling GPU as an opt-in, asynchronous fallback route specifically for digital PDFs with unruled/borderless tabular layouts** when heuristic and X-gap table confidence scores disagree and the task is processed offline or out-of-band.

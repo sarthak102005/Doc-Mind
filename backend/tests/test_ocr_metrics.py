@@ -113,7 +113,7 @@ def test_duplicate_handling_multiset_matching() -> None:
 
 def test_page11_ground_truth_self_evaluation() -> None:
     """Evaluate Page 11 of sample_1.pdf against itself."""
-    pdf_path = Path("D:/DocMind/benchmark/sample_1.pdf")
+    pdf_path = Path(__file__).resolve().parents[2] / "benchmark" / "sample_1.pdf"
     if not pdf_path.exists():
         pytest.skip("sample_1.pdf not found")
 

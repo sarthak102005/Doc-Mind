@@ -47,12 +47,33 @@ ml = [
 ]
 
 [tool.uv]
-cache-dir = "D:/DocMind/.cache/uv"
+# cache-dir is left unset so uv uses its platform default (%LOCALAPPDATA%/uv/cache
+# on Windows). To share a cache with another project or move it to a bigger drive,
+# set UV_CACHE_DIR in your shell profile or in a .env.local that is not committed.
 link-mode = "copy"
+
+# ------------------------------------------------------------------
+# PyTorch index strategy
+# ------------------------------------------------------------------
+# CPU index is the declared source for the lockfile so that CI and
+# machines without a GPU install the same wheel without touching this file.
+# On a GPU machine (HARDWARE_PROFILE=gpu_4gb), install the CUDA build once:
+#
+#   python -m uv pip install --index-url https://download.pytorch.org/whl/cu121 \
+#       torch torchvision --reinstall
+#
+# The CUDA index is registered here so uv can resolve it; it is NOT used by
+# default (no entry in [tool.uv.sources]).
+# ------------------------------------------------------------------
 
 [[tool.uv.index]]
 name = "pytorch-cpu"
 url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cuda121"
+url = "https://download.pytorch.org/whl/cu121"
 explicit = true
 
 [tool.uv.sources]

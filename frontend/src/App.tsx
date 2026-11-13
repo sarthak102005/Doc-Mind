@@ -4,6 +4,7 @@ import { Navbar } from './components/Navbar';
 import { AuthModal } from './components/AuthModal';
 import { UploadDropzone } from './components/UploadDropzone';
 import { DocumentList } from './components/DocumentList';
+import { ChatPane } from './components/ChatPane';
 import { LayersIcon, RefreshIcon } from './components/icons';
 
 export const App: React.FC = () => {
@@ -11,6 +12,7 @@ export const App: React.FC = () => {
   const [documents, setDocuments] = useState<DocumentItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [refreshing, setRefreshing] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<'documents' | 'chat'>('documents');
 
   // Fetch initial profile
   useEffect(() => {
@@ -81,6 +83,8 @@ export const App: React.FC = () => {
     );
   }
 
+  const readyCount = documents.filter((d) => d.status === 'ready').length;
+
   return (
     <div>
       <Navbar user={currentUser} onLogout={handleLogout} />
@@ -91,7 +95,7 @@ export const App: React.FC = () => {
         ) : (
           <div>
             {/* Header info */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '1.5rem' }}>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
                   <span
@@ -108,44 +112,114 @@ export const App: React.FC = () => {
                     }}
                   >
                     <LayersIcon size={13} />
-                    <span>Phase 1 Data Layer</span>
+                    <span>Multimodal Intelligence Layer</span>
                   </span>
                 </div>
                 <h1 style={{ fontSize: '1.875rem', fontWeight: 800, letterSpacing: '-0.025em' }}>
                   Document Intelligence Hub
                 </h1>
                 <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: '0.25rem' }}>
-                  Manage enterprise documents, monitor ingestion stages, and verify access control.
+                  End-to-end multimodal document ingestion, dense Qdrant vector indexing, and grounded citation Q&A.
                 </p>
               </div>
 
+              <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+                <button
+                  className="btn btn-secondary"
+                  disabled={refreshing}
+                  onClick={() => fetchDocs()}
+                  style={{ padding: '0.5rem 0.9rem', fontSize: '0.8rem' }}
+                >
+                  <RefreshIcon size={14} className={refreshing ? 'spinner' : ''} />
+                  <span>Refresh</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Navigation Tabs */}
+            <div
+              style={{
+                display: 'flex',
+                gap: '0.5rem',
+                borderBottom: '1px solid var(--border-subtle)',
+                marginBottom: '1.5rem',
+              }}
+            >
               <button
-                className="btn btn-secondary"
-                disabled={refreshing}
-                onClick={() => fetchDocs()}
-                style={{ padding: '0.5rem 0.9rem', fontSize: '0.8rem' }}
+                onClick={() => setActiveTab('documents')}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  borderBottom: activeTab === 'documents' ? '2px solid var(--accent-primary)' : '2px solid transparent',
+                  color: activeTab === 'documents' ? 'var(--text-main)' : 'var(--text-muted)',
+                  padding: '0.6rem 1rem',
+                  fontSize: '0.9rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                }}
               >
-                <RefreshIcon size={14} className={refreshing ? 'spinner' : ''} />
-                <span>Refresh</span>
+                Documents & Ingestion ({documents.length})
+              </button>
+
+              <button
+                onClick={() => setActiveTab('chat')}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  borderBottom: activeTab === 'chat' ? '2px solid var(--accent-primary)' : '2px solid transparent',
+                  color: activeTab === 'chat' ? 'var(--text-main)' : 'var(--text-muted)',
+                  padding: '0.6rem 1rem',
+                  fontSize: '0.9rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  transition: 'all 0.2s',
+                }}
+              >
+                <span>Document Q&A Chat</span>
+                {readyCount > 0 && (
+                  <span
+                    style={{
+                      background: 'rgba(16, 185, 129, 0.2)',
+                      color: '#34d399',
+                      fontSize: '0.7rem',
+                      padding: '0.1rem 0.45rem',
+                      borderRadius: '10px',
+                    }}
+                  >
+                    {readyCount} indexed
+                  </span>
+                )}
               </button>
             </div>
 
-            {/* Upload area */}
-            <UploadDropzone onUploadSuccess={handleUploadSuccess} />
+            {/* Tab Views */}
+            {activeTab === 'documents' ? (
+              <div>
+                {/* Upload area */}
+                <UploadDropzone onUploadSuccess={handleUploadSuccess} />
 
-            {/* Document table */}
-            <div style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <h2 style={{ fontSize: '1.15rem', fontWeight: 600 }}>Your Documents ({documents.length})</h2>
-            </div>
-            <DocumentList
-              documents={documents}
-              onRefresh={() => fetchDocs(true)}
-              onDeleteSuccess={handleDeleteSuccess}
-            />
+                {/* Document table */}
+                <div style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <h2 style={{ fontSize: '1.15rem', fontWeight: 600 }}>Your Documents ({documents.length})</h2>
+                </div>
+                <DocumentList
+                  documents={documents}
+                  onRefresh={() => fetchDocs(true)}
+                  onDeleteSuccess={handleDeleteSuccess}
+                />
+              </div>
+            ) : (
+              <ChatPane documents={documents} />
+            )}
           </div>
         )}
       </main>
     </div>
   );
 };
+
 export default App;

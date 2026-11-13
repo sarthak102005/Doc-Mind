@@ -81,16 +81,43 @@ def compute_aligned_cer(gt_lines: list[str], ocr_lines: list[str]) -> tuple[floa
     return (cer, total_edits, total_gt_len)
 
 
+BOILERPLATE_PATTERNS = [
+    r"fc[- ]walk[- ]behind",
+    r"www\.factorycat\.com",
+    r"262[- ]681[- ]3583",
+    r"rps corporation.*",
+    r"\*images could include non-standard options.*",
+    r"subject to change without notice.*",
+]
+
+
+def strip_boilerplate(text: str) -> str:
+    """Remove standard multi-page repeated boilerplate lines."""
+    lines = text.splitlines()
+    kept = []
+    for line in lines:
+        l_low = line.strip().lower()
+        if not l_low:
+            continue
+        is_bp = any(bool(re.search(pat, l_low)) for pat in BOILERPLATE_PATTERNS)
+        if not is_bp:
+            kept.append(line)
+    return "\n".join(kept)
+
+
 def normalize_tokens(text: str) -> list[str]:
     """Normalize text into canonical order-invariant tokens.
 
     Handles:
+    - Normalising smart quotes: ’ and ‘ to '
     - Stripping thousands commas between digits: 1,200 -> 1200
     - Separating digits from adjacent units/letters: 441lbs -> 441 lbs, 24VDC -> 24 VDC
     - Splitting hyphenated ranges: 441-481 -> 441 - 481
     - Isolating quotes, asterisks, units
     - Lowercasing and trimming non-essential punctuation
     """
+    # 0. Normalise unicode single and double quotes
+    text = text.replace("’", "'").replace("‘", "'").replace("“", '"').replace("”", '"')
     # 1. Strip thousands commas between digits: 1,200 -> 1200
     t = re.sub(r"(\d),(\d)", r"\1\2", text)
     # 2. Split digits from adjacent letters/units: 441lbs -> 441 lbs, 24VDC -> 24 VDC

@@ -50,10 +50,10 @@ def normalize_boilerplate_text(text: str) -> str:
 def is_contact_or_legal_text(text: str) -> bool:
     """Check if a line contains legal, copyright, address, or contact metadata."""
     contact_patterns = [
-        r"\b(?:https?://|www\.)\S+",
-        r"\b\d{3}[-.\s]\d{3}[-.\s]\d{4}\b",  # phone number
-        r"\b(?:corporation|inc\.|llc|ltd|gmbh)\b",
-        r"\b(?:all rights reserved|subject to change|copyright|\(c\)|©)\b",
+        r"(?:https?://|www\.|\bww\w*|\w+\.(?:com|org|net))\b",
+        r"\d{3}[-.\s]?\d{3}[-.\s]?\d{4}",  # phone number
+        r"(?:corporation|inc\b|llc\b|ltd\b|gmbh\b)",
+        r"(?:all\s*rights\s*reserved|subject\s*to\s*change|changewithoutnotice|copyright|\(c\)|©)",
         r"\b\d{5}(?:-\d{4})?\b",  # zip code
     ]
     return any(bool(re.search(pat, text, re.I)) for pat in contact_patterns)

@@ -608,9 +608,13 @@ def extract_page_words(
         import pymupdf
         from rapidocr_onnxruntime import RapidOCR
 
-        v6_det = Path(r"D:\DocMind\.cache\docling\RapidOcr\PP-OCRv6_det_small.onnx")
-        v6_cls = Path(r"D:\DocMind\.cache\docling\RapidOcr\ch_ppocr_mobile_v2.0_cls_mobile.onnx")
-        v6_rec = Path(r"D:\DocMind\.cache\docling\RapidOcr\PP-OCRv6_rec_small.onnx")
+        from app.core.config import get_settings as _get_settings
+
+        _s = _get_settings()
+        _ocr_model_dir = _s.cache_path / "docling" / "RapidOcr"
+        v6_det = _ocr_model_dir / "PP-OCRv6_det_small.onnx"
+        v6_cls = _ocr_model_dir / "ch_ppocr_mobile_v2.0_cls_mobile.onnx"
+        v6_rec = _ocr_model_dir / "PP-OCRv6_rec_small.onnx"
 
         if v6_det.exists() and v6_rec.exists():
             ocr = RapidOCR(
@@ -628,7 +632,6 @@ def extract_page_words(
         pix = page.get_pixmap(dpi=150)
         img = Image.open(io.BytesIO(pix.tobytes("png")))
         res, _ = ocr(img, return_word_box=True)
-        doc.close()
         if res:
             scale_x = pw / img.width
             scale_y = ph / img.height
@@ -697,6 +700,43 @@ def extract_page_words(
                             confidence=conf,
                         )
                     )
+            # If no standalone page number digit was detected in the bottom margin, inspect bottom margin corners
+            has_bottom_digit = any(w.b > ph * 0.90 and w.text.strip().isdigit() for w in ocr_words)
+            if not has_bottom_digit:
+                import numpy as _np
+                for corner_rect in (
+                    pymupdf.Rect(pw * 0.85, ph * 0.90, pw, ph),
+                    pymupdf.Rect(0.0, ph * 0.90, pw * 0.15, ph),
+                ):
+                    c_pix = page.get_pixmap(clip=corner_rect, dpi=200)
+                    c_arr = _np.frombuffer(c_pix.samples, dtype=_np.uint8).reshape((c_pix.height, c_pix.width, c_pix.n))
+                    if c_pix.n == 4:
+                        c_arr = c_arr[:, :, :3]
+                    c_res, _ = ocr(c_arr)
+                    if c_res:
+                        for c_item in c_res:
+                            c_txt = c_item[1].strip()
+                            if c_txt.isdigit():
+                                c_box = c_item[0]
+                                c_scale_x = (corner_rect.x1 - corner_rect.x0) / c_pix.width
+                                c_scale_y = (corner_rect.y1 - corner_rect.y0) / c_pix.height
+                                xs = [pt[0] for pt in c_box]
+                                ys = [pt[1] for pt in c_box]
+                                ocr_words.append(
+                                    WordBox(
+                                        text=c_txt,
+                                        l=round(corner_rect.x0 + min(xs) * c_scale_x, 2),
+                                        t=round(corner_rect.y0 + min(ys) * c_scale_y, 2),
+                                        r=round(corner_rect.x0 + max(xs) * c_scale_x, 2),
+                                        b=round(corner_rect.y0 + max(ys) * c_scale_y, 2),
+                                        page=page_number,
+                                        font_size=round((max(ys) - min(ys)) * c_scale_y, 1),
+                                        coord_origin="TOPLEFT",
+                                        confidence=float(c_item[2]) if len(c_item) > 2 and c_item[2] is not None else 1.0,
+                                    )
+                                )
+
+            doc.close()
             return ocr_words, pw, ph
     except Exception:
         pass

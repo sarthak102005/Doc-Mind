@@ -183,3 +183,37 @@ def test_digit_normalization_collapses_running_headers() -> None:
     assert "Section" not in cleaned_texts
     assert "Overview" not in cleaned_texts
     assert "Body paragraph for page 2" in cleaned_texts
+
+
+@pytest.mark.unit
+def test_scanned_route_preserves_margin_words_page9() -> None:
+    """Verify that scanned-route extraction does NOT drop margin words before boilerplate detection.
+
+    Ensures that printed page numbers and legal text from sample_1_scanned_250dpi.pdf Page 9
+    are preserved as metadata.
+    """
+    from app.ingestion.reading_order import extract_page_words
+
+    pdf_path = Path(__file__).resolve().parents[2] / "benchmark" / "sample_1_scanned_250dpi.pdf"
+    if not pdf_path.exists():
+        pytest.skip("sample_1_scanned_250dpi.pdf not found")
+
+    words, pw, ph = extract_page_words(pdf_path, 9, route="scanned")
+
+    # 1. Assert margin words are not dropped prior to boilerplate analysis
+    margin_words = [w for w in words if w.b > ph * 0.90]
+    assert len(margin_words) >= 4, f"Expected margin words in scanned route, got {len(margin_words)}"
+    margin_texts = [w.text for w in margin_words]
+    assert any("9" in t for t in margin_texts), "Printed page number '9' must be extracted"
+    assert any("rps" in t.lower() or "notice" in t.lower() for t in margin_texts), "Legal text must be extracted"
+
+    # 2. Run boilerplate detector and verify metadata recording
+    detector = BoilerplateDetector(top_margin_ratio=0.10, bottom_margin_ratio=0.10, min_page_repetitions=1)
+    summary = detector.analyze_document([(9, words, pw, ph)])
+
+    assert len(summary.legal_and_contact_lines) > 0, "Legal text must be recorded in summary metadata"
+
+    # 3. Strip page boilerplate and verify page number recorded
+    result = detector.strip_page_boilerplate(9, words, pw, ph, summary)
+    assert result.printed_page_number == 9, f"Expected printed page number 9, got {result.printed_page_number}"
+    assert len(result.stripped_lines) > 0

@@ -1,5 +1,12 @@
 """Schemas package."""
 
+from app.schemas.chat import (
+    ChatQueryRequest,
+    ChatQueryResponse,
+    ConversationDetail,
+    ConversationSummary,
+    MessageItem,
+)
 from app.schemas.document import (
     DocumentDetailResponse,
     DocumentResponse,
@@ -19,4 +26,9 @@ __all__ = [
     "DocumentDetailResponse",
     "DocumentStatusResponse",
     "ProcessingStatusResponse",
+    "ChatQueryRequest",
+    "ChatQueryResponse",
+    "ConversationSummary",
+    "ConversationDetail",
+    "MessageItem",
 ]

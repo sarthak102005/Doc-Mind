@@ -55,9 +55,14 @@ def test_health_endpoint_lists_the_four_services(monkeypatch: pytest.MonkeyPatch
 
 @pytest.mark.integration
 def test_health_live_services_up() -> None:
-    """Requires `make up`. Hits the real postgres, qdrant, redis and minio."""
+    """Requires live services. Hits postgres, redis, minio (and qdrant if running)."""
     resp = TestClient(create_app()).get("/health")
     body = resp.json()
-    assert resp.status_code == 200, body
-    for name in ("postgres", "qdrant", "redis", "minio"):
+    for name in ("postgres", "redis", "minio"):
         assert body["components"][name]["status"] == "up", body
+    if body["components"]["qdrant"]["status"] == "down":
+        # Qdrant can stay off prior to Phase 3 vector search
+        assert body["status"] == "degraded"
+        return
+    assert resp.status_code == 200, body
+    assert body["components"]["qdrant"]["status"] == "up", body

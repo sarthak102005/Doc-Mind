@@ -151,3 +151,111 @@ export async function deleteDocument(id: string): Promise<void> {
     throw new Error('Failed to delete document');
   }
 }
+
+// --- Chat & Multi-Agent Retrieval API ---
+
+export interface Citation {
+  document_id: string;
+  filename?: string;
+  page_number: number;
+  section?: string;
+  bbox?: number[];
+  preview_text?: string;
+}
+
+export interface ChatQueryRequest {
+  query: string;
+  document_ids?: string[] | null;
+  conversation_id?: string | null;
+  use_agent?: boolean;
+}
+
+export interface ChatQueryResponse {
+  conversation_id: string;
+  message_id: string;
+  answer: string;
+  citations: Citation[];
+  retrieved_chunks: Citation[];
+  model_used: string;
+  fallback_occurred: boolean;
+  has_sufficient_evidence: boolean;
+  verification: {
+    is_verified?: boolean;
+    citation_coverage?: number;
+    details?: string;
+  };
+}
+
+export interface MessageItem {
+  id: string;
+  conversation_id: string;
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+  citations: Citation[];
+  meta_info: Record<string, any>;
+  created_at: string;
+}
+
+export interface ConversationSummary {
+  id: string;
+  title: string;
+  document_id?: string | null;
+  created_at: string;
+  updated_at: string;
+  message_count: number;
+}
+
+export interface ConversationDetail {
+  id: string;
+  title: string;
+  document_id?: string | null;
+  created_at: string;
+  updated_at: string;
+  messages: MessageItem[];
+}
+
+export async function queryDocuments(req: ChatQueryRequest): Promise<ChatQueryResponse> {
+  const resp = await fetch('/api/v1/chat/query', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      ...authHeaders(),
+    },
+    body: JSON.stringify(req),
+  });
+  if (!resp.ok) {
+    const err = await resp.json().catch(() => ({ detail: 'Query failed' }));
+    throw new Error(err.detail || 'Query failed');
+  }
+  return resp.json();
+}
+
+export async function listConversations(): Promise<ConversationSummary[]> {
+  const resp = await fetch('/api/v1/chat/conversations', {
+    headers: authHeaders(),
+  });
+  if (!resp.ok) {
+    throw new Error('Failed to fetch conversations');
+  }
+  return resp.json();
+}
+
+export async function getConversation(id: string): Promise<ConversationDetail> {
+  const resp = await fetch(`/api/v1/chat/conversations/${id}`, {
+    headers: authHeaders(),
+  });
+  if (!resp.ok) {
+    throw new Error('Failed to fetch conversation');
+  }
+  return resp.json();
+}
+
+export async function deleteConversation(id: string): Promise<void> {
+  const resp = await fetch(`/api/v1/chat/conversations/${id}`, {
+    method: 'DELETE',
+    headers: authHeaders(),
+  });
+  if (!resp.ok) {
+    throw new Error('Failed to delete conversation');
+  }
+}

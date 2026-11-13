@@ -7,28 +7,32 @@ import argparse
 from pathlib import Path
 import psutil
 
+REPO_ROOT = Path(__file__).resolve().parent.parent
+CACHE_DIR = REPO_ROOT / ".cache"
+PYTHON_EXE = REPO_ROOT / "backend" / ".venv" / "Scripts" / "python.exe"
+
 def get_disk_free_gb():
-    c_free = psutil.disk_usage("C:\\").free / (1024**3)
-    d_free = psutil.disk_usage("D:\\").free / (1024**3)
-    return round(c_free, 2), round(d_free, 2)
+    usage = psutil.disk_usage(str(REPO_ROOT))
+    free_gb = usage.free / (1024**3)
+    return round(free_gb, 2)
 
 def run_page_subprocess(pdf_path: str, page_num: int, is_scanned: bool, timeout: int = 360):
     cmd = [
-        r"D:\DocMind\backend\.venv\Scripts\python.exe",
-        r"D:\DocMind\scripts\dump_single_page.py",
+        str(PYTHON_EXE if PYTHON_EXE.exists() else sys.executable),
+        str(REPO_ROOT / "scripts" / "dump_single_page.py"),
         "--pdf", pdf_path,
         "--page", str(page_num),
-        "--out-dir", r"D:\DocMind\benchmark\debug"
+        "--out-dir", str(REPO_ROOT / "benchmark" / "debug")
     ]
     if is_scanned:
         cmd.append("--is-scanned")
 
     env = os.environ.copy()
-    env["TEMP"] = r"D:\DocMind\.cache\tmp"
-    env["TMP"] = r"D:\DocMind\.cache\tmp"
-    env["HF_HOME"] = r"D:\DocMind\.cache\huggingface"
-    env["TORCH_HOME"] = r"D:\DocMind\.cache\torch"
-    env["DOCLING_ARTIFACTS_PATH"] = r"D:\DocMind\.cache\docling"
+    env["TEMP"] = str(CACHE_DIR / "tmp")
+    env["TMP"] = str(CACHE_DIR / "tmp")
+    env["HF_HOME"] = str(CACHE_DIR / "huggingface")
+    env["TORCH_HOME"] = str(CACHE_DIR / "torch")
+    env["DOCLING_ARTIFACTS_PATH"] = str(CACHE_DIR / "docling")
     env["OMP_NUM_THREADS"] = "2"
 
     t0 = time.time()
@@ -99,15 +103,15 @@ def run_page_subprocess(pdf_path: str, page_num: int, is_scanned: bool, timeout:
     }
 
 def process_document(pdf_name: str, is_scanned: bool, pages: list[int]):
-    pdf_path = f"D:\\DocMind\\benchmark\\{pdf_name}"
+    pdf_path = str(REPO_ROOT / "benchmark" / pdf_name)
     doc_label = "Scanned" if is_scanned else "Digital (Born-digital)"
     print(f"\n=======================================================")
     print(f"PROCESSING: {pdf_name} ({doc_label})")
     print(f"Target Pages: {pages}")
     print(f"=======================================================")
 
-    c_before, d_before = get_disk_free_gb()
-    print(f"Disk Free BEFORE: C: {c_before} GB | D: {d_before} GB")
+    free_before = get_disk_free_gb()
+    print(f"Disk Free BEFORE: {free_before} GB")
 
     results = []
     for page in pages:
@@ -118,13 +122,13 @@ def process_document(pdf_name: str, is_scanned: bool, pages: list[int]):
         print(f">>> Finished Page {page}: {status} | Time: {res['elapsed_sec']}s | Peak RAM: {res['peak_ram_mb']} MB")
 
         # Check safety threshold after every page
-        c_now, d_now = get_disk_free_gb()
-        if c_now < 3.0:
-            print(f"CRITICAL STOP: Drive C dropped to {c_now} GB (< 3.0 GB threshold)!")
+        free_now = get_disk_free_gb()
+        if free_now < 3.0:
+            print(f"CRITICAL STOP: Disk dropped to {free_now} GB (< 3.0 GB threshold)!")
             sys.exit(99)
 
-    c_after, d_after = get_disk_free_gb()
-    print(f"\nDisk Free AFTER {pdf_name}: C: {c_after} GB | D: {d_after} GB")
+    free_after = get_disk_free_gb()
+    print(f"\nDisk Free AFTER {pdf_name}: {free_after} GB")
     return results
 
 def main():
@@ -148,9 +152,9 @@ def main():
     # 1. Process sample_1.pdf if requested
     if args.pdf_only in ["sample_1", "both"]:
         res_digital = process_document("sample_1.pdf", is_scanned=False, pages=pages)
-        c_mid, _ = get_disk_free_gb()
-        if c_mid < 3.0:
-            print(f"CRITICAL STOP: Drive C dropped to {c_mid} GB before scanned PDF!")
+        free_mid = get_disk_free_gb()
+        if free_mid < 3.0:
+            print(f"CRITICAL STOP: Disk dropped to {free_mid} GB before scanned PDF!")
             sys.exit(99)
 
     # 2. Process sample_1_scanned.pdf if requested
@@ -164,7 +168,8 @@ def main():
         "sample_1": res_digital,
         "sample_1_scanned": res_scanned
     }
-    with open(f"D:\\DocMind\\benchmark\\debug\\dump_summary_{args.mode}_{args.pdf_only}.json", "w", encoding="utf-8") as f:
+    out_file = REPO_ROOT / "benchmark" / "debug" / f"dump_summary_{args.mode}_{args.pdf_only}.json"
+    with open(out_file, "w", encoding="utf-8") as f:
         json.dump(summary, f, indent=2)
 
     print("\n=======================================================")

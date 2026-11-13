@@ -19,7 +19,7 @@ from app.ingestion.profile import profile_document
 from app.ingestion.reading_order import extract_page_words_pymupdf, reconstruct_reading_order
 from app.ingestion.tables import detect_table_zones_from_x_gaps, detect_tables
 
-GENERALIZATION_DIR = Path("D:/DocMind/benchmark/generalization")
+GENERALIZATION_DIR = Path(__file__).resolve().parents[2] / "benchmark" / "generalization"
 ARTICLE_PDF = GENERALIZATION_DIR / "synthetic_article_2col.pdf"
 RULED_TABLE_PDF = GENERALIZATION_DIR / "synthetic_ruled_table.pdf"
 SIDE_BY_SIDE_PDF = GENERALIZATION_DIR / "synthetic_side_by_side_tables.pdf"

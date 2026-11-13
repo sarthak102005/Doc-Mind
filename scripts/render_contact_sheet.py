@@ -9,8 +9,8 @@ import json
 import sys
 from pathlib import Path
 
-# Add backend directory to path so app modules import seamlessly
-BACKEND_DIR = Path("D:/DocMind/backend")
+REPO_ROOT = Path(__file__).resolve().parent.parent
+BACKEND_DIR = REPO_ROOT / "backend"
 if str(BACKEND_DIR) not in sys.path:
     sys.path.insert(0, str(BACKEND_DIR))
 
@@ -23,15 +23,16 @@ from app.ingestion.figures import (
     render_figure_crop_png,
 )
 
-DEBUG_DIR = Path("D:/DocMind/benchmark/debug")
+DEBUG_DIR = REPO_ROOT / "benchmark" / "debug"
 DEBUG_DIR.mkdir(parents=True, exist_ok=True)
-PDF_PATH = Path("D:/DocMind/benchmark/sample_1.pdf")
+PDF_PATH = REPO_ROOT / "benchmark" / "sample_1.pdf"
 
 
-def generate_contact_sheet_and_manifest(max_budget: int = 20) -> tuple[Path, Path, dict[int, int]]:
+def generate_contact_sheet_and_manifest(max_budget: int = 30) -> tuple[Path, Path, dict[int, int]]:
     """Generate figure manifest and contact sheet using production figure triage logic."""
     doc = pymupdf.open(PDF_PATH)
     all_candidates = []
+    per_page_informative: dict[int, list[dict[str, Any]]] = {}
 
     for page_idx in range(len(doc)):
         page = doc[page_idx]
@@ -54,7 +55,7 @@ def generate_contact_sheet_and_manifest(max_budget: int = 20) -> tuple[Path, Pat
             dw_cnt = len([d for d in page_drawings if rect.intersects(d["rect"])])
             w_cnt = len([w for w in page_words if rect.contains(pymupdf.Point(w[0], w[1]))])
 
-            is_k, cls, score, reason = classify_and_triage_figure(
+            is_k, flag, score, reason = classify_and_triage_figure(
                 bbox,
                 page_width=pw,
                 page_height=ph,
@@ -64,24 +65,53 @@ def generate_contact_sheet_and_manifest(max_budget: int = 20) -> tuple[Path, Pat
                 page_text=page_text,
             )
 
-            all_candidates.append(
-                {
-                    "page": page_num,
-                    "bbox": [round(x, 1) for x in bbox],
-                    "class": cls,
-                    "score": score,
-                    "reason": reason,
-                    "kept": is_k,
-                    "dim": img_dim,
-                    "area_ratio": round(
-                        (bbox[2] - bbox[0]) * (bbox[3] - bbox[1]) / (pw * ph), 3
-                    ),
-                }
-            )
+            cand_dict = {
+                "page": page_num,
+                "page_idx": page_idx,
+                "bbox": [round(x, 1) for x in bbox],
+                "flag": flag,
+                "score": score,
+                "reason": reason,
+                "kept": is_k,
+                "dim": img_dim,
+                "area_ratio": round(
+                    (bbox[2] - bbox[0]) * (bbox[3] - bbox[1]) / (pw * ph), 3
+                ),
+            }
+            all_candidates.append(cand_dict)
 
-    # 1. Enforce per-document budget ~20 while ensuring fair allocation across pages
-    kept_candidates = [c for c in all_candidates if c["kept"]]
-    kept_candidates.sort(
+            if is_k:
+                if page_num not in per_page_informative:
+                    per_page_informative[page_num] = []
+                per_page_informative[page_num].append(cand_dict)
+
+    # 1. Enforce document-level budget ~30:
+    # Guarantee at least 1 top-ranked candidate per page that has figures
+    final_kept: list[dict[str, Any]] = []
+    selected_keys: set[tuple[int, tuple[float, ...]]] = set()
+
+    for p in sorted(per_page_informative.keys()):
+        cands = per_page_informative[p]
+        cands.sort(
+            key=lambda c: (
+                c["score"],
+                (c["bbox"][2] - c["bbox"][0]) * (c["bbox"][3] - c["bbox"][1]),
+            ),
+            reverse=True,
+        )
+        top = cands[0]
+        final_kept.append(top)
+        selected_keys.add((p, tuple(top["bbox"])))
+
+    # 2. Fill remaining budget globally
+    remaining = []
+    for p, cands in per_page_informative.items():
+        for c in cands:
+            key = (p, tuple(c["bbox"]))
+            if key not in selected_keys:
+                remaining.append(c)
+
+    remaining.sort(
         key=lambda c: (
             c["score"],
             (c["bbox"][2] - c["bbox"][0]) * (c["bbox"][3] - c["bbox"][1]),
@@ -89,28 +119,28 @@ def generate_contact_sheet_and_manifest(max_budget: int = 20) -> tuple[Path, Pat
         reverse=True,
     )
 
-    final_kept = []
-    page_counts: dict[int, int] = {}
+    for c in remaining:
+        if len(final_kept) >= max_budget:
+            break
+        final_kept.append(c)
+        selected_keys.add((c["page"], tuple(c["bbox"])))
 
-    for c in kept_candidates:
+    final_kept.sort(key=lambda c: (c["page"], c["bbox"][1]))
+    page_counts: dict[int, int] = {}
+    for c in final_kept:
         p = c["page"]
-        # Adaptive page capacity: multi-component overview pages get up to 7; others get 2-3
-        p_cap = 7 if p == 2 else 3 if p == 5 else 2
-        if page_counts.get(p, 0) < p_cap and len(final_kept) < max_budget:
-            final_kept.append(c)
-            page_counts[p] = page_counts.get(p, 0) + 1
+        page_counts[p] = page_counts.get(p, 0) + 1
 
     # Update manifest records status
-    final_kept_keys = {(k["page"], tuple(k["bbox"])) for k in final_kept}
     manifest_records = []
     for c in all_candidates:
         key = (c["page"], tuple(c["bbox"]))
-        status = "kept" if key in final_kept_keys else "skipped"
+        status = "kept" if key in selected_keys else "skipped"
         manifest_records.append(
             {
                 "page": c["page"],
                 "bbox": c["bbox"],
-                "class": c["class"],
+                "flag": c["flag"],
                 "score": c["score"],
                 "area_ratio": c["area_ratio"],
                 "status": status,
@@ -128,7 +158,7 @@ def generate_contact_sheet_and_manifest(max_budget: int = 20) -> tuple[Path, Pat
     rows = (len(final_kept) + cols - 1) // cols
     cell_w = 320
     cell_h = 240
-    montage = Image.new("RGB", (cols * cell_w, rows * cell_h), color=(240, 242, 245))
+    montage = Image.new("RGB", (cols * cell_w, max(cell_h, rows * cell_h)), color=(240, 242, 245))
     draw = ImageDraw.Draw(montage)
 
     for idx, k in enumerate(final_kept):
@@ -137,7 +167,7 @@ def generate_contact_sheet_and_manifest(max_budget: int = 20) -> tuple[Path, Pat
         x0 = c * cell_w
         y0 = r * cell_h
 
-        p_idx = k["page"] - 1
+        p_idx = k["page_idx"]
         page = doc[p_idx]
         b = k["bbox"]
         png_bytes, _, _ = render_figure_crop_png(page, tuple(b), dpi=150)
@@ -155,7 +185,7 @@ def generate_contact_sheet_and_manifest(max_budget: int = 20) -> tuple[Path, Pat
             outline=(200, 205, 215),
             width=1,
         )
-        label = f"P{k['page']}: {k['class']}"
+        label = f"P{k['page']}: {k['flag']} ({k['score']:.0f})"
         draw.rectangle(
             [x0 + 8, y0 + cell_h - 32, x0 + cell_w - 8, y0 + cell_h - 8],
             fill=(30, 41, 59),

@@ -24,6 +24,9 @@ env:
 setup: env
 	cd $(BACKEND) && $(UV) sync --python 3.11
 
+setup-cuda: setup
+	cd $(BACKEND) && $(UV) pip install --index-url https://download.pytorch.org/whl/cu124 torch torchvision
+
 up: env
 	$(COMPOSE) up -d --wait
 

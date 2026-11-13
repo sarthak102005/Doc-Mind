@@ -30,6 +30,7 @@ ENV_FILE = Path(os.environ.get("DOCMIND_ENV_FILE", REPO_ROOT / ".env"))
 class HardwareProfile(StrEnum):
     CPU_8GB = "cpu_8gb"
     CPU_16GB = "cpu_16gb"
+    GPU_4GB = "gpu_4gb"  # RTX-class GPU: local embed/rerank/image-embed on GPU, LLM/VLM remain hosted
     GPU = "gpu"
 
 
@@ -232,6 +233,13 @@ class Settings(BaseSettings):
             self.max_concurrent_ingestion = 1
             self.embed_batch_size = min(self.embed_batch_size, 8)
             self.image_embed_batch_size = min(self.image_embed_batch_size, 4)
+        elif self.hardware_profile is HardwareProfile.GPU_4GB:
+            # gpu_4gb (e.g. RTX 2050 / 3050): one heavy model at a time, but
+            # slightly larger image-embed batches since we're on GPU.
+            # LLM and VLM still run via hosted APIs (D-001).
+            self.max_concurrent_ingestion = 1
+            self.embed_batch_size = min(self.embed_batch_size, 8)
+            self.image_embed_batch_size = min(self.image_embed_batch_size, 8)
 
         # Confirm JWT secret has no usable default outside dev mode
         if self.app_env.lower() not in ("dev", "development", "test"):
@@ -276,6 +284,16 @@ class Settings(BaseSettings):
     def minio_url(self) -> str:
         scheme = "https" if self.minio_secure else "http"
         return f"{scheme}://{self.minio_endpoint}"
+
+    @property
+    def local_models_on_gpu(self) -> bool:
+        """True when local embedding / reranking / image-embedding models should run on the GPU.
+
+        On gpu_4gb and gpu profiles the RTX GPU can handle SigLIP2, bge-reranker, and OCR
+        models in VRAM (one at a time, unloaded between stages).  LLM and VLM calls always
+        stay on hosted APIs regardless of this flag.
+        """
+        return self.hardware_profile in (HardwareProfile.GPU_4GB, HardwareProfile.GPU)
 
 
 def _env_lookup() -> dict[str, str]:

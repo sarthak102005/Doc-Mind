@@ -5,8 +5,9 @@ import json
 from pathlib import Path
 import psutil
 
-summary_file = Path(r"D:\DocMind\benchmark\debug\dump_summary_remaining_both.json")
-debug_dir = Path(r"D:\DocMind\benchmark\debug")
+REPO_ROOT = Path(__file__).resolve().parent.parent
+debug_dir = REPO_ROOT / "benchmark" / "debug"
+summary_file = debug_dir / "dump_summary_remaining_both.json"
 
 print("Waiting for background raw dump (remaining pages) to finish...")
 sys.stdout.flush()

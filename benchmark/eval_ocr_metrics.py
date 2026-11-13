@@ -18,11 +18,24 @@ from pathlib import Path
 
 import pymupdf
 import sys
-from PIL import Image
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+BACKEND_DIR = REPO_ROOT / "backend"
+if str(BACKEND_DIR) not in sys.path:
+    sys.path.insert(0, str(BACKEND_DIR))
+
+from eval.metrics.ocr import (
+    BOILERPLATE_PATTERNS,
+    compute_cer,
+    compute_numeric_token_recall,
+    compute_token_f1,
+    extract_numeric_tokens,
+    normalize_tokens,
+    strip_boilerplate,
+)
 
 sys.stdout.reconfigure(encoding="utf-8")
 
-REPO_ROOT = Path("D:/DocMind")
 BENCHMARK_DIR = REPO_ROOT / "benchmark"
 DEBUG_DIR = BENCHMARK_DIR / "debug"
 DEBUG_DIR.mkdir(parents=True, exist_ok=True)
@@ -30,36 +43,6 @@ DEBUG_DIR.mkdir(parents=True, exist_ok=True)
 DIGITAL_PDF = BENCHMARK_DIR / "sample_1.pdf"
 SCANNED_250_PDF = BENCHMARK_DIR / "sample_1_scanned_250dpi.pdf"
 SCANNED_150_PDF = BENCHMARK_DIR / "sample_1_scanned.pdf"
-
-BOILERPLATE_PATTERNS = [
-    r"fc[- ]walk[- ]behind",
-    r"www\.factorycat\.com",
-    r"262[- ]681[- ]3583",
-    r"rps corporation.*",
-    r"\*images could include non-standard options.*",
-    r"subject to change without notice.*",
-]
-
-
-def normalize_tokens(text: str) -> list[str]:
-    """Normalize text into canonical order-invariant tokens."""
-    # 1. Strip thousands commas between digits: 1,200 -> 1200
-    t = re.sub(r"(\d),(\d)", r"\1\2", text)
-    # 2. Split digits from adjacent letters/units: 441lbs -> 441 lbs, 24VDC -> 24 VDC
-    t = re.sub(r"(\d+)([a-zA-Z]+)", r"\1 \2", t)
-    t = re.sub(r"([a-zA-Z]+)(\d+)", r"\1 \2", t)
-    # 3. Split hyphenated ranges: 441-481 -> 441 - 481
-    t = re.sub(r"(\d+)-(\d+)", r"\1 - \2", t)
-    # 4. Separate quotes, asterisks, units
-    t = re.sub(r"(\d+)([\"'\*\+])", r"\1 \2", t)
-    t = re.sub(r"([\*]+)", r" \1 ", t)
-    # 5. Lowercase and strip punctuation noise
-    tokens = []
-    for tok in t.split():
-        clean = tok.strip(" ,;:()[]{}").lower()
-        if clean:
-            tokens.append(clean)
-    return tokens
 
 
 def strip_boilerplate(text: str) -> str:
@@ -292,6 +275,49 @@ def run_evaluation() -> None:
         print(f"  Mag-HD System Row (310 ah):   {mag_system}")
         print(f"  Run Time Entries:             {runtime_matches[:3]}")
         print(f"  '**' Footnote attached:       {footnote_on_runtime}")
+
+    print("\n" + "=" * 80)
+    print("4. RECOMPUTED METRICS: PAGES 6 TO 10 & PAGE 11 ACROSS ALL THREE PDFS")
+    print("   (Identical boilerplate stripping applied to GT & OCR, '’' normalized to '\'')")
+    print("=" * 80)
+
+    pdf_targets = [
+        ("sample_1.pdf (Digital)", doc_digital, True),
+        ("sample_1_scanned_250dpi.pdf (250 dpi)", doc_scanned_250, False),
+        ("sample_1_scanned.pdf (150 dpi)", doc_scanned_150, False),
+    ]
+
+    for pdf_name, pdf_doc, is_digital in pdf_targets:
+        print(f"\n--- Target: {pdf_name} ---")
+        print(f"{'Page':<6} | {'CER':<10} | {'Token F1':<10} | {'Precision':<10} | {'Recall':<10} | {'Numeric Recall (P11)':<20}")
+        print("-" * 75)
+
+        for pno in list(range(6, 11)) + [11]:
+            pidx = pno - 1
+            page_gt = doc_digital[pidx]
+            page_test = pdf_doc[pidx]
+
+            gt_raw = page_gt.get_text()
+            gt_clean = strip_boilerplate(gt_raw)
+
+            if is_digital:
+                test_raw = page_test.get_text()
+            else:
+                test_raw, _ = run_rapidocr_on_page(page_test, dpi=150)
+
+            test_clean = strip_boilerplate(test_raw)
+
+            cer = compute_cer(gt_clean, test_clean)
+            gt_toks = normalize_tokens(gt_clean)
+            test_toks = normalize_tokens(test_clean)
+            p, r, f1 = compute_token_f1(gt_toks, test_toks)
+
+            num_recall_str = "N/A"
+            if pno == 11:
+                num_rec, _, _ = compute_numeric_token_recall(gt_clean, test_clean)
+                num_recall_str = f"{num_rec:.2%}"
+
+            print(f"Page {pno:<2} | {cer:<10.2%} | {f1:<10.2%} | {p:<10.2%} | {r:<10.2%} | {num_recall_str:<20}")
 
 
 if __name__ == "__main__":

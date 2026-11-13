@@ -1,3 +1,4 @@
-# Project-level uv configuration
-cache-dir = "D:/DocMind/.cache/uv"
+# Project-level uv configuration.
+# cache-dir is left unset so uv uses its platform default (%LOCALAPPDATA%\uv\cache on Windows).
+# To redirect the cache to another drive, set UV_CACHE_DIR in your shell profile.
 link-mode = "copy"

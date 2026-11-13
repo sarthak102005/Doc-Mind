@@ -10,7 +10,7 @@ Generates:
 from pathlib import Path
 import pymupdf
 
-OUT_DIR = Path("D:/DocMind/benchmark/generalization")
+OUT_DIR = Path(__file__).resolve().parent / "generalization"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 

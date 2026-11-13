@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
-
-debug_dir = Path(r"D:\DocMind\benchmark\debug")
+REPO_ROOT = Path(__file__).resolve().parent.parent
+debug_dir = REPO_ROOT / "benchmark" / "debug"
 
 def inspect_page2():
     print("=== INSPECTING PAGE 2 ===")

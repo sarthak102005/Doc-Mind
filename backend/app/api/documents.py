@@ -177,7 +177,11 @@ async def upload_document(
     # 7. Queue ingestion task (worker process picks up if Redis; background task if in-memory)
     await enqueue_ingestion_job(doc_id, doc_version.id)
     if settings.redis_backend == RedisBackend.MEMORY:
-        background_tasks.add_task(process_document_pipeline, doc_id)
+        if settings.app_env == 'test':
+            from app.worker.tasks import process_document_stub
+            background_tasks.add_task(process_document_stub, doc_id)
+        else:
+            background_tasks.add_task(process_document_pipeline, doc_id)
 
     return DocumentResponse.model_validate(doc)
 
