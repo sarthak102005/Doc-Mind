@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { login, signup, User } from '../api';
-import { AlertCircleIcon, ArrowRightIcon, LockIcon, MailIcon, UserIcon } from './icons';
+import { AlertCircleIcon, ArrowRightIcon, DocPilotLogo, LockIcon, MailIcon, UserIcon } from './icons';
 
 interface AuthModalProps {
   onSuccess: (user: User) => void;
@@ -35,25 +35,25 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSuccess }) => {
   };
 
   return (
-    <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <div className="glass-panel" style={{ width: '100%', maxWidth: '440px', padding: '2.5rem' }}>
+    <div style={{ minHeight: '75vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
+      <div
+        className="panel-card"
+        style={{
+          width: '100%',
+          maxWidth: '430px',
+          padding: '2.5rem 2.25rem',
+          boxShadow: 'var(--shadow-modal)',
+        }}
+      >
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <div
-            style={{
-              display: 'inline-flex',
-              padding: '0.75rem',
-              borderRadius: '12px',
-              background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(6, 182, 212, 0.2))',
-              marginBottom: '1rem',
-            }}
-          >
-            <LockIcon size={28} color="#818cf8" />
+          <div style={{ display: 'inline-flex', marginBottom: '0.85rem' }}>
+            <DocPilotLogo size={42} />
           </div>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 700, letterSpacing: '-0.02em', marginBottom: '0.5rem' }}>
-            {isLogin ? 'Welcome back to DocMind' : 'Create an Account'}
+          <h2 style={{ fontSize: '1.45rem', fontWeight: 800, color: 'var(--brand-navy)', letterSpacing: '-0.025em', marginBottom: '0.4rem' }}>
+            {isLogin ? 'Welcome back to DocPilot' : 'Create a DocPilot Account'}
           </h2>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>
-            {isLogin ? 'Sign in to access your enterprise documents' : 'Start with fast multimodal document intelligence'}
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
+            {isLogin ? 'Sign in to access your enterprise documents' : 'Start with grounded multimodal document intelligence'}
           </p>
         </div>
 
@@ -64,10 +64,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSuccess }) => {
               alignItems: 'center',
               gap: '0.6rem',
               padding: '0.75rem 1rem',
-              borderRadius: '8px',
-              background: 'rgba(244, 63, 94, 0.12)',
-              border: '1px solid rgba(244, 63, 94, 0.3)',
-              color: '#fda4af',
+              borderRadius: 'var(--radius-sm)',
+              background: 'var(--status-error-bg)',
+              border: '1px solid var(--status-error-border)',
+              color: 'var(--status-error)',
               fontSize: '0.85rem',
               marginBottom: '1.5rem',
             }}
@@ -86,11 +86,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSuccess }) => {
                   type="text"
                   className="form-input"
                   style={{ width: '100%', paddingLeft: '2.5rem' }}
-                  placeholder="e.g. Alex Nexus"
+                  placeholder="e.g. Alex Morgan"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                 />
-                <UserIcon size={16} color="var(--text-dim)" style={{ position: 'absolute', left: '0.9rem', top: '50%', transform: 'translateY(-50%)' }} />
+                <UserIcon size={16} color="var(--text-muted)" style={{ position: 'absolute', left: '0.9rem', top: '50%', transform: 'translateY(-50%)' }} />
               </div>
             </div>
           )}
@@ -107,7 +107,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSuccess }) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <MailIcon size={16} color="var(--text-dim)" style={{ position: 'absolute', left: '0.9rem', top: '50%', transform: 'translateY(-50%)' }} />
+              <MailIcon size={16} color="var(--text-muted)" style={{ position: 'absolute', left: '0.9rem', top: '50%', transform: 'translateY(-50%)' }} />
             </div>
           </div>
 
@@ -124,7 +124,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSuccess }) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <LockIcon size={16} color="var(--text-dim)" style={{ position: 'absolute', left: '0.9rem', top: '50%', transform: 'translateY(-50%)' }} />
+              <LockIcon size={16} color="var(--text-muted)" style={{ position: 'absolute', left: '0.9rem', top: '50%', transform: 'translateY(-50%)' }} />
             </div>
           </div>
 
@@ -132,20 +132,20 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSuccess }) => {
             type="submit"
             className="btn btn-primary"
             disabled={loading}
-            style={{ width: '100%', marginTop: '0.75rem', padding: '0.8rem' }}
+            style={{ width: '100%', marginTop: '0.85rem', padding: '0.75rem' }}
           >
             {loading ? (
-              <span className="spinner" />
+              <span className="spinner" style={{ borderColor: 'rgba(255,255,255,0.3)', borderTopColor: '#FFFFFF' }} />
             ) : (
               <>
-                <span>{isLogin ? 'Sign In' : 'Sign Up'}</span>
+                <span>{isLogin ? 'Sign In' : 'Create Account'}</span>
                 <ArrowRightIcon size={16} />
               </>
             )}
           </button>
         </form>
 
-        <div style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
+        <div style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
           {isLogin ? "Don't have an account? " : 'Already have an account? '}
           <button
             type="button"
@@ -156,13 +156,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSuccess }) => {
             style={{
               background: 'none',
               border: 'none',
-              color: '#818cf8',
+              color: 'var(--brand-muted-blue)',
               fontWeight: 600,
               cursor: 'pointer',
               textDecoration: 'underline',
             }}
           >
-            {isLogin ? 'Sign up' : 'Log in'}
+            {isLogin ? 'Sign up' : 'Sign in'}
           </button>
         </div>
       </div>

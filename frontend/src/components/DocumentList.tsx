@@ -81,7 +81,7 @@ export const DocumentList: React.FC<DocumentListProps> = ({ documents, onRefresh
       case 'processing':
         return (
           <span className="badge badge-processing">
-            <span className="spinner" />
+            <span className="spinner" style={{ width: '10px', height: '10px' }} />
             <span>Processing</span>
           </span>
         );
@@ -104,82 +104,134 @@ export const DocumentList: React.FC<DocumentListProps> = ({ documents, onRefresh
 
   if (documents.length === 0) {
     return (
-      <div className="glass-panel" style={{ padding: '3.5rem', textAlign: 'center' }}>
-        <div style={{ color: 'var(--text-dim)', marginBottom: '1rem' }}>
-          <FileTextIcon size={48} />
+      <div
+        className="panel-card"
+        style={{
+          padding: '4rem 2rem',
+          textAlign: 'center',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <div
+          style={{
+            width: '60px',
+            height: '60px',
+            borderRadius: '50%',
+            background: 'var(--bg-secondary)',
+            color: 'var(--brand-muted-blue)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: '1rem',
+          }}
+        >
+          <FileTextIcon size={28} />
         </div>
-        <h3 style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '0.35rem' }}>No documents uploaded yet</h3>
-        <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>
-          Drop sample_1.pdf or any technical manual into the zone above to begin.
+        <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.35rem' }}>
+          No documents uploaded yet
+        </h3>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', maxWidth: '380px', lineHeight: 1.5 }}>
+          Upload technical manuals, specification sheets, or reports to begin multimodal extraction and grounded Q&A.
         </p>
       </div>
     );
   }
 
   return (
-    <div className="glass-panel" style={{ overflow: 'hidden' }}>
-      <table className="data-table">
-        <thead>
-          <tr>
-            <th>Document</th>
-            <th>Size</th>
-            <th>Status</th>
-            <th>Uploaded</th>
-            <th style={{ textAlign: 'right' }}>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {documents.map((doc) => (
-            <tr key={doc.id}>
-              <td>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                  <div
-                    style={{
-                      padding: '0.5rem',
-                      borderRadius: '8px',
-                      background: 'rgba(99, 102, 241, 0.1)',
-                      color: '#818cf8',
-                    }}
-                  >
-                    <FileTextIcon size={18} />
-                  </div>
-                  <div>
-                    <div style={{ fontWeight: 600, color: 'var(--text-main)' }}>{doc.original_name}</div>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', fontFamily: 'var(--font-mono)' }}>
-                      v{doc.current_version} • ID: {doc.id.slice(0, 8)}...
+    <div className="panel-card" style={{ overflow: 'hidden' }}>
+      <div style={{ overflowX: 'auto' }}>
+        <table className="data-table">
+          <thead>
+            <tr>
+              <th style={{ minWidth: '280px' }}>Document</th>
+              <th style={{ minWidth: '90px' }}>Size</th>
+              <th style={{ minWidth: '120px' }}>Status</th>
+              <th style={{ minWidth: '140px' }}>Uploaded</th>
+              <th style={{ minWidth: '110px', textAlign: 'right' }}>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {documents.map((doc) => (
+              <tr key={doc.id}>
+                <td>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+                    <div
+                      style={{
+                        width: '36px',
+                        height: '36px',
+                        borderRadius: 'var(--radius-sm)',
+                        background: 'var(--brand-muted-blue-subtle)',
+                        color: 'var(--brand-navy)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <FileTextIcon size={18} />
+                    </div>
+                    <div style={{ minWidth: 0 }}>
+                      <div
+                        style={{
+                          fontWeight: 600,
+                          color: 'var(--text-primary)',
+                          fontSize: '0.88rem',
+                          whiteSpace: 'nowrap',
+                          textOverflow: 'ellipsis',
+                          overflow: 'hidden',
+                          maxWidth: '380px',
+                        }}
+                        title={doc.original_name}
+                      >
+                        {doc.original_name}
+                      </div>
+                      <div style={{ fontSize: '0.73rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginTop: '0.1rem' }}>
+                        v{doc.current_version} • <span title={doc.id}>{doc.id.slice(0, 8)}...</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </td>
-              <td style={{ color: 'var(--text-muted)' }}>{formatBytes(doc.size_bytes)}</td>
-              <td>{renderStatusBadge(doc.status)}</td>
-              <td style={{ color: 'var(--text-dim)', fontSize: '0.8rem' }}>{formatDate(doc.created_at)}</td>
-              <td style={{ textAlign: 'right' }}>
-                <div style={{ display: 'inline-flex', gap: '0.5rem' }}>
-                  <button
-                    className="btn btn-secondary"
-                    onClick={() => handleDownload(doc)}
-                    style={{ padding: '0.4rem 0.65rem' }}
-                    title="Open / Download"
-                  >
-                    <ExternalLinkIcon size={14} />
-                  </button>
+                </td>
+                <td style={{ color: 'var(--text-secondary)', fontSize: '0.825rem' }}>
+                  {formatBytes(doc.size_bytes)}
+                </td>
+                <td>{renderStatusBadge(doc.status)}</td>
+                <td style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>
+                  {formatDate(doc.created_at)}
+                </td>
+                <td style={{ textAlign: 'right' }}>
+                  <div style={{ display: 'inline-flex', gap: '0.4rem' }}>
+                    <button
+                      className="btn btn-secondary"
+                      onClick={() => handleDownload(doc)}
+                      style={{ padding: '0.4rem 0.65rem' }}
+                      title="Open / Download PDF"
+                    >
+                      <ExternalLinkIcon size={14} />
+                    </button>
 
-                  <button
-                    className="btn btn-danger"
-                    disabled={deletingId === doc.id}
-                    onClick={() => handleDelete(doc)}
-                    style={{ padding: '0.4rem 0.65rem' }}
-                    title="Delete document"
-                  >
-                    {deletingId === doc.id ? <span className="spinner" /> : <TrashIcon size={14} />}
-                  </button>
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                    <button
+                      className="btn btn-danger"
+                      disabled={deletingId === doc.id}
+                      onClick={() => handleDelete(doc)}
+                      style={{ padding: '0.4rem 0.65rem' }}
+                      title="Delete document"
+                    >
+                      {deletingId === doc.id ? (
+                        <span className="spinner" style={{ width: '12px', height: '12px' }} />
+                      ) : (
+                        <TrashIcon size={14} />
+                      )}
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

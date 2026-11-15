@@ -57,7 +57,7 @@ export const UploadDropzone: React.FC<UploadDropzoneProps> = ({ onUploadSuccess 
   };
 
   return (
-    <div style={{ marginBottom: '2.5rem' }}>
+    <div style={{ marginBottom: '2rem' }}>
       <input
         type="file"
         ref={fileInputRef}
@@ -77,25 +77,51 @@ export const UploadDropzone: React.FC<UploadDropzoneProps> = ({ onUploadSuccess 
         onDrop={onDrop}
         onClick={() => !uploading && fileInputRef.current?.click()}
       >
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.85rem' }}>
           <div
             style={{
-              padding: '1rem',
+              width: '54px',
+              height: '54px',
               borderRadius: '50%',
-              background: 'rgba(99, 102, 241, 0.1)',
-              color: '#818cf8',
+              background: isDragging ? 'var(--accent-teal-subtle)' : 'var(--bg-secondary)',
+              border: '1px solid var(--border-subtle)',
+              color: isDragging ? 'var(--accent-teal)' : 'var(--brand-muted-blue)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'all 0.2s ease',
             }}
           >
-            {uploading ? <span className="spinner" style={{ width: '24px', height: '24px' }} /> : <UploadCloudIcon size={32} />}
+            {uploading ? (
+              <span className="spinner" style={{ width: '22px', height: '22px' }} />
+            ) : (
+              <UploadCloudIcon size={26} />
+            )}
           </div>
 
           <div>
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '0.25rem' }}>
-              {uploading ? 'Validating and uploading document...' : 'Click or drag PDF document to upload'}
+            <h3 style={{ fontSize: '1.05rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.3rem' }}>
+              {uploading ? 'Ingesting and validating document...' : 'Click to upload or drag and drop PDF'}
             </h3>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
-              Standard and scanned PDFs up to 50 MB (Password protected files not permitted)
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: 1.5 }}>
+              Standard and scanned technical manuals, specs, or reports (up to 50 MB)
             </p>
+          </div>
+
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              padding: '0.2rem 0.6rem',
+              background: 'var(--bg-card-subtle)',
+              borderRadius: '4px',
+              border: '1px solid var(--border-subtle)',
+              fontSize: '0.75rem',
+              color: 'var(--text-muted)',
+            }}
+          >
+            <span>Password-protected files must be decrypted prior to upload</span>
           </div>
         </div>
       </div>
@@ -105,14 +131,14 @@ export const UploadDropzone: React.FC<UploadDropzoneProps> = ({ onUploadSuccess 
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '0.5rem',
+            gap: '0.6rem',
             padding: '0.75rem 1rem',
-            borderRadius: '8px',
-            background: 'rgba(244, 63, 94, 0.1)',
-            border: '1px solid rgba(244, 63, 94, 0.25)',
-            color: '#fda4af',
+            borderRadius: 'var(--radius-sm)',
+            background: 'var(--status-error-bg)',
+            border: '1px solid var(--status-error-border)',
+            color: 'var(--status-error)',
             fontSize: '0.85rem',
-            marginTop: '1rem',
+            marginTop: '0.85rem',
           }}
         >
           <AlertCircleIcon size={16} />

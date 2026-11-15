@@ -11,12 +11,11 @@ import {
   getConversation,
   deleteConversation,
 } from '../api';
-import { RefreshIcon } from './icons';
+import { DocPilotLogo, PlusIcon, RefreshIcon, SparklesIcon, TrashIcon } from './icons';
 
 interface ChatPaneProps {
   documents: DocumentItem[];
 }
-
 
 const FigureImageCard: React.FC<{
   image: ImageAttachment;
@@ -46,7 +45,7 @@ const FigureImageCard: React.FC<{
           setBlobUrl(createdUrl);
           setLoading(false);
         }
-      } catch (err) {
+      } catch {
         if (active) {
           setError(true);
           setLoading(false);
@@ -64,78 +63,83 @@ const FigureImageCard: React.FC<{
     };
   }, [image.image_url]);
 
-  const title = image.caption || `Page ${image.page_number} Figure`;
+  const title = image.caption || `Page ${image.page_number} Technical Figure`;
 
   return (
     <div
       style={{
         display: 'flex',
         flexDirection: 'column',
-        background: 'rgba(15, 23, 42, 0.85)',
-        border: '1px solid rgba(99, 102, 241, 0.35)',
-        borderRadius: 'var(--radius-md, 8px)',
+        background: '#FFFFFF',
+        border: '1px solid var(--border-subtle)',
+        borderRadius: 'var(--radius-md)',
         overflow: 'hidden',
         maxWidth: '380px',
-        marginTop: '0.5rem',
-        boxShadow: '0 4px 14px rgba(0, 0, 0, 0.3)',
+        marginTop: '0.65rem',
+        boxShadow: 'var(--shadow-sm)',
+        transition: 'all 0.2s ease',
       }}
     >
-      {/* Header Badge */}
+      {/* Header Bar */}
       <div
         style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '0.4rem 0.65rem',
-          background: 'rgba(30, 41, 59, 0.9)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+          padding: '0.45rem 0.75rem',
+          background: 'var(--bg-card-subtle)',
+          borderBottom: '1px solid var(--border-subtle)',
           fontSize: '0.75rem',
-          color: 'var(--text-muted, #94a3b8)',
+          color: 'var(--text-secondary)',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', overflow: 'hidden' }}>
-          <span style={{ color: 'var(--accent-primary, #6366f1)', fontWeight: 600 }}>📷</span>
-          <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', maxWidth: '200px' }}>
-            {image.filename || 'Document Figure'}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', overflow: 'hidden' }}>
+          <span style={{ color: 'var(--brand-muted-blue)', fontWeight: 600 }}>📷</span>
+          <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', maxWidth: '210px', fontWeight: 500 }}>
+            {image.filename || 'Extracted Document Figure'}
           </span>
         </div>
         <span
           style={{
-            background: 'rgba(99, 102, 241, 0.25)',
-            color: '#c7d2fe',
-            padding: '0.1rem 0.45rem',
+            background: 'var(--brand-muted-blue-subtle)',
+            color: 'var(--brand-navy)',
+            border: '1px solid #D3DFEC',
+            padding: '0.12rem 0.5rem',
             borderRadius: '4px',
-            fontSize: '0.72rem',
+            fontSize: '0.7rem',
             fontWeight: 600,
+            whiteSpace: 'nowrap',
           }}
         >
           Page {image.page_number}
         </span>
       </div>
 
-      {/* Image Container */}
+      {/* Image Preview Area */}
       <div
         style={{
           position: 'relative',
-          background: 'rgba(0, 0, 0, 0.5)',
+          background: '#F8F7F4',
           minHeight: '140px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           cursor: blobUrl ? 'zoom-in' : 'default',
+          padding: '0.5rem',
         }}
         onClick={() => {
           if (blobUrl) onOpenModal(blobUrl, title);
         }}
       >
         {loading && (
-          <div style={{ padding: '1.5rem', color: 'var(--text-muted, #94a3b8)', fontSize: '0.8rem' }}>
-            Loading PDF image crop...
+          <div style={{ padding: '2rem', color: 'var(--text-muted)', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span className="spinner" style={{ width: '12px', height: '12px' }} />
+            <span>Loading PDF image crop...</span>
           </div>
         )}
         {error && (
-          <div style={{ padding: '1.5rem', color: '#f87171', fontSize: '0.8rem' }}>
-            Failed to load figure
+          <div style={{ padding: '2rem', color: 'var(--status-error)', fontSize: '0.8rem' }}>
+            Figure preview unavailable
           </div>
         )}
         {blobUrl && !loading && (
@@ -147,6 +151,7 @@ const FigureImageCard: React.FC<{
               maxHeight: '260px',
               objectFit: 'contain',
               display: 'block',
+              borderRadius: 'var(--radius-xs)',
             }}
           />
         )}
@@ -156,12 +161,12 @@ const FigureImageCard: React.FC<{
       {image.caption && (
         <div
           style={{
-            padding: '0.45rem 0.65rem',
+            padding: '0.5rem 0.75rem',
             fontSize: '0.75rem',
-            color: 'var(--text-main, #e2e8f0)',
-            lineHeight: 1.4,
-            borderTop: '1px solid rgba(255, 255, 255, 0.05)',
-            background: 'rgba(15, 23, 42, 0.95)',
+            color: 'var(--text-secondary)',
+            lineHeight: 1.45,
+            borderTop: '1px solid var(--border-subtle)',
+            background: '#FFFFFF',
           }}
         >
           {image.caption}
@@ -238,8 +243,8 @@ export const ChatPane: React.FC<ChatPaneProps> = ({ documents }) => {
   }, [messages, loading]);
 
   // Send query
-  const handleSend = async () => {
-    const q = inputQuery.trim();
+  const handleSend = async (queryOverride?: string) => {
+    const q = (queryOverride || inputQuery).trim();
     if (!q || loading) return;
 
     // Optimistically show user message
@@ -323,13 +328,13 @@ export const ChatPane: React.FC<ChatPaneProps> = ({ documents }) => {
             key={i}
             style={{
               display: 'inline-block',
-              background: 'rgba(99, 102, 241, 0.2)',
-              color: '#a5b4fc',
-              border: '1px solid rgba(99, 102, 241, 0.4)',
+              background: 'var(--brand-muted-blue-subtle)',
+              color: 'var(--brand-navy)',
+              border: '1px solid #D3DFEC',
               borderRadius: '4px',
-              padding: '0 4px',
-              margin: '0 2px',
-              fontSize: '0.85em',
+              padding: '0.05rem 0.4rem',
+              margin: '0 0.2rem',
+              fontSize: '0.82em',
               fontWeight: 600,
             }}
           >
@@ -343,138 +348,196 @@ export const ChatPane: React.FC<ChatPaneProps> = ({ documents }) => {
 
   return (
     <div
-      className="glass-panel"
+      className="panel-card"
       style={{
         display: 'flex',
-        height: '680px',
+        height: '740px',
         overflow: 'hidden',
-        marginTop: '1.5rem',
+        boxShadow: 'var(--shadow-md)',
       }}
     >
       {/* Sidebar: Conversation history */}
       <div
         style={{
-          width: '260px',
+          width: '280px',
           borderRight: '1px solid var(--border-subtle)',
           display: 'flex',
           flexDirection: 'column',
-          background: 'rgba(15, 20, 34, 0.5)',
+          background: 'var(--bg-secondary)',
+          flexShrink: 0,
         }}
       >
-        <div style={{ padding: '1rem', borderBottom: '1px solid var(--border-subtle)' }}>
-          <button
-            className="btn btn-primary"
-            onClick={handleNewChat}
-            style={{ width: '100%', fontSize: '0.85rem', padding: '0.5rem' }}
-          >
-            + New Chat
-          </button>
-        </div>
-
-        <div style={{ flex: 1, overflowY: 'auto', padding: '0.5rem' }}>
-          <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', padding: '0.5rem', fontWeight: 600 }}>
-            RECENT CONVERSATIONS
-          </div>
-          {conversations.length === 0 ? (
-            <div style={{ padding: '0.5rem', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-              No conversations yet.
-            </div>
-          ) : (
-            conversations.map((c) => (
-              <div
-                key={c.id}
-                onClick={() => selectConversation(c.id)}
-                style={{
-                  padding: '0.6rem 0.75rem',
-                  borderRadius: 'var(--radius-sm)',
-                  marginBottom: '0.35rem',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  background: activeConvId === c.id ? 'rgba(99, 102, 241, 0.2)' : 'transparent',
-                  border: activeConvId === c.id ? '1px solid rgba(99, 102, 241, 0.4)' : '1px solid transparent',
-                  transition: 'background 0.2s',
-                }}
-              >
-                <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1 }}>
-                  <div style={{ fontSize: '0.85rem', fontWeight: 500, color: 'var(--text-main)' }}>
-                    {c.title || 'Conversation'}
-                  </div>
-                  <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>
-                    {c.message_count} messages
-                  </div>
-                </div>
-                <button
-                  onClick={(e) => handleDeleteConv(e, c.id)}
-                  title="Delete chat"
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    color: 'var(--text-dim)',
-                    cursor: 'pointer',
-                    fontSize: '1rem',
-                    padding: '0 4px',
-                  }}
-                >
-                  &times;
-                </button>
-              </div>
-            ))
-          )}
-        </div>
-      </div>
-
-      {/* Main Chat Area */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-        {/* Controls Bar */}
+        {/* Sidebar Header */}
         <div
           style={{
-            padding: '0.75rem 1.25rem',
+            padding: '1.1rem 1.15rem',
             borderBottom: '1px solid var(--border-subtle)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            background: 'rgba(15, 20, 34, 0.3)',
           }}
         >
-          {/* Document Scope Selector */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Scope:</span>
+          <span style={{ fontSize: '0.825rem', fontWeight: 700, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+            Conversations
+          </span>
+          <button
+            className="btn btn-secondary"
+            onClick={handleNewChat}
+            style={{ padding: '0.35rem 0.65rem', fontSize: '0.78rem' }}
+            title="Start new conversation"
+          >
+            <PlusIcon size={14} />
+            <span>New</span>
+          </button>
+        </div>
+
+        {/* Conversation List */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: '0.75rem' }}>
+          {conversations.length === 0 ? (
+            <div style={{ padding: '2rem 1rem', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.825rem' }}>
+              No previous threads. Ask a question to begin!
+            </div>
+          ) : (
+            conversations.map((conv) => {
+              const isActive = activeConvId === conv.id;
+              return (
+                <div
+                  key={conv.id}
+                  onClick={() => selectConversation(conv.id)}
+                  style={{
+                    padding: '0.7rem 0.85rem',
+                    borderRadius: 'var(--radius-sm)',
+                    marginBottom: '0.35rem',
+                    cursor: 'pointer',
+                    background: isActive ? '#FFFFFF' : 'transparent',
+                    border: isActive ? '1px solid var(--border-subtle)' : '1px solid transparent',
+                    borderLeft: isActive ? '3px solid var(--brand-navy)' : '1px solid transparent',
+                    boxShadow: isActive ? 'var(--shadow-xs)' : 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    transition: 'all 0.15s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive) e.currentTarget.style.backgroundColor = 'var(--bg-hover)';
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) e.currentTarget.style.backgroundColor = 'transparent';
+                  }}
+                >
+                  <div style={{ minWidth: 0, flex: 1 }}>
+                    <div
+                      style={{
+                        fontSize: '0.85rem',
+                        fontWeight: isActive ? 600 : 500,
+                        color: isActive ? 'var(--brand-navy)' : 'var(--text-primary)',
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                      }}
+                    >
+                      {conv.title || 'Untitled Thread'}
+                    </div>
+                    <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: '0.15rem' }}>
+                      {conv.message_count} {conv.message_count === 1 ? 'message' : 'messages'}
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={(e) => handleDeleteConv(e, conv.id)}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: 'var(--text-muted)',
+                      cursor: 'pointer',
+                      padding: '0.25rem',
+                      borderRadius: '4px',
+                      display: 'flex',
+                      alignItems: 'center',
+                    }}
+                    title="Delete thread"
+                    onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--status-error)')}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-muted)')}
+                  >
+                    <TrashIcon size={13} />
+                  </button>
+                </div>
+              );
+            })
+          )}
+        </div>
+      </div>
+
+      {/* Main Chat Content Area */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#FFFFFF', minWidth: 0 }}>
+        {/* Chat Control Toolbar */}
+        <div
+          style={{
+            padding: '0.85rem 1.5rem',
+            borderBottom: '1px solid var(--border-subtle)',
+            display: 'flex',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            background: 'var(--bg-card-subtle)',
+            gap: '0.75rem',
+          }}
+        >
+          {/* Document Scope Filter */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+            <span style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-secondary)' }}>
+              Document Scope:
+            </span>
             <select
               value={selectedDocId}
               onChange={(e) => setSelectedDocId(e.target.value)}
               style={{
-                background: 'var(--bg-secondary)',
-                color: 'var(--text-main)',
-                border: '1px solid var(--border-subtle)',
+                background: '#FFFFFF',
+                border: '1px solid var(--border-strong)',
                 borderRadius: 'var(--radius-sm)',
-                padding: '0.35rem 0.6rem',
-                fontSize: '0.8rem',
+                padding: '0.35rem 0.75rem',
+                fontSize: '0.825rem',
+                color: 'var(--text-primary)',
                 outline: 'none',
+                cursor: 'pointer',
+                boxShadow: 'var(--shadow-xs)',
               }}
             >
-              <option value="all">All Documents ({readyDocs.length} Indexed)</option>
-              {readyDocs.map((d) => (
-                <option key={d.id} value={d.id}>
-                  {d.original_name}
+              <option value="all">All Authorized Documents ({readyDocs.length} indexed)</option>
+              {readyDocs.map((doc) => (
+                <option key={doc.id} value={doc.id}>
+                  {doc.original_name}
                 </option>
               ))}
             </select>
           </div>
 
-          {/* Workflow Toggle */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', cursor: 'pointer', fontSize: '0.8rem' }}>
+          {/* Reasoning Engine Toggle */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <label
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                cursor: 'pointer',
+                fontSize: '0.8rem',
+                fontWeight: 600,
+                color: useAgent ? 'var(--brand-navy)' : 'var(--text-secondary)',
+                background: useAgent ? 'var(--accent-teal-subtle)' : '#FFFFFF',
+                border: useAgent ? '1px solid var(--accent-teal)' : '1px solid var(--border-subtle)',
+                padding: '0.35rem 0.75rem',
+                borderRadius: 'var(--radius-sm)',
+                transition: 'all 0.15s ease',
+              }}
+            >
               <input
                 type="checkbox"
                 checked={useAgent}
                 onChange={(e) => setUseAgent(e.target.checked)}
-                style={{ accentColor: 'var(--accent-primary)' }}
+                style={{ cursor: 'pointer' }}
               />
-              <span style={{ color: useAgent ? 'var(--accent-cyan)' : 'var(--text-muted)' }}>
-                {useAgent ? 'LangGraph Agent (Multi-Step)' : 'Standard Grounded RAG'}
-              </span>
+              <SparklesIcon size={14} className={useAgent ? 'text-teal' : ''} />
+              <span>LangGraph Multi-Agent Mode</span>
             </label>
           </div>
         </div>
@@ -484,10 +547,11 @@ export const ChatPane: React.FC<ChatPaneProps> = ({ documents }) => {
           style={{
             flex: 1,
             overflowY: 'auto',
-            padding: '1.25rem',
+            padding: '1.75rem',
             display: 'flex',
             flexDirection: 'column',
-            gap: '1rem',
+            gap: '1.25rem',
+            background: 'var(--bg-app)',
           }}
         >
           {messages.length === 0 ? (
@@ -498,19 +562,57 @@ export const ChatPane: React.FC<ChatPaneProps> = ({ documents }) => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 height: '100%',
-                color: 'var(--text-muted)',
+                color: 'var(--text-secondary)',
                 textAlign: 'center',
+                padding: '2rem',
               }}
             >
-              <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🔍</div>
-              <div style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-main)' }}>
-                DocMind Grounded Multimodal Intelligence
+              <DocPilotLogo size={44} />
+              <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--brand-navy)', marginTop: '1rem' }}>
+                DocPilot Multimodal Intelligence
               </div>
-              <p style={{ maxWidth: '420px', fontSize: '0.85rem', marginTop: '0.5rem', lineHeight: 1.6 }}>
-                Ask complex questions, extract specific metrics from tables, or locate diagrams across your indexed documents. Answers are strictly grounded with verifiable page citations.
+              <p style={{ maxWidth: '480px', fontSize: '0.875rem', marginTop: '0.5rem', lineHeight: 1.6, color: 'var(--text-secondary)' }}>
+                Ask technical questions, cross-examine specification tables, or request high-resolution diagram and photo crops from your documents. Every answer is verifiable and page-cited.
               </p>
+
+              {/* Suggested Questions */}
+              <div style={{ marginTop: '1.75rem', display: 'flex', flexWrap: 'wrap', gap: '0.5rem', justifyContent: 'center', maxWidth: '580px' }}>
+                {[
+                  'i want photo of mag-hd',
+                  'Show me the Mini-HD image on page 11.',
+                  'What are the specifications of Mag-HD on page 11?',
+                ].map((sample, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => handleSend(sample)}
+                    style={{
+                      background: '#FFFFFF',
+                      border: '1px solid var(--border-subtle)',
+                      padding: '0.45rem 0.9rem',
+                      borderRadius: 'var(--radius-sm)',
+                      fontSize: '0.8rem',
+                      color: 'var(--brand-navy)',
+                      cursor: 'pointer',
+                      boxShadow: 'var(--shadow-xs)',
+                      transition: 'all 0.15s ease',
+                      fontWeight: 500,
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = 'var(--brand-navy)';
+                      e.currentTarget.style.transform = 'translateY(-1px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = 'var(--border-subtle)';
+                      e.currentTarget.style.transform = 'none';
+                    }}
+                  >
+                    ✨ "{sample}"
+                  </button>
+                ))}
+              </div>
+
               {readyDocs.length === 0 && (
-                <div style={{ marginTop: '1rem', color: 'var(--accent-amber)', fontSize: '0.8rem' }}>
+                <div style={{ marginTop: '1.5rem', color: 'var(--status-warning)', fontSize: '0.825rem', background: 'var(--status-warning-bg)', border: '1px solid var(--status-warning-border)', padding: '0.4rem 0.9rem', borderRadius: '4px' }}>
                   Notice: No documents are currently marked ready in Qdrant. Upload a PDF first to begin querying!
                 </div>
               )}
@@ -523,160 +625,189 @@ export const ChatPane: React.FC<ChatPaneProps> = ({ documents }) => {
                   display: 'flex',
                   flexDirection: 'column',
                   alignSelf: m.role === 'user' ? 'flex-end' : 'flex-start',
-                  maxWidth: '82%',
+                  maxWidth: m.role === 'user' ? '78%' : '88%',
                 }}
               >
-                {/* Bubble */}
-                <div
-                  style={{
-                    padding: '0.85rem 1.15rem',
-                    borderRadius: 'var(--radius-md)',
-                    background:
-                      m.role === 'user'
-                        ? 'linear-gradient(135deg, var(--accent-primary), #4f46e5)'
-                        : 'rgba(26, 34, 54, 0.95)',
-                    color: '#ffffff',
-                    border: m.role === 'user' ? 'none' : '1px solid var(--border-subtle)',
-                    fontSize: '0.9rem',
-                    lineHeight: 1.5,
-                    whiteSpace: 'pre-wrap',
-                    wordBreak: 'break-word',
-                  }}
-                >
-                  {m.role === 'assistant' ? renderFormattedAnswer(m.content) : m.content}
-                </div>
-
-                {/* Inline Figure Images */}
-                {m.role === 'assistant' && ((m.images && m.images.length > 0) || (m.meta_info?.images && m.meta_info.images.length > 0)) && (
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', marginTop: '0.5rem' }}>
-                    {((m.images && m.images.length > 0 ? m.images : m.meta_info?.images) || []).map((img: ImageAttachment, idx: number) => (
-                      <FigureImageCard
-                        key={idx}
-                        image={img}
-                        onOpenModal={(url, title) => setModalImage({ url, title })}
-                      />
-                    ))}
-                  </div>
-                )}
-
-                {/* Assistant metadata footer */}
-                {m.role === 'assistant' && (
+                {/* User Message Card */}
+                {m.role === 'user' ? (
                   <div
                     style={{
-                      display: 'flex',
-                      flexWrap: 'wrap',
-                      alignItems: 'center',
-                      gap: '0.5rem',
-                      marginTop: '0.4rem',
-                      fontSize: '0.72rem',
+                      padding: '0.85rem 1.15rem',
+                      borderRadius: 'var(--radius-md) var(--radius-md) var(--radius-xs) var(--radius-md)',
+                      background: '#EAE6DC',
+                      color: 'var(--text-primary)',
+                      border: '1px solid var(--border-strong)',
+                      fontSize: '0.9rem',
+                      lineHeight: 1.5,
+                      whiteSpace: 'pre-wrap',
+                      wordBreak: 'break-word',
+                      boxShadow: 'var(--shadow-xs)',
                     }}
                   >
-                    {m.meta_info?.model_used && (
-                      <span
-                        style={{
-                          background: 'rgba(255, 255, 255, 0.06)',
-                          color: 'var(--text-muted)',
-                          padding: '0.15rem 0.45rem',
-                          borderRadius: '4px',
-                        }}
-                      >
-                        Model: {m.meta_info.model_used.split('/').pop()}
-                      </span>
-                    )}
-
-                    {m.meta_info?.verification?.is_verified && (
-                      <span
-                        style={{
-                          background: 'rgba(16, 185, 129, 0.15)',
-                          color: '#34d399',
-                          padding: '0.15rem 0.45rem',
-                          borderRadius: '4px',
-                        }}
-                      >
-                        ✓ Verified Grounding
-                      </span>
-                    )}
-
-                    {m.citations && m.citations.length > 0 && (
-                      <button
-                        onClick={() => toggleSources(m.id)}
-                        style={{
-                          background: 'none',
-                          border: 'none',
-                          color: 'var(--accent-cyan)',
-                          cursor: 'pointer',
-                          textDecoration: 'underline',
-                          fontSize: '0.72rem',
-                          padding: 0,
-                        }}
-                      >
-                        {expandedSources[m.id]
-                          ? 'Hide Evidence Sources'
-                          : `View ${m.citations.length} Cited Sources`}
-                      </button>
-                    )}
+                    {m.content}
                   </div>
-                )}
-
-                {/* Expandable Evidence Drawer */}
-                {expandedSources[m.id] && m.citations && m.citations.length > 0 && (
+                ) : (
+                  /* Assistant Editorial Response Card */
                   <div
                     style={{
-                      marginTop: '0.5rem',
-                      background: 'rgba(15, 20, 34, 0.9)',
-                      border: '1px solid rgba(99, 102, 241, 0.3)',
-                      borderRadius: 'var(--radius-sm)',
-                      padding: '0.75rem',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '0.5rem',
+                      padding: '1.25rem 1.4rem',
+                      borderRadius: 'var(--radius-md)',
+                      background: '#FFFFFF',
+                      color: 'var(--text-primary)',
+                      border: '1px solid var(--border-subtle)',
+                      boxShadow: 'var(--shadow-sm)',
+                      fontSize: '0.92rem',
+                      lineHeight: 1.6,
+                      wordBreak: 'break-word',
                     }}
                   >
-                    <div style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-main)' }}>
-                      Retrieved Grounding Evidence:
+                    {/* Answer text */}
+                    <div style={{ whiteSpace: 'pre-wrap', color: 'var(--text-primary)' }}>
+                      {renderFormattedAnswer(m.content)}
                     </div>
-                    {m.citations.map((c, idx) => (
-                      <div
-                        key={idx}
-                        style={{
-                          padding: '0.5rem',
-                          background: 'rgba(255, 255, 255, 0.03)',
-                          borderRadius: '4px',
-                          borderLeft: '2px solid var(--accent-primary)',
-                        }}
-                      >
-                        <div
+
+                    {/* Inline Figure Images */}
+                    {((m.images && m.images.length > 0) || (m.meta_info?.images && m.meta_info.images.length > 0)) && (
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.85rem', marginTop: '1rem', paddingTop: '0.85rem', borderTop: '1px solid var(--border-subtle)' }}>
+                        {((m.images && m.images.length > 0 ? m.images : m.meta_info?.images) || []).map((img: ImageAttachment, idx: number) => (
+                          <FigureImageCard
+                            key={idx}
+                            image={img}
+                            onOpenModal={(url, title) => setModalImage({ url, title })}
+                          />
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Assistant metadata & citation footer */}
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        alignItems: 'center',
+                        gap: '0.65rem',
+                        marginTop: '1rem',
+                        paddingTop: '0.75rem',
+                        borderTop: '1px solid var(--border-subtle)',
+                        fontSize: '0.75rem',
+                      }}
+                    >
+                      {m.meta_info?.model_used && (
+                        <span
                           style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            fontSize: '0.75rem',
-                            fontWeight: 600,
-                            color: '#818cf8',
-                            marginBottom: '0.2rem',
+                            background: 'var(--bg-card-subtle)',
+                            color: 'var(--text-secondary)',
+                            border: '1px solid var(--border-subtle)',
+                            padding: '0.15rem 0.5rem',
+                            borderRadius: '4px',
+                            fontWeight: 500,
                           }}
                         >
-                          <span>Doc: {c.filename || c.document_id}</span>
-                          <span>Page {c.page_number}</span>
+                          Model: {m.meta_info.model_used.split('/').pop()}
+                        </span>
+                      )}
+
+                      {m.meta_info?.verification?.is_verified && (
+                        <span
+                          style={{
+                            background: 'var(--status-success-bg)',
+                            color: 'var(--status-success)',
+                            border: '1px solid var(--status-success-border)',
+                            padding: '0.15rem 0.5rem',
+                            borderRadius: '4px',
+                            fontWeight: 600,
+                          }}
+                        >
+                          ✓ Verified Grounding
+                        </span>
+                      )}
+
+                      {m.citations && m.citations.length > 0 && (
+                        <button
+                          onClick={() => toggleSources(m.id)}
+                          style={{
+                            background: 'none',
+                            border: 'none',
+                            color: 'var(--brand-muted-blue)',
+                            cursor: 'pointer',
+                            textDecoration: 'underline',
+                            fontSize: '0.75rem',
+                            fontWeight: 600,
+                            padding: 0,
+                          }}
+                        >
+                          {expandedSources[m.id]
+                            ? 'Hide Evidence Sources'
+                            : `View ${m.citations.length} Cited Sources`}
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Expandable Evidence Drawer */}
+                    {expandedSources[m.id] && m.citations && m.citations.length > 0 && (
+                      <div
+                        style={{
+                          marginTop: '0.75rem',
+                          background: 'var(--bg-card-subtle)',
+                          border: '1px solid var(--border-subtle)',
+                          borderRadius: 'var(--radius-sm)',
+                          padding: '0.85rem',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '0.65rem',
+                        }}
+                      >
+                        <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--brand-navy)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                          Retrieved Grounding Evidence:
                         </div>
-                        {c.section && (
-                          <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)', marginBottom: '0.25rem' }}>
-                            Section: {c.section}
-                          </div>
-                        )}
-                        {c.preview_text && (
+                        {m.citations.map((c, idx) => (
                           <div
+                            key={idx}
                             style={{
-                              fontSize: '0.75rem',
-                              color: 'var(--text-muted)',
-                              lineHeight: 1.4,
-                              fontFamily: 'var(--font-mono)',
+                              padding: '0.65rem',
+                              background: '#FFFFFF',
+                              borderRadius: '4px',
+                              border: '1px solid var(--border-subtle)',
+                              borderLeft: '3px solid var(--brand-navy)',
                             }}
                           >
-                            "{c.preview_text.length > 200 ? c.preview_text.slice(0, 200) + '...' : c.preview_text}"
+                            <div
+                              style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                fontSize: '0.75rem',
+                                fontWeight: 600,
+                                color: 'var(--brand-navy)',
+                                marginBottom: '0.2rem',
+                              }}
+                            >
+                              <span>Doc: {c.filename || c.document_id}</span>
+                              <span style={{ color: 'var(--brand-muted-blue)' }}>Page {c.page_number}</span>
+                            </div>
+                            {c.section && (
+                              <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>
+                                Section: {c.section}
+                              </div>
+                            )}
+                            {c.preview_text && (
+                              <div
+                                style={{
+                                  fontSize: '0.75rem',
+                                  color: 'var(--text-secondary)',
+                                  lineHeight: 1.45,
+                                  fontFamily: 'var(--font-mono)',
+                                  background: 'var(--bg-app)',
+                                  padding: '0.4rem 0.5rem',
+                                  borderRadius: '4px',
+                                }}
+                              >
+                                "{c.preview_text.length > 200 ? c.preview_text.slice(0, 200) + '...' : c.preview_text}"
+                              </div>
+                            )}
                           </div>
-                        )}
+                        ))}
                       </div>
-                    ))}
+                    )}
                   </div>
                 )}
               </div>
@@ -689,12 +820,14 @@ export const ChatPane: React.FC<ChatPaneProps> = ({ documents }) => {
                 alignSelf: 'flex-start',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.5rem',
-                padding: '0.75rem 1rem',
-                borderRadius: 'var(--radius-md)',
-                background: 'rgba(26, 34, 54, 0.7)',
-                color: 'var(--text-muted)',
+                gap: '0.6rem',
+                padding: '0.75rem 1.15rem',
+                borderRadius: 'var(--radius-sm)',
+                background: '#FFFFFF',
+                color: 'var(--text-secondary)',
+                border: '1px solid var(--border-subtle)',
                 fontSize: '0.85rem',
+                boxShadow: 'var(--shadow-xs)',
               }}
             >
               <RefreshIcon size={14} className="spinner" />
@@ -709,12 +842,12 @@ export const ChatPane: React.FC<ChatPaneProps> = ({ documents }) => {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input Bar */}
+        {/* Input Composer Bar */}
         <div
           style={{
-            padding: '0.85rem 1.25rem',
+            padding: '1rem 1.5rem',
             borderTop: '1px solid var(--border-subtle)',
-            background: 'rgba(10, 13, 20, 0.6)',
+            background: '#FFFFFF',
             display: 'flex',
             gap: '0.75rem',
             alignItems: 'center',
@@ -724,7 +857,7 @@ export const ChatPane: React.FC<ChatPaneProps> = ({ documents }) => {
             type="text"
             placeholder={
               readyDocs.length === 0
-                ? 'Upload and wait for a document to be indexed...'
+                ? 'Upload a document to begin querying...'
                 : 'Ask anything grounded in your documents (e.g. "What are the key technical parameters on page 11?")'
             }
             value={inputQuery}
@@ -735,20 +868,30 @@ export const ChatPane: React.FC<ChatPaneProps> = ({ documents }) => {
             disabled={loading}
             style={{
               flex: 1,
-              background: 'var(--bg-secondary)',
-              border: '1px solid var(--border-subtle)',
+              background: 'var(--bg-card-subtle)',
+              border: '1px solid var(--border-strong)',
               borderRadius: 'var(--radius-sm)',
-              padding: '0.65rem 0.9rem',
-              color: 'var(--text-main)',
-              fontSize: '0.88rem',
+              padding: '0.75rem 1rem',
+              color: 'var(--text-primary)',
+              fontSize: '0.9rem',
               outline: 'none',
+              transition: 'border-color 0.15s ease, box-shadow 0.15s ease',
+              boxShadow: 'var(--shadow-xs)',
+            }}
+            onFocus={(e) => {
+              e.currentTarget.style.borderColor = 'var(--brand-navy)';
+              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(32, 54, 77, 0.1)';
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderColor = 'var(--border-strong)';
+              e.currentTarget.style.boxShadow = 'var(--shadow-xs)';
             }}
           />
           <button
             className="btn btn-primary"
-            onClick={handleSend}
+            onClick={() => handleSend()}
             disabled={loading || !inputQuery.trim()}
-            style={{ padding: '0.65rem 1.2rem', fontSize: '0.85rem' }}
+            style={{ padding: '0.75rem 1.4rem', fontSize: '0.88rem' }}
           >
             {loading ? 'Thinking...' : 'Send'}
           </button>
@@ -764,7 +907,8 @@ export const ChatPane: React.FC<ChatPaneProps> = ({ documents }) => {
             left: 0,
             right: 0,
             bottom: 0,
-            background: 'rgba(0, 0, 0, 0.88)',
+            background: 'rgba(15, 23, 42, 0.75)',
+            backdropFilter: 'blur(4px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -781,10 +925,15 @@ export const ChatPane: React.FC<ChatPaneProps> = ({ documents }) => {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              background: '#FFFFFF',
+              borderRadius: 'var(--radius-md)',
+              padding: '1.25rem',
+              boxShadow: 'var(--shadow-modal)',
+              border: '1px solid var(--border-subtle)',
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div style={{ color: '#ffffff', marginBottom: '0.75rem', fontWeight: 600, fontSize: '0.9rem', textAlign: 'center' }}>
+            <div style={{ color: 'var(--brand-navy)', marginBottom: '0.85rem', fontWeight: 600, fontSize: '0.92rem', textAlign: 'center' }}>
               {modalImage.title}
             </div>
             <img
@@ -792,22 +941,19 @@ export const ChatPane: React.FC<ChatPaneProps> = ({ documents }) => {
               alt={modalImage.title}
               style={{
                 maxWidth: '100%',
-                maxHeight: '80vh',
-                borderRadius: '8px',
-                boxShadow: '0 10px 30px rgba(0,0,0,0.8)',
+                maxHeight: '75vh',
+                borderRadius: 'var(--radius-sm)',
+                boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
+                border: '1px solid var(--border-subtle)',
               }}
             />
             <button
               onClick={() => setModalImage(null)}
+              className="btn btn-secondary"
               style={{
-                marginTop: '0.75rem',
-                padding: '0.35rem 1rem',
-                background: 'rgba(255, 255, 255, 0.15)',
-                color: '#ffffff',
-                border: '1px solid rgba(255, 255, 255, 0.3)',
-                borderRadius: '4px',
-                cursor: 'pointer',
-                fontSize: '0.8rem',
+                marginTop: '1rem',
+                padding: '0.45rem 1.25rem',
+                fontSize: '0.825rem',
               }}
             >
               Close Preview
