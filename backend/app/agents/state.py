@@ -33,3 +33,4 @@ class AgentState(TypedDict, total=False):
     model_used: str
     fallback_occurred: bool
     has_sufficient_evidence: bool
+    images: list[dict[str, Any]]

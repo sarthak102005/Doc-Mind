@@ -14,6 +14,7 @@ from fastapi import (
     Depends,
     File,
     HTTPException,
+    Response,
     UploadFile,
     status,
 )
@@ -307,3 +308,56 @@ async def delete_document(
     db.commit()
 
     return {"status": "deleted", "id": document_id}
+
+
+@router.get("/{document_id}/figures/{figure_id}/image")
+def get_figure_image(
+    document_id: str,
+    figure_id: str,
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_db),
+) -> Response:
+    """Stream an authenticated figure crop image for inline rendering."""
+    doc = db.query(Document).filter(Document.id == document_id).first()
+    if not doc or not _check_document_access(doc, current_user, db):
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Document not found",
+        )
+
+    # Resolve minio_key from doc.meta_info['figures'] or standard naming convention
+    minio_key: str | None = None
+    figures = (doc.meta_info or {}).get("figures", [])
+    for fig in figures:
+        fid = fig.get("figure_id", "")
+        if fid == figure_id or fid.endswith(f"_{figure_id}") or fid == f"{document_id}_{figure_id}":
+            minio_key = fig.get("minio_key")
+            break
+
+    if not minio_key:
+        clean_name = figure_id.split(f"{document_id}_")[-1]
+        minio_key = f"figures/{document_id}/{clean_name}.png"
+
+    expected_prefix = f"figures/{document_id}/"
+    if not minio_key.startswith(expected_prefix) or ".." in minio_key:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Invalid figure path",
+        )
+
+    storage = get_storage_service()
+    raw_bytes = storage.download_file(minio_key)
+    if not raw_bytes:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Figure image not found in storage",
+        )
+
+    return Response(
+        content=raw_bytes,
+        media_type="image/png",
+        headers={
+            "Cache-Control": "private, max-age=3600",
+            "Content-Disposition": f'inline; filename="{figure_id}.png"',
+        },
+    )

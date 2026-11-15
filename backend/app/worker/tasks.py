@@ -188,6 +188,7 @@ def process_document_pipeline(
 
         # 3.5 VLM Figure Analysis & Multimodal Chunking
         settings = get_settings()
+        captioned_figure_ids = set()
         if figure_crops and getattr(settings, 'vlm_mode', 'disabled') != 'disabled':
             try:
                 from app.ai.vision.client import get_vlm_client
@@ -196,13 +197,15 @@ def process_document_pipeline(
 
                 vlm_client = get_vlm_client(settings)
                 storage = get_storage_service()
-                max_vlm_calls = min(len(figure_crops), min(settings.vlm_max_calls_per_document, 2))
+                max_vlm_calls = min(len(figure_crops), settings.vlm_max_calls_per_document)
                 for fig in figure_crops[:max_vlm_calls]:
                     if fig.is_informative and fig.minio_key:
                         raw_bytes = storage.download_file(fig.minio_key)
                         if raw_bytes:
                             vlm_resp = vlm_client.describe_image(raw_bytes)
                             if vlm_resp.success and vlm_resp.description:
+                                fig.caption = vlm_resp.description
+                                captioned_figure_ids.add(fig.figure_id)
                                 fig_chunk = DocumentChunk(
                                     chunk_id=f'fig_{fig.figure_id}',
                                     document_id=document_id,
@@ -214,6 +217,8 @@ def process_document_pipeline(
                                     metadata={
                                         'minio_key': fig.minio_key,
                                         'bbox': list(fig.bbox),
+                                        'figure_id': fig.figure_id,
+                                        'filename': doc.filename,
                                         'vlm_model': vlm_resp.model_used,
                                     },
                                 )
@@ -223,6 +228,33 @@ def process_document_pipeline(
                                 break
             except Exception as vlm_err:
                 logger.warning('VLM figure processing error: %s', vlm_err)
+
+        # 3.6 Fallback multimodal indexing for remaining informative figures
+        try:
+            from app.ingestion.pipeline import DocumentChunk
+            for fig in figure_crops:
+                if fig.figure_id not in captioned_figure_ids and fig.is_informative:
+                    fallback_text = f"[Figure on Page {fig.page_number}]: Technical figure / illustration from {doc.filename} on page {fig.page_number}."
+                    if fig.nearby_labels:
+                        fallback_text += f" Labels: {' '.join(fig.nearby_labels)}"
+                    fig_chunk = DocumentChunk(
+                        chunk_id=f'fig_{fig.figure_id}',
+                        document_id=document_id,
+                        page_number=fig.page_number,
+                        section_path=['Figures', f'Page {fig.page_number}'],
+                        text=fallback_text,
+                        chunk_type='figure_caption',
+                        token_count_est=len(fallback_text.split()),
+                        metadata={
+                            'minio_key': fig.minio_key,
+                            'bbox': list(fig.bbox),
+                            'figure_id': fig.figure_id,
+                            'filename': doc.filename,
+                        },
+                    )
+                    parsed_doc.chunks.append(fig_chunk)
+        except Exception as fb_err:
+            logger.warning('Fallback figure chunk creation warning: %s', fb_err)
 
         # 4. Stage 6: Dense Embeddings & Qdrant Vector Indexing
         t0_index = time.perf_counter()
@@ -310,14 +342,35 @@ def process_document_pipeline(
                 stage_rec.duration_ms = dur
 
         # 6. Transition document to ready
+        # Persist structured figure manifest into Document.meta_info
+        figure_manifest = [
+            {
+                "figure_id": fig.figure_id,
+                "document_id": document_id,
+                "filename": doc.filename,
+                "page_number": fig.page_number,
+                "bbox": list(fig.bbox),
+                "minio_key": fig.minio_key,
+                "caption": fig.caption,
+                "nearby_labels": fig.nearby_labels,
+                "width_px": fig.width_px,
+                "height_px": fig.height_px,
+                "size_bytes": fig.size_bytes,
+                "is_informative": fig.is_informative,
+                "figure_type": getattr(fig, "figure_type", "figure"),
+            }
+            for fig in figure_crops
+        ]
+
         doc.status = "ready"
         doc.meta_info = {
-            **doc.meta_info,
+            **(doc.meta_info or {}),
             "page_count": parsed_doc.page_count,
             "total_chunks": len(parsed_doc.chunks),
             "total_tables": len(parsed_doc.tables),
             "stage_durations_ms": stage_durations,
             "figure_crops_count": len(figure_crops),
+            "figures": figure_manifest,
         }
         doc.updated_at = datetime.now(UTC)
         session.commit()

@@ -51,7 +51,7 @@ export const getStoredToken = (): string | null => localStorage.getItem(TOKEN_KE
 export const setStoredToken = (token: string): void => localStorage.setItem(TOKEN_KEY, token);
 export const clearStoredToken = (): void => localStorage.removeItem(TOKEN_KEY);
 
-const authHeaders = (): HeadersInit => {
+export const authHeaders = (): HeadersInit => {
   const token = getStoredToken();
   return token ? { Authorization: `Bearer ${token}` } : {};
 };
@@ -163,6 +163,19 @@ export interface Citation {
   preview_text?: string;
 }
 
+export interface ImageAttachment {
+  figure_id: string;
+  document_id: string;
+  filename?: string;
+  page_number: number;
+  caption?: string | null;
+  description?: string | null;
+  image_url: string;
+  bbox?: number[];
+  width_px?: number | null;
+  height_px?: number | null;
+}
+
 export interface ChatQueryRequest {
   query: string;
   document_ids?: string[] | null;
@@ -176,6 +189,7 @@ export interface ChatQueryResponse {
   answer: string;
   citations: Citation[];
   retrieved_chunks: Citation[];
+  images?: ImageAttachment[];
   model_used: string;
   fallback_occurred: boolean;
   has_sufficient_evidence: boolean;
@@ -192,6 +206,7 @@ export interface MessageItem {
   role: 'user' | 'assistant' | 'system';
   content: string;
   citations: Citation[];
+  images?: ImageAttachment[];
   meta_info: Record<string, any>;
   created_at: string;
 }

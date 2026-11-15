@@ -23,12 +23,26 @@ class CitationItem(BaseModel):
     preview_text: str = ""
 
 
+class ImageAttachment(BaseModel):
+    figure_id: str
+    document_id: str
+    filename: str = ""
+    page_number: int = 1
+    caption: str | None = None
+    description: str | None = None
+    image_url: str
+    bbox: list[float] = Field(default_factory=list)
+    width_px: int | None = None
+    height_px: int | None = None
+
+
 class ChatQueryResponse(BaseModel):
     conversation_id: str
     message_id: str
     answer: str
     citations: list[dict[str, Any]] = Field(default_factory=list)
     retrieved_chunks: list[dict[str, Any]] = Field(default_factory=list)
+    images: list[ImageAttachment] = Field(default_factory=list)
     model_used: str = ""
     fallback_occurred: bool = False
     has_sufficient_evidence: bool = True
@@ -41,6 +55,7 @@ class MessageItem(BaseModel):
     role: str
     content: str
     citations: list[dict[str, Any]] = Field(default_factory=list)
+    images: list[ImageAttachment] = Field(default_factory=list)
     meta_info: dict[str, Any] = Field(default_factory=dict)
     created_at: datetime
 

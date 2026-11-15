@@ -25,6 +25,7 @@ class FigureCrop(BaseModel):
 
     figure_id: str
     document_id: str
+    filename: str = ""
     page_number: int
     bbox: tuple[float, float, float, float]  # (l, t, r, b) in points
     minio_key: str
@@ -32,6 +33,7 @@ class FigureCrop(BaseModel):
     height_px: int
     size_bytes: int
     is_informative: bool = True
+    figure_type: str = "figure"
     caption: str | None = None
     nearby_labels: list[str] = Field(default_factory=list)
     metadata: dict[str, Any] = Field(default_factory=dict)
@@ -66,7 +68,7 @@ def classify_and_triage_figure(
     # 1. Low-resolution card containers or tiny icons/badges
     if img_dim and img_dim[0] < 250 and img_dim[1] < 250:
         return False, "uninformative", 0.0, "Pixel dimension too small for technical figure"
-    if area_rat < 0.025 or w < 35.0 or h < 35.0:
+    if area_rat < 0.008 or w < 30.0 or h < 30.0:
         return False, "uninformative", 0.0, "Area ratio < 2.5% or dimension < 35 pt"
     if aspect > 4.0 or aspect < 0.25:
         return False, "uninformative", 0.0, f"Aspect ratio {aspect:.2f} outside valid range"
@@ -88,7 +90,7 @@ def classify_and_triage_figure(
         return True, "informative", score, f"Technical schematic ({drawings_count} drawings, {words_count} words)"
 
     # B. Component render / instrument display / technical photograph
-    if 0.03 <= area_rat <= 0.65 and 0.35 <= aspect <= 3.5:
+    if 0.008 <= area_rat <= 0.65 and 0.35 <= aspect <= 3.5:
         score = 70.0 + (area_rat * 25.0)
         return True, "informative", score, "Technical illustration or component render"
 

@@ -106,10 +106,21 @@ def run_agent_workflow(
     workflow = get_agent_graph()
     final_state = workflow.invoke(initial_state)
 
+    from app.retrieval.figures import retrieve_figures
+    retrieved_ev = final_state.get("retrieved_evidence", [])
+    images = retrieve_figures(
+        query=query,
+        user=user,
+        db=db,
+        document_ids=document_ids,
+        evidence_chunks=retrieved_ev,
+    )
+
     return {
         "answer": final_state.get("final_answer", final_state.get("draft_answer", "")),
         "citations": final_state.get("citations", []),
         "retrieved_chunks": final_state.get("retrieved_chunks", []),
+        "images": images,
         "model_used": final_state.get("model_used", "langgraph-agent"),
         "fallback_occurred": final_state.get("fallback_occurred", False),
         "has_sufficient_evidence": final_state.get("has_sufficient_evidence", True),

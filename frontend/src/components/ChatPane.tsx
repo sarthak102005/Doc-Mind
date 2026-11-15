@@ -4,6 +4,8 @@ import {
   ConversationSummary,
   MessageItem,
   Citation,
+  ImageAttachment,
+  authHeaders,
   queryDocuments,
   listConversations,
   getConversation,
@@ -15,6 +17,160 @@ interface ChatPaneProps {
   documents: DocumentItem[];
 }
 
+
+const FigureImageCard: React.FC<{
+  image: ImageAttachment;
+  onOpenModal: (url: string, title: string) => void;
+}> = ({ image, onOpenModal }) => {
+  const [blobUrl, setBlobUrl] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
+
+  useEffect(() => {
+    let active = true;
+    let createdUrl: string | null = null;
+
+    const fetchImage = async () => {
+      try {
+        setLoading(true);
+        setError(false);
+        const resp = await fetch(image.image_url, {
+          headers: authHeaders(),
+        });
+        if (!resp.ok) {
+          throw new Error(`Failed to load image: ${resp.status}`);
+        }
+        const blob = await resp.blob();
+        if (active) {
+          createdUrl = URL.createObjectURL(blob);
+          setBlobUrl(createdUrl);
+          setLoading(false);
+        }
+      } catch (err) {
+        if (active) {
+          setError(true);
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchImage();
+
+    return () => {
+      active = false;
+      if (createdUrl) {
+        URL.revokeObjectURL(createdUrl);
+      }
+    };
+  }, [image.image_url]);
+
+  const title = image.caption || `Page ${image.page_number} Figure`;
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        background: 'rgba(15, 23, 42, 0.85)',
+        border: '1px solid rgba(99, 102, 241, 0.35)',
+        borderRadius: 'var(--radius-md, 8px)',
+        overflow: 'hidden',
+        maxWidth: '380px',
+        marginTop: '0.5rem',
+        boxShadow: '0 4px 14px rgba(0, 0, 0, 0.3)',
+      }}
+    >
+      {/* Header Badge */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '0.4rem 0.65rem',
+          background: 'rgba(30, 41, 59, 0.9)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+          fontSize: '0.75rem',
+          color: 'var(--text-muted, #94a3b8)',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', overflow: 'hidden' }}>
+          <span style={{ color: 'var(--accent-primary, #6366f1)', fontWeight: 600 }}>📷</span>
+          <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', maxWidth: '200px' }}>
+            {image.filename || 'Document Figure'}
+          </span>
+        </div>
+        <span
+          style={{
+            background: 'rgba(99, 102, 241, 0.25)',
+            color: '#c7d2fe',
+            padding: '0.1rem 0.45rem',
+            borderRadius: '4px',
+            fontSize: '0.72rem',
+            fontWeight: 600,
+          }}
+        >
+          Page {image.page_number}
+        </span>
+      </div>
+
+      {/* Image Container */}
+      <div
+        style={{
+          position: 'relative',
+          background: 'rgba(0, 0, 0, 0.5)',
+          minHeight: '140px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: blobUrl ? 'zoom-in' : 'default',
+        }}
+        onClick={() => {
+          if (blobUrl) onOpenModal(blobUrl, title);
+        }}
+      >
+        {loading && (
+          <div style={{ padding: '1.5rem', color: 'var(--text-muted, #94a3b8)', fontSize: '0.8rem' }}>
+            Loading PDF image crop...
+          </div>
+        )}
+        {error && (
+          <div style={{ padding: '1.5rem', color: '#f87171', fontSize: '0.8rem' }}>
+            Failed to load figure
+          </div>
+        )}
+        {blobUrl && !loading && (
+          <img
+            src={blobUrl}
+            alt={title}
+            style={{
+              maxWidth: '100%',
+              maxHeight: '260px',
+              objectFit: 'contain',
+              display: 'block',
+            }}
+          />
+        )}
+      </div>
+
+      {/* Caption footer */}
+      {image.caption && (
+        <div
+          style={{
+            padding: '0.45rem 0.65rem',
+            fontSize: '0.75rem',
+            color: 'var(--text-main, #e2e8f0)',
+            lineHeight: 1.4,
+            borderTop: '1px solid rgba(255, 255, 255, 0.05)',
+            background: 'rgba(15, 23, 42, 0.95)',
+          }}
+        >
+          {image.caption}
+        </div>
+      )}
+    </div>
+  );
+};
+
 export const ChatPane: React.FC<ChatPaneProps> = ({ documents }) => {
   const [conversations, setConversations] = useState<ConversationSummary[]>([]);
   const [activeConvId, setActiveConvId] = useState<string | null>(null);
@@ -24,6 +180,7 @@ export const ChatPane: React.FC<ChatPaneProps> = ({ documents }) => {
   const [useAgent, setUseAgent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [expandedSources, setExpandedSources] = useState<Record<string, boolean>>({});
+  const [modalImage, setModalImage] = useState<{ url: string; title: string } | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Ready documents for filtering
@@ -119,12 +276,14 @@ export const ChatPane: React.FC<ChatPaneProps> = ({ documents }) => {
         role: 'assistant',
         content: res.answer,
         citations: res.citations || [],
+        images: res.images || [],
         meta_info: {
           model_used: res.model_used,
           fallback_occurred: res.fallback_occurred,
           has_sufficient_evidence: res.has_sufficient_evidence,
           verification: res.verification,
           retrieved_chunks: res.retrieved_chunks,
+          images: res.images || [],
         },
         created_at: new Date().toISOString(),
       };
@@ -387,6 +546,19 @@ export const ChatPane: React.FC<ChatPaneProps> = ({ documents }) => {
                   {m.role === 'assistant' ? renderFormattedAnswer(m.content) : m.content}
                 </div>
 
+                {/* Inline Figure Images */}
+                {m.role === 'assistant' && ((m.images && m.images.length > 0) || (m.meta_info?.images && m.meta_info.images.length > 0)) && (
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', marginTop: '0.5rem' }}>
+                    {((m.images && m.images.length > 0 ? m.images : m.meta_info?.images) || []).map((img: ImageAttachment, idx: number) => (
+                      <FigureImageCard
+                        key={idx}
+                        image={img}
+                        onOpenModal={(url, title) => setModalImage({ url, title })}
+                      />
+                    ))}
+                  </div>
+                )}
+
                 {/* Assistant metadata footer */}
                 {m.role === 'assistant' && (
                   <div
@@ -582,6 +754,67 @@ export const ChatPane: React.FC<ChatPaneProps> = ({ documents }) => {
           </button>
         </div>
       </div>
+
+      {/* Modal image preview */}
+      {modalImage && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0, 0, 0, 0.88)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 9999,
+            padding: '2rem',
+          }}
+          onClick={() => setModalImage(null)}
+        >
+          <div
+            style={{
+              position: 'relative',
+              maxWidth: '92vw',
+              maxHeight: '92vh',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div style={{ color: '#ffffff', marginBottom: '0.75rem', fontWeight: 600, fontSize: '0.9rem', textAlign: 'center' }}>
+              {modalImage.title}
+            </div>
+            <img
+              src={modalImage.url}
+              alt={modalImage.title}
+              style={{
+                maxWidth: '100%',
+                maxHeight: '80vh',
+                borderRadius: '8px',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.8)',
+              }}
+            />
+            <button
+              onClick={() => setModalImage(null)}
+              style={{
+                marginTop: '0.75rem',
+                padding: '0.35rem 1rem',
+                background: 'rgba(255, 255, 255, 0.15)',
+                color: '#ffffff',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                borderRadius: '4px',
+                cursor: 'pointer',
+                fontSize: '0.8rem',
+              }}
+            >
+              Close Preview
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -13,9 +13,11 @@ def finalize_answer(state: AgentState) -> dict[str, Any]:
     draft = state.get("draft_answer", "")
     citations = state.get("citations", [])
     has_sufficient = state.get("has_sufficient_evidence", True)
+    images = state.get("images", [])
 
-    logger.info("Generator finalized answer (citations=%d)", len(citations))
+    logger.info("Generator finalized answer (citations=%d, images=%d)", len(citations), len(images))
     return {
         "final_answer": draft,
         "citations": citations if has_sufficient else [],
+        "images": images,
     }

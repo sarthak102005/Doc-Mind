@@ -22,6 +22,7 @@ from app.schemas.chat import (
     ChatQueryResponse,
     ConversationDetail,
     ConversationSummary,
+    ImageAttachment,
     MessageItem,
 )
 
@@ -83,6 +84,7 @@ def query_documents(
     db.add(user_msg)
 
     # 4. Check whether to run multi-agent LangGraph orchestration or standard RAG
+    images: list[ImageAttachment] = []
     if req.use_agent:
         try:
             from app.agents.graph import run_agent_workflow
@@ -97,6 +99,7 @@ def query_documents(
             grounded_answer = agent_result["answer"]
             citations = agent_result.get("citations", [])
             retrieved_chunks = agent_result.get("retrieved_chunks", [])
+            images = agent_result.get("images", [])
             model_used = agent_result.get("model_used", "agent")
             fallback_occurred = agent_result.get("fallback_occurred", False)
             has_sufficient_evidence = agent_result.get("has_sufficient_evidence", True)
@@ -136,6 +139,15 @@ def query_documents(
         has_sufficient_evidence = ans.has_sufficient_evidence
         verification_dict = verification.model_dump()
 
+        from app.retrieval.figures import retrieve_figures
+        images = retrieve_figures(
+            query=req.query,
+            user=current_user,
+            db=db,
+            document_ids=req.document_ids,
+            evidence_chunks=evidence,
+        )
+
     # 6. Save assistant message
     asst_msg = Message(
         id=str(uuid.uuid4()),
@@ -148,6 +160,7 @@ def query_documents(
             "fallback_occurred": fallback_occurred,
             "has_sufficient_evidence": has_sufficient_evidence,
             "verification": verification_dict,
+            "images": [img.model_dump() if hasattr(img, "model_dump") else img for img in images],
         },
     )
     db.add(asst_msg)
@@ -162,6 +175,7 @@ def query_documents(
         answer=grounded_answer,
         citations=citations,
         retrieved_chunks=retrieved_chunks,
+        images=images,
         model_used=model_used,
         fallback_occurred=fallback_occurred,
         has_sufficient_evidence=has_sufficient_evidence,
@@ -229,6 +243,7 @@ def get_conversation(
             role=m.role,
             content=m.content,
             citations=m.citations or [],
+            images=[ImageAttachment(**img) for img in (m.meta_info or {}).get("images", [])] if (m.meta_info or {}).get("images") else [],
             meta_info=m.meta_info or {},
             created_at=m.created_at,
         )
